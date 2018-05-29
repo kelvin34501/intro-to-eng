@@ -57,6 +57,19 @@ class Lab extends CI_controller {
         return $res;
     }
 
+    private function _fill_pagenum($page, $total, &$data) {
+        // pass data by reference
+        if($page===null || $page <= 0)
+            $page = 1;
+        $pagenum = ($page - 1) * $this->res_per_page;
+        $startpage = 1;
+        $endpage = $total;
+
+        $data['page'] = $page;
+        $data['startpage'] = $startpage;
+        $data['endpage'] = $endpage;
+    }
+
     public function __construct() {
         parent::__construct();
         $this->load->model('Lab_model');
@@ -82,7 +95,32 @@ class Lab extends CI_controller {
         }
     }
 
+    public function navi_bar() {
+        $navi_handle = $this->input->get('handle');
+        $page = $this->input->get('page');
+        $startpage = $this->input->get('startpage');
+        $endpage = $this->input->get('endpage');
+        $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage);
+        $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage);
+        $pageindex = $this->_gen_page_ind($page, $startpage, $endpage);
+
+        $data['navi_handle'] = $navi_handle;
+
+        $data['page'] = $page;
+        $data['startpage'] = $startpage;
+        $data['endpage'] = $endpage;
+        $data['pageforward'] = $pageforward;
+        $data['pagebackward'] = $pagebackward;
+        $data['pageindex'] = $pageindex;
+
+        echo $this->load->view('shared/navi.bar.php', $data, true);
+    }
+
     public function result() {
+        $data['navi_handle'] = "result"; // navi bar id
+        $data['content_handle'] = "result_table"; // the method name
+        $data['fieldname'] = "author_name";
+
         //get request in url
         $field = $this->input->get('author_name');
         $page = $this->input->get('page');
@@ -93,43 +131,13 @@ class Lab extends CI_controller {
         $retrieve = $this->Lab_model->search_author($field);
 
         //process the page numbers
-        if($page===null || $page <= 0)
-            $page = 1;
-        $pagenum = ($page - 1) * $this->res_per_page;
-        $startpage = 1;
-        $endpage = ceil(count($retrieve)/$this->res_per_page);
-        $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage);
-        $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage);
-        $pageindex = $this->_gen_page_ind($page, $startpage, $endpage);
-
-        $data['page'] = $page;
-        $data['startpage'] = $startpage;
-        $data['endpage'] = $endpage;
-        $data['pageforward'] = $pageforward;
-        $data['pagebackward'] = $pagebackward;
-        $data['pageindex'] = $pageindex;
+        $this->_fill_pagenum($page,
+                             ceil(count($retrieve)/$this->res_per_page),
+                             $data);
 
         $this->load->view('templates/header', $data);
         $this->load->view('lab/result', $data);
         $this->load->view('templates/footer');
-    }
-
-    public function result_bar() {
-        $page = $this->input->get('page');
-        $startpage = $this->input->get('startpage');
-        $endpage = $this->input->get('endpage');
-        $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage);
-        $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage);
-        $pageindex = $this->_gen_page_ind($page, $startpage, $endpage);
-
-        $data['page'] = $page;
-        $data['startpage'] = $startpage;
-        $data['endpage'] = $endpage;
-        $data['pageforward'] = $pageforward;
-        $data['pagebackward'] = $pagebackward;
-        $data['pageindex'] = $pageindex;
-
-        echo $this->load->view('lab/result.bar.php', $data, true);
     }
 
     public function result_table() {
@@ -154,67 +162,32 @@ class Lab extends CI_controller {
         echo $this->load->view('lab/result.table.php', $data, true);
     }
 
-    public function datatable() {
-        $data['author'] = $this->Lab_model->get_all();
-        $data['title'] = 'DataTable';
-
-        $this->load->view('templates/header',$data);
-        $this->load->view('lab/datatable',$data);
-        $this->load->view('templates/footer');
-    }
-
     public function author() {
+        $data['navi_handle'] = "author"; // navi bar id
+        $data['content_handle'] = "author_table"; // the method name
+        $data['visual_handler'] = "author_visual_json";
+        $data['fieldname'] = "author_id";
+
         $author_id = $this->input->get('author_id');
+        $data['field'] = $author_id;
         $data['author_item'] = $this->Lab_model->get_author($author_id);
-        //$data['author_pub']  = $this->Lab_model->get_author_pub($author_id);
         $retrieve = $this->Lab_model->get_author_pub($author_id);
         $data['author_affi'] = $this->Lab_model->get_most_freq_affi($author_id)['AffiliationName'];
 
         // process pages
         $page = $this->input->get('page');
-        if($page===null || $page <= 0)
-            $page = 1;
-        $pagenum = ($page - 1) * $this->pub_per_page;
-        $startpage = 1;
-        $endpage = ceil(count($retrieve)/$this->pub_per_page);
-        $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage);
-        $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage);
-        $pageindex = $this->_gen_page_ind($page, $startpage, $endpage);
-        $data['page'] = $page;
-        $data['startpage'] = $startpage;
-        $data['endpage'] = $endpage;
-        $data['pageforward'] = $pageforward;
-        $data['pagebackward'] = $pagebackward;
-        $data['pageindex'] = $pageindex;
+        $this->_fill_pagenum($page,
+                             ceil(count($retrieve)/$this->pub_per_page),
+                             $data);
 
         $data['title'] = 'Author';
-
-        $data['visual_handler'] = "author_visual_json";
 
         $this->load->view('templates/header', $data);
         $this->load->view('lab/view', $data);
         $this->load->view('templates/footer');
     }
 
-    public function view_bar() {
-        $page = $this->input->get('page');
-        $startpage = $this->input->get('startpage');
-        $endpage = $this->input->get('endpage');
-        $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage);
-        $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage);
-        $pageindex = $this->_gen_page_ind($page, $startpage, $endpage);
-
-        $data['page'] = $page;
-        $data['startpage'] = $startpage;
-        $data['endpage'] = $endpage;
-        $data['pageforward'] = $pageforward;
-        $data['pagebackward'] = $pagebackward;
-        $data['pageindex'] = $pageindex;
-
-        echo $this->load->view('lab/view.bar.php', $data, true);
-    }
-
-    public function view_table() {
+    public function author_table() {
         $author_id = $this->input->get('author_id');
         $data['author_item'] = $this->Lab_model->get_author($author_id);
         $retrieve = $this->Lab_model->get_author_pub($author_id);
@@ -280,4 +253,14 @@ class Lab extends CI_controller {
         }
         echo json_encode($res);
     }
+
+    public function datatable() {
+        $data['author'] = $this->Lab_model->get_all();
+        $data['title'] = 'DataTable';
+
+        $this->load->view('templates/header',$data);
+        $this->load->view('lab/datatable',$data);
+        $this->load->view('templates/footer');
+    }
+
 }

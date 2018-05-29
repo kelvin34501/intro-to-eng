@@ -11,7 +11,7 @@
             <form method="get" accept-charset="utf-8" action=<?php echo $result_handler;?> >
                 <label for="author_name">AuthorName</label>
                 <input type="input" id="author_name" name="author_name" />
-                <input type="submit"/>
+                <input type="submit" value="Query" />
             </form>
 
             <script type="text/javascript" >

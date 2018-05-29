@@ -1,9 +1,8 @@
 <link rel="stylesheet"
       type="text/css"
       href="<?php echo base_url().'assets/css/Lab/author/visual.css' ?>" />
-<!-- comment this; d3 version in composer repoistory is too low -->
-<!-- <script src="<?php echo base_url().'vendor/mbostock/d3/d3.js'; ?>" ></script> -->
-<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script src="<?php echo base_url().'node_modules/d3v4/build/d3.js'; ?>"></script>
 
 <script>
  <!-- store the page information -->
@@ -11,9 +10,11 @@
  var startpage = <?php echo $startpage; ?>;
  var endpage = <?php echo $endpage; ?>;
  var baseurl = "<?php echo base_url(); ?>";
- var field = "<?php echo $author_item['AuthorID']; ?>";
- var tgt = "<?php echo base_url() ?>" + "lab/" +
-  "<?php echo $visual_handler; ?>" + "?author_id=" + field;
+ var field = ["<?php echo $fieldname; ?>", "<?php echo $field; ?>"];
+ var navi_handle = "<?php echo $navi_handle; ?>";
+ var content_handle = "<?php echo $content_handle; ?>";
+ var visual_target = "<?php echo base_url() ?>" + "lab/" +
+ "<?php echo $visual_handler; ?>" + "?author_id=" + "<?php echo $field ?>";
 </script>
 
 <div class="row" >
@@ -57,7 +58,7 @@
 
 <div class="row" >
     <div class="col-xs-8 mx-auto" >
-        <ul class="pagination" id="lab-author-navi" >
+        <ul class="pagination" id="lab-<?php echo $navi_handle; ?>-navi" >
             <!-- empty here, fill with json -->
         </ul>
     </div>
@@ -76,7 +77,7 @@
                     <th>Author List</th>
                 </tr>
             </thead>
-            <tbody id="lab-author-table">
+            <tbody id="lab-<?php echo $navi_handle; ?>-table">
                 <!-- empty here -->
             </tbody>
         </table>
@@ -91,5 +92,5 @@
     </div>
 </div>
 
-<script src="<?php echo base_url().'assets/js/Lab/author/view.js' ?>" ></script>
+<script src="<?php echo base_url().'assets/js/Lab/shared/navi.js' ?>" ></script>
 <script src="<?php echo base_url().'assets/js/Lab/author/visual.js' ?>" ></script>

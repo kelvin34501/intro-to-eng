@@ -68,14 +68,14 @@ class Lab_model extends CI_Model {
     public function get_cooperation($author_id) {
         $this->db->select('SecondID');
         $this->db->distinct();
-        $query = $this->db->get_where('Cooperations', array('FirstID' => $author_id));
+        $query = $this->db->get_where('CooperationsDup', array('FirstID' => $author_id));
         return $query->result_array();
     }
 
     public function get_relationship($first_id, $second_id) {
         $this->db->select('IsAdvisor');
         $this->db->distinct();
-        $query = $this->db->get_where('Cooperations', array('FirstID' => $first_id,
+        $query = $this->db->get_where('CooperationsDup', array('FirstID' => $first_id,
                                                             'SecondID' => $second_id));
         $flag = $query->row_array()['IsAdvisor'];
         return (int) $flag;
@@ -83,7 +83,7 @@ class Lab_model extends CI_Model {
 
     public function is_cooperated($first_id, $second_id) {
         $this->db->distinct();
-        $query = $this->db->get_where('Cooperations', array('FirstID' => $first_id,
+        $query = $this->db->get_where('CooperationsDup', array('FirstID' => $first_id,
                                                             'SecondID' => $second_id));
         $r = $query->row_array();
         return $r !== NULL;
