@@ -1,28 +1,20 @@
 <div class="container-fluid author-theme-0">
 <br><br>
 	<div class="row clearfix">
-		<div class="col-md-12 column">
-		<h3 class="text-center">
-				Author name: <?php echo ucwords($author_item['AuthorName']);?><br>
-				Author ID: <?php echo $author_item['AuthorId']; ?>
-		</h3>
-		</div>
-	</div>
-	<div class="row clearfix">
 		<div class="col-md-8 column">
-		<div class="panel panel-info">
-			<div class="panel-heading">
+		<div class="panel">
+			<div class="panel-heading panel-dark-title">
 				<h3 class="panel-title centering">
 					Papers
 				</h3>
 			</div>
-			<div class="panel-body author-body-theme-0" id="lab-author-panel-main">
+			<div class="panel-body panel-dark-body" id="lab-author-panel-main">
 				<!-- Author's papers should be listed here -->
 				<!--
 					recommanded format for each item
 						if not first item in this list:
 							<hr>
-						<div class="panel-item-title-0">[index].[&nbsp][paper title]</div>
+						<div class="panel-item-title-0">[index].[&nbsp][<a>paper title</a>]</div>
 						<div class="panel-item-content-0">
 								[&nbsp*5]Paper ID:[&nbsp][paper id][&nbsp*2]-[&nbsp*2]Venue: [conference]<br>
 								[&nbsp*5]Published Year: [published year][&nbsp*2]-[&nbsp*2]Times Cited: [referenced times]<br>
@@ -32,20 +24,26 @@
 			</div>
 		</div>
 		<div class="text-center">
-			<ul class="pagination" id="lab-author-pagination">
+			<ul class="pagination pagination-dark" id="lab-author-pagination">
 				<!-- pagination should be put here -->
 			</ul>
 		</div>
 		</div>
 		<div class="col-md-4 column">
-		<div class="panel panel-info">
+		<div class="panel panel-primary">
+		<div class="panel-body text-center bg-primary">
+				Author name: <?php echo ucwords($author_info[0]['author_name']);?><br>
+				Author ID: <?php echo $author_info[0]['author_id']; ?>
+		</div>
+		</div>
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title centering">
 					Cooperation Network
 				</h3>
 			</div>
 			<div class="panel-body">
-				<svg width="450" height="450" id="cn" class="center_block">
+				<svg width="450" height="450" id="cn" class="center-block">
 			</div>
 		</div>
 		<div class="list-group">
