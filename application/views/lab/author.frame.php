@@ -19,11 +19,11 @@
 			<div class="panel-body author-body-theme-0" id="lab-author-panel-main">
 				<!-- Author's papers should be listed here -->
 				<!--
-					recommanded format for each item:
+					recommanded format for each item
 						if not first item in this list:
 							<hr>
-						<div class="panel-item-title-0">[index]. [paper title]</div>
-						<div class="panel-item-detail-0">
+						<div class="panel-item-title-0">[index].[&nbsp][paper title]</div>
+						<div class="panel-item-content-0">
 								[&nbsp*5]Paper ID:[&nbsp][paper id][&nbsp*2]-[&nbsp*2]Venue: [conference]<br>
 								[&nbsp*5]Published Year: [published year][&nbsp*2]-[&nbsp*2]Times Cited: [referenced times]<br>
 								[&nbsp*5]Coauthors: [<a>author_name</a>, ]
