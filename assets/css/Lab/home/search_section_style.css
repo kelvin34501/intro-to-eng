@@ -1,0 +1,30 @@
+div#author-search
+{
+	background-color:#66ccff;
+	padding:7px;
+	border:solid 1px #c3c3c3;
+}
+div#id-search
+{
+	background-color:#e5eecc;
+	padding:7px;
+	border:solid 1px #c3c3c3;
+}
+div#affiliation-search
+{
+	background-color:#FF4F4F;
+	padding:7px;
+	border:solid 1px #c3c3c3;
+}
+div#conference-search
+{
+	background-color:#EE9A00;
+	padding:7px;
+	border:solid 1px #c3c3c3;
+}
+div#paper-search
+{
+	background-color:#8F31E7;
+	padding:7px;
+	border:solid 1px #c3c3c3;
+}
