@@ -1,0 +1,14 @@
+$(document).ready(function(){
+	$("#af-control").click(function(){
+		$("#af-items").toggle("slow");
+	});
+	$("#cf-control").click(function(){
+		$("#cf-items").toggle("slow");
+	});
+	$("#ca-control").click(function(){
+		$("#ca-items").toggle("slow");
+	});
+	$("#lb-control").click(function(){
+		$("#lb-items").toggle("slow");
+	});
+});
