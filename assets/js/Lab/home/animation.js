@@ -17,7 +17,7 @@ function close_open(target=null){
 				opened[i] = true;
 			}
 			else{
-				$(value-ids[i]).val('');
+				$(value_ids[i]).val('');
 				$(prefix + '-title').animate({
 					color:"#ffffff"
 				});

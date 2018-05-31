@@ -15,4 +15,4 @@
 				<link rel="stylesheet" href="<?php echo base_url('assets/css/Lab/themes/theme.css'); ?>" />
 	</head>
 
-    <body>
+    <body <?php if($title=='Home') echo "class='home-bg'" ?>>
