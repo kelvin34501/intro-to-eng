@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<div class="col-md-4 column">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary borderless">
 				<div class="panel-body bg-primary text-center">
 					Paper Title: <?php echo $paper_title; ?><br>
 					Paper ID: <?php echo $paper_id; ?><br>

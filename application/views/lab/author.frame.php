@@ -30,13 +30,13 @@
 		</div>
 		</div>
 		<div class="col-md-4 column">
-		<div class="panel panel-primary">
+		<div class="panel panel-primary borderless">
 		<div class="panel-body text-center bg-primary">
-				Author name: <?php echo ucwords($author_info[0]['author_name']);?><br>
-				Author ID: <?php echo $author_info[0]['author_id']; ?>
+				Author name: <?php echo ucwords($author_item['AuthorName']);?><br>
+				Author ID: <?php echo $author_item['AuthorId']; ?>
 		</div>
 		</div>
-		<div class="panel panel-primary">
+		<div class="panel panel-primary borderless">
 			<div class="panel-heading">
 				<h3 class="panel-title centering">
 					Cooperation Network

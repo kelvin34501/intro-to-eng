@@ -8,11 +8,13 @@ h2 {
 	text-align:center;
 	font-weight:bold }
 body {
-	background:url("../../../img/dark/6.jpg");
+	background:80% url("../../imgs/dark/6.jpg");
+	background-size: 95% 95%;
 	font-family:arial;
 	font-size:20px;
 	text-align:left;
 	font-weight:lighter }
+
 
 .centering {
 	text-align:center
@@ -55,6 +57,20 @@ body {
 	background-color:#3F3F3F;
 	color:#ffffff
 }
+.panel-dark-toggle-title {
+	background-color:#ffc107;
+}
+.panel-dark-toggle-title a:link {
+	text-align:center;
+	color:#BA8510;
+	text-decoration:none	
+}
+.panel-dark-toggle-title a:hover {
+	text-align:center;
+	color:#BA8510;
+	text-decoration:none
+}
+
 .panel-item-title-0 {
 	font-family:arial;
 	font-size:25px;
@@ -122,6 +138,17 @@ body {
 }
 .text-white {
 	color:#aaaaaa
+}
+.wb {
+	border: 1px solid #fff;
+}
+
+/* shape setting */
+.borderless {
+	border: 0px
+}
+.rect {
+	border-radius: 0px
 }
 
 /* from Pingendo */
@@ -1357,7 +1384,7 @@ a.text-dark:hover, a.text-dark:focus {
   color: #212529; }
 
 .bg-dark {
-  color: #fff; }
+  background-color: #3F3F3F; }
 
 html, body {
   height: 100%; }

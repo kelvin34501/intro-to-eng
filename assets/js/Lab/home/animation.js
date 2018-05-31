@@ -17,20 +17,20 @@ function close_open(target=null){
 				opened[i] = true;
 			}
 			else{
-				$(value_ids[i]).val('');
 				$(prefix + '-title').animate({
 					color:"#ffffff"
 				});
+				$(value_ids[i]).val('');
 				opened[i] = false;
 			}
 		}
 		else{
 			if(opened[i]){
-				$(prefix).hide('slow');
-				$(value_ids[i]).val('');
 				$(prefix + '-title').animate({
 					color:"#ffffff"
 				});
+				$(prefix).hide('slow');
+				$(value_ids[i]).val('');
 				opened[i] = false;
 			}
 		}
