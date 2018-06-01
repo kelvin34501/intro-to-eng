@@ -14,7 +14,7 @@
 						Results
 					</h3>
 				</div>
-				<div class="panel-body panel-dark-body" id="lab-result-panel-main">
+				<div class="panel-body panel-dark-body" id="lab-result-main-panel">
 					<!-- Searching results should be put here -->
 					<!--
 						recommanded format for author results
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="centering">
-				<ul class="pagination pagination-dark" id="lab-result-pagination">
+				<ul class="pagination pagination-dark" id="lab-result-main-pagination">
 					<!-- pagination should be put here -->
 				</ul>
 			</div>

@@ -8,7 +8,7 @@
 					Papers
 				</h3>
 			</div>
-			<div class="panel-body panel-dark-body" id="lab-conference-panel-main">
+			<div class="panel-body panel-dark-body" id="lab-conference-main-panel">
 				<!-- Paper's cited-by should be pu here -->
 				<!--
 					recommanded format for each item
@@ -25,7 +25,7 @@
 			
 			</div>
 			<div class="text-center">
-				<ul class="pagination pagination-dark" id="lab-conference-pagination">
+				<ul class="pagination pagination-dark" id="lab-conference-main-pagination">
 					<!-- pagination should be put here -->
 				</ul>
 			</div>
@@ -39,8 +39,8 @@
 				</div>
 			</div>
 			<div class="list-group">
-				<a href="###" class="list-group-item text-center active" id="au-control">Author</a>
-				<div id="au-items">
+				<a href="###" class="list-group-item text-center active" id="lab-conference-sidebar-au-control">Author</a>
+				<div id="lab-conference-sidebar-au-items">
 					<!-- authors who have published in this conference -->
 					<!--
 						recommanded format for each item
@@ -49,15 +49,15 @@
 							</div>
 					-->
 					<div class="list-group-item-text text-center">
-						<ul class="pagination pagination-sm" id="lab-sidebar-pagination-au">
+						<ul class="pagination pagination-sm" id="lab-conference-sidebar-au-pagination">
 							<!-- pagination should be put here -->
 						</ul>
 					</div>
 				</div>
 				
 				<!-- whether this part will be implemented remains to be seen -->
-				<a href="###" class="list-group-item text-center active" id="lb-control">Labels</a>
-				<div id="lb-items">
+				<a href="###" class="list-group-item text-center active" id="lab-conference-sidebar-lb-control">Labels</a>
+				<div id="lab-conference-sidebar-lb-items">
 					<div class="list-group-item">
 						<a href="#">lb1</a>
 					</div>
@@ -68,7 +68,7 @@
 						<a href="#">lb3</a>
 					</div>
 					<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm">
+							<ul class="pagination pagination-sm" id="lab-conference-sidebar-lb-pagination">
 								<li>
 									 <a href="#">Prev</a>
 								</li>

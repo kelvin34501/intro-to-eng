@@ -8,7 +8,7 @@
 					Papers
 				</h3>
 			</div>
-			<div class="panel-body panel-dark-body" id="lab-author-panel-main">
+			<div class="panel-body panel-dark-body" id="lab-author-main-panel">
 				<!-- Author's papers should be listed here -->
 				<!--
 					recommanded format for each item
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="text-center">
-			<ul class="pagination pagination-dark" id="lab-author-pagination">
+			<ul class="pagination pagination-dark" id="lab-author-main-pagination">
 				<!-- pagination should be put here -->
 			</ul>
 		</div>
@@ -47,57 +47,57 @@
 			</div>
 		</div>
 		<div class="list-group">
-				<a href="###" class="list-group-item text-center active" id="af-control">Affiliations</a>
-				<div id="af-items">
-					<!-- top affiliations should be listed here -->
-					<!--
-						recommanded format for each item:
-							<div class="list-group-item">
-								<a>[affiliation name]</a>
-							</div>
-					-->
-					<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm" id="lab-sidebar-pagination-af">
-								<!-- pagination should be put here -->
-							</ul>
-					</div>
+			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-af-control">Affiliations</a>
+			<div id="lab-author-sidebar-af-items">
+				<!-- top affiliations should be listed here -->
+				<!--
+					recommanded format for each item:
+						<div class="list-group-item">
+							<a>[affiliation name]</a>
+						</div>
+				-->
+				<div class="list-group-item-text text-center">
+						<ul class="pagination pagination-sm" id="lab-author-sidebar-af-pagination">
+							<!-- pagination should be put here -->
+						</ul>
 				</div>
-				
-				<a href="###" class="list-group-item text-center active" id="cf-control">Conferences</a>
-				<div id="cf-items">
-					<!-- top conferences should be listed here -->
-					<!--
-						recommanded format for each item:
-							<div class="list-group-item">
-								<a>[conference name]</a>
-							</div>
-					-->
-					<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm" id="lab-sidebar-pagination-cf">
-								<!-- pagination should be put here -->
-							</ul>
-					</div>
-				</div>
-				
-				<a href="###" class="list-group-item text-center active" id="ca-control">Coauthors</a>
-				<div id="ca-items">
-					<!-- most cooperative coauthors should be listed here -->
-					<!--
-						recommanded format for each item:
-							<div class="list-group-item">
-								<a>[coauthor name]</a>
-							</div>
-					-->
-					<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm" id="lab-sidebar-pagination-ca">
-								<!-- pagination should be put here -->
-							</ul>
-					</div>
-				</div>
+			</div>
 			
+			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-cf-control">Conferences</a>
+			<div id="lab-author-sidebar-cf-items">
+				<!-- top conferences should be listed here -->
+				<!--
+					recommanded format for each item:
+						<div class="list-group-item">
+							<a>[conference name]</a>
+						</div>
+				-->
+				<div class="list-group-item-text text-center">
+						<ul class="pagination pagination-sm" id="lab-author-sidebar-cf-pagination">
+							<!-- pagination should be put here -->
+						</ul>
+				</div>
+			</div>
+			
+			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-ca-control">Coauthors</a>
+			<div id="lab-author-sidebar-ca-items">
+				<!-- most cooperative coauthors should be listed here -->
+				<!--
+					recommanded format for each item:
+						<div class="list-group-item">
+							<a>[coauthor name]</a>
+						</div>
+				-->
+				<div class="list-group-item-text text-center">
+						<ul class="pagination pagination-sm" id="lab-author-sidebar-ca-pagination">
+							<!-- pagination should be put here -->
+						</ul>
+				</div>
+			</div>
+		
 			<!-- Whether this part will be implemented remains to be seen -->
-			<a href="###" class="list-group-item text-center active" id="lb-control">Labels</a>
-			<div id="lb-items">
+			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-lb-control">Labels</a>
+			<div id="lab-author-sidebar-lb-items">
 					<div class="list-group-item">
 						<a href="#">lb1</a>
 					</div>
@@ -108,7 +108,7 @@
 						<a href="#">lb3</a>
 					</div>
 					<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm">
+							<ul class="pagination pagination-sm" id="lab-author-sidebar-lb-pagination">
 								<li>
 									 <a href="#">Prev</a>
 								</li>
@@ -155,4 +155,3 @@
 	</div>
 </div>
 
-<script src="<?php echo base_url().'assets/js/Lab/shared/sidebar.js' ?>" ></script>

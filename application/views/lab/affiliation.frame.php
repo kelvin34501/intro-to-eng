@@ -8,7 +8,7 @@
 						Authors
 					</h3>
 				</div>
-				<div class="panel-body panel-dark-body" id="lab-affiliation-panel-main">
+				<div class="panel-body panel-dark-body" id="lab-affiliation-main-panel">
 					<!-- Searching results should be put here -->
 					<!--
 						recommanded format for each item
@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<div class="text-center">
-				<ul class="pagination pagination-dark" id="lab-affiliation-pagination">
+				<ul class="pagination pagination-dark" id="lab-affiliation-main-pagination">
 					<!-- pagination should be put here -->
 				</ul>
 			</div>
@@ -38,8 +38,8 @@
 				</div>
 			</div>
 			<div class="list-group">
-				<a href="###" class="list-group-item text-center active" id="fpp-control">Paper</a>
-				<div id="fpp-items">
+				<a href="###" class="list-group-item text-center active" id="lab-affiliation-sidebar-pp-control">Paper</a>
+				<div id="lab-affiliation-sidebar-pp-items">
 					<!-- papers whose first author is from this affiliation -->
 					<!--
 						recommanded format for each item
@@ -48,15 +48,15 @@
 							</div>
 					-->
 					<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm" id="lab-sidebar-pagination-fpp">
+							<ul class="pagination pagination-sm" id="lab-affiliation-sidebar-pp-pagination">
 								<!-- pagination should be put here -->
 							</ul>
 					</div>
 				</div>
 			
 				<!-- whether this will be implemented remains to be seen -->
-				<a href="###" class="list-group-item text-center active" id="lb-control">Labels</a>
-				<div id="lb-items">
+				<a href="###" class="list-group-item text-center active" id="lab-affiliation-sidebar-lb-control">Labels</a>
+				<div id="lab-affiliation-sidebar-lb-items">
 					<div class="list-group-item">
 						<a href="#">lb1</a>
 					</div>
@@ -67,7 +67,7 @@
 						<a href="#">lb3</a>
 					</div>
 					<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm">
+							<ul class="pagination pagination-sm" id="lab-affiliation-sidebar-lb-pagination">
 								<li>
 									 <a href="#">Prev</a>
 								</li>

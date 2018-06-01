@@ -10,7 +10,7 @@
 					</div>
 					</div>
 					<div id="panel-element-150618" class="panel-collapse collapse in">
-						<div class="panel-body panel-dark-body" id="lab-paper-panel-reference">
+						<div class="panel-body panel-dark-body" id="lab-paper-reference-panel">
 							<!-- Paper's references should be pu here -->
 							<!--
 								recommanded format for each item
@@ -25,7 +25,7 @@
 							-->
 							<div class="text-center">
 							<hr>
-							<ul class="pagination pagination-dark" id="lab-paper-pagination-reference">
+							<ul class="pagination pagination-dark" id="lab-paper-reference-pagination">
 								<!-- pagination should be put here -->
 							</ul>
 							</div>
@@ -39,7 +39,7 @@
 					</div>
 					</div>
 					<div id="panel-element-211967" class="panel-collapse collapse">
-						<div class="panel-body panel-dark-body" id="lab-paper-panel-citedby">
+						<div class="panel-body panel-dark-body" id="lab-paper-citedby-panel">
 							<!-- Paper's cited-by should be pu here -->
 							<!--
 								recommanded format for each item
@@ -54,7 +54,7 @@
 							-->
 							<div class="text-center">
 							<hr>
-							<ul class="pagination pagination-dark" id="lab-paper-pagination-citedby">
+							<ul class="pagination pagination-dark" id="lab-paper-citedby-pagination">
 								<!-- pagination should be put here -->
 							</ul>
 							</div>
@@ -77,8 +77,8 @@
 				</div>
 			</div>
 			<div class="list-group">
-				<a href="###" class="list-group-item text-center active">Coauthors</a>
-					<div id="ca-items">
+				<a href="###" class="list-group-item text-center active" id="lab-paper-sidebar-ca-control">Coauthors</a>
+					<div id="lab-paper-sidebar-ca-items">
 						<!-- most cooperative coauthors should be listed here -->
 						<!--
 							recommanded format for each item:
@@ -87,15 +87,15 @@
 								</div>
 						-->
 						<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm" id="lab-sidebar-pagination-ca">
+							<ul class="pagination pagination-sm" id="lab-paper-sidebar-ca-pagination">
 								<!-- pagination should be put here -->
 							</ul>
 						</div>
 					</div>
 					
 					<!-- Whether this part will be implemented remains to be seen -->
-					<a href="###" class="list-group-item text-center active">Labels</a>
-					<div id="lb-items">
+					<a href="###" class="list-group-item text-center active" id="lab-paper-sidebar-lb-control">Labels</a>
+					<div id="lab-paper-sidebar-lb-items">
 						<div class="list-group-item">
 							<a href="#">lb1</a>
 						</div>
@@ -106,7 +106,7 @@
 							<a href="#">lb3</a>
 						</div>
 						<div class="list-group-item-text text-center">
-								<ul class="pagination pagination-sm">
+								<ul class="pagination pagination-sm" id="lab-paper-sidebar-lb-pagination">
 									<li>
 										 <a href="#">Prev</a>
 									</li>
