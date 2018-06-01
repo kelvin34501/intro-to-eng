@@ -32,8 +32,8 @@
 		<div class="col-md-4 column">
 		<div class="panel panel-primary borderless">
 		<div class="panel-body text-center bg-primary">
-				Author name: <?php echo ucwords($author_item['AuthorName']);?><br>
-				Author ID: <?php echo $author_item['AuthorId']; ?>
+				Author name: <?php echo ucwords($author_name);?><br>
+				Author ID: <?php echo $author_id; ?>
 		</div>
 		</div>
 		<div class="panel panel-primary borderless">
