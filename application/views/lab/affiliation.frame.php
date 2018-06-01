@@ -9,16 +9,17 @@
 					</h3>
 				</div>
 				<div class="panel-body panel-dark-body" id="lab-affiliation-panel-main">
-					<!-- Author's papers should be listed here -->
+					<!-- Searching results should be put here -->
 					<!--
 						recommanded format for each item
 							if not first item in this list:
 								<hr>
-							<div class="panel-item-title-0">[index].[&nbsp][<a>paper title</a>]</div>
-							<div class="panel-item-content-0">
-									[&nbsp*5]Paper ID:[&nbsp][paper id][&nbsp*2]-[&nbsp*2]Venue: [conference]<br>
-									[&nbsp*5]Published Year: [published year][&nbsp*2]-[&nbsp*2]Times Cited: [referenced times]<br>
-									[&nbsp*5]Coauthors: [<a>author_name</a>, ]
+							<div class='panel-item-title-0'>
+								[index].[&nbsp][<a>author name</a>]
+							</div>
+							<div class='panel-item-content-0'>
+								[&nbsp*5]Author ID:[&nbsp][author id][&nbsp*2]-[&nbsp*2]Paper Publish:[&nbsp][total paper]<br>
+								[&nbsp*5]Major Affiliation:[&nbsp][<a>major affiliation</a>]<br>
 							</div>
 					-->
 				</div>
