@@ -66,7 +66,7 @@
 		<div class="col-md-4 column">
 			<div class="panel panel-primary borderless">
 				<div class="panel-body bg-primary text-center">
-					Paper Title: <?php echo $paper_title; ?><br>
+					Paper Title: <?php echo ucwords($paper_title); ?><br>
 					Paper ID: <?php echo $paper_id; ?><br>
 					Publish Year: <?php echo $published_year; ?>
 					&nbsp&nbsp-&nbsp&nbsp

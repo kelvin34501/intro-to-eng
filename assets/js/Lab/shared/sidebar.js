@@ -11,4 +11,7 @@ $(document).ready(function(){
 	$("#lb-control").click(function(){
 		$("#lb-items").toggle("slow");
 	});
+	$("#fpp-control").click(function(){
+		$("#fpp-items").toggle("slow");
+	});
 });
