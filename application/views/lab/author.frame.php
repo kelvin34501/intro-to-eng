@@ -1,4 +1,4 @@
-<div class="container-fluid author-theme-0">
+<div class="container-fluid">
 <br><br>
 	<div class="row clearfix">
 		<div class="col-md-8 column">
