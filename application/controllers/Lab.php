@@ -74,6 +74,7 @@ class Lab extends CI_controller {
         parent::__construct();
         $this->load->model('Lab_model');
         $this->load->helper('url');
+        $this->load->library('form_validation');
     }
 
     public function index() {
@@ -83,16 +84,12 @@ class Lab extends CI_controller {
 
         $field = $this->input->get('author_name');
 
-        if(!$field) {
-            $this->load->view('templates/header',$data);
-            $this->load->view('lab/form',$data);
-            $this->load->view('templates/footer');
-
-        } else {
-            //$this->load->library('javascript/jquery');I don't know how to pass GET information between methods
-            //So I redirect it...
-            redirect(base_url().'lab/result?author_name='.$field);
-        }
+		if($this->form_validation->run() === FALSE) {
+			$this->load->view('templates/header', $data);
+            $this->load->view('shared/navibar.topfix.php');
+			$this->load->view('lab/home', $data);
+			$this->load->view('templates/footer');
+		} else {}
     }
 
     public function navi_bar() {
