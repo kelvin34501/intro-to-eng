@@ -13,8 +13,8 @@ body {
 	font-family:arial;
 	font-size:20px;
 	text-align:left;
-	font-weight:lighter }
-
+	font-weight:lighter
+}
 
 .centering {
 	text-align:center
@@ -127,6 +127,19 @@ body {
 
 	
 /* pure color control*/
+.dark{
+	background-color:#3F3F3F;
+	color:#3F3F3F;
+}
+.grey{
+	background-color:#5F5F5F;
+	color:#5F5F5F;
+}
+.silver{
+	background-color:#7F7F7F;
+	color:#7F7F7F;
+}
+
 .text-gray {
 	color:#aaaaaa
 }
@@ -151,7 +164,11 @@ body {
 	border-radius: 0px
 }
 
+
 /* from Pingendo */
+article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+  display: block; }
+
 .w-25 {
   width: 25% !important; }
 
