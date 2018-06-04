@@ -19,4 +19,6 @@
 				<script src="<?php echo base_url().'assets/js/Lab/shared/sidebar.js' ?>" ></script>
 	  </head>
 
-    <body <?php if($title=='Home') echo "class='home-bg'" ?> >
+
+    <body class='home-bg'>
+

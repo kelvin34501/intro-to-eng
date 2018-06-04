@@ -2,43 +2,71 @@
 	  <div class="navbar-inner">
         <div class="container-fluid">
 		        <div class="row clearfix">
-			          <div class="col-md-5 column"></div>
-			          <div class="col-md-7 column">
+		            <br>
+			          <div class="col-md-12 column">
 			              <div class="navbar-header centering" role="navigation">
-			                  <br>
-			                  <a style="font-size:40px;" class="navbar-brand" href="#"><?php if($title=="Home") echo "&nbsp&nbsp&nbsp&nbsp"; echo $title; ?></a>
+				                <a style="font-size:40px" class="navbar-brand mb-0 h0" href="#"><?php echo $title; ?></a>
 			              </div>
 			              <div  class="text-right">
-			                  <br>
-				                <!-- The action here should be changed or added to controller -->
-				                <form class="form-inline m-0" action="hyper_search">
-					                  <input class="form-control mr-2" type="text" name="name" placeholder="Search">
-					                  <button class="btn btn-primary" type="submit">Search</button>
-				                </form>
-			                  <br>
+			                  <div class="collapse navbar-collapse">
+				                    <ul class="nav navbar-nav">
+					                      <?php if(stristr($title, "page")){ ?>
+					                          <li><a href="<?php 
+						                                     $url = "search/select_stats?title=$title&item_id=";
+						                                     if(stristr($title, "author")) $url = $url.$author_id;
+						                                     echo site_url($url);
+					                                       ?>"><span class="glyphicon glyphicon-stats"></span> Stats</a></li>
+					<?php 
+					}
+					elseif(stristr($title, "stats")) {
+					?>
+					                              <li><a href="#lists"><span class="glyphicon glyphicon-th-list"></span> Lists</a></li>
+					                      <?php } ?>
+					                      <li><a href="#help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+				                    </ul>
+				                    <form class="form-inline m-2" action="hyper_search">
+				                        <input class="form-control mr-2" type="text" name="name" placeholder="Search">
+				                        <button class="btn btn-primary" type="submit">Search</button>
+				                    </form>
+			                  </div>
 			              </div>
 			          </div>
-			          <div class="col-md-2 column"></div>
 		        </div>
-		        <!-- On click event should be added to enable the links in the breadcrumd -->
 		        <?php if($title!="Home"){ ?>
 		            <div class="row clearfix">
 			              <div class="col-md-12 column">
-			                  <ul class="breadcrumb breadcrumb-setting-0">
+			                  <ul class="breadcrumb breadcrumb-setting-0 h1">
 				                    <li class="breadcrumb-item">
-					                      <a href="###" id="breadcrumb-home-link">Home</a>
+					                      <a href="###" id="home-link">Home</a>
 				                    </li>
-				                    <?php if($title=="Result Page") { ?>
+				                    <?php if($title=="Result Page"){ ?>
 				                        <li class="breadcrumb-item active" style="color:#FFFFFF">
 					                          Result
 				                        </li>
-				                    <?php } elseif($title=="Author Page"){ ?>
-				                         <li class="breadcrumb-item">
-					                           <a href="###" id="breadcrumb-result-link">Result</a>
-				                         </li>
-				                         <li class="breadcrumb-item active" style="color:#FFFFFF">
-					                           Author
-				                         </li>
+				<?php }
+				elseif($title=="Author Page"){ ?>
+				                            <li class="breadcrumb-item">
+					                              <a href="###" id="result-link">Result</a>
+				                            </li>
+				                            <li class="breadcrumb-item active" style="color:#FFFFFF">
+					                              Author
+				                            </li>
+				<?php }
+				elseif($title=="Paper Page"){ ?>
+				                                <li class="breadcrumb-item">
+					                                  <a href="###" id="result-link">Result</a>
+				                                </li>
+				                                <li class="breadcrumb-item active" style="color:#FFFFFF">
+					                                  Paper
+				                                </li>
+				<?php }
+				elseif($title=="Affiliation Page"){	?>
+				                                    <li class="breadcrumb-item">
+					                                      <a href="###" id="result-link">Result</a>
+				                                    </li>
+				                                    <li class="breadcrumb-item active" style="color:#FFFFFF">
+					                                      Affiliation
+				                                    </li>
 				                    <?php } ?>
 			                  </ul>
 			              </div>
