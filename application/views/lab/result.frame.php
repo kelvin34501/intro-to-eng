@@ -56,7 +56,7 @@
 									<hr>
 								<div class="panel-item-title-0">[index].[&nbsp][<a>affiliation name</a>]</div>
 								<div class="panel-item-content-0">
-										[&nbsp*5]Affiliation ID:[&nbsp][affiliation id][&nbsp*2]-[&nbsp*2]Total Member: [total member]
+										[&nbsp*5]Affiliation ID:[&nbsp][affiliation id][&nbsp*2]-[&nbsp*2]Total Paper: [total paper]
 								</div>
 						-->
 					</div>
@@ -143,3 +143,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="<?php echo base_url().'assets/js/Lab/shared/pagin.js'; ?>" ></script>

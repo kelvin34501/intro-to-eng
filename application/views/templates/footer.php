@@ -1,3 +1,4 @@
+
 <!-- </div> -->
 <footer class="footer navbar-inverse <?php if($title=="Home") echo "navbar-fixed-bottom" ?>">
     <div class="container">

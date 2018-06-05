@@ -10,16 +10,13 @@
 			              <div  class="text-right">
 			                  <div class="collapse navbar-collapse">
 				                    <ul class="nav navbar-nav">
-					                      <?php if(stristr($title, "page")){ ?>
-					                          <li><a href="<?php 
+					                      <?php if(stristr($title, "page")) { ?>
+					                          <li><a href="<?php
 						                                     $url = "search/select_stats?title=$title&item_id=";
 						                                     if(stristr($title, "author")) $url = $url.$author_id;
 						                                     echo site_url($url);
 					                                       ?>"><span class="glyphicon glyphicon-stats"></span> Stats</a></li>
-					<?php 
-					}
-					elseif(stristr($title, "stats")) {
-					?>
+					                      <?php }	elseif(stristr($title, "stats")) { ?>
 					                              <li><a href="#lists"><span class="glyphicon glyphicon-th-list"></span> Lists</a></li>
 					                      <?php } ?>
 					                      <li><a href="#help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
@@ -32,7 +29,7 @@
 			              </div>
 			          </div>
 		        </div>
-		        <?php if($title!="Home"){ ?>
+		        <?php if($title!="Home") { ?>
 		            <div class="row clearfix">
 			              <div class="col-md-12 column">
 			                  <ul class="breadcrumb breadcrumb-setting-0 h1">
@@ -43,31 +40,28 @@
 				                        <li class="breadcrumb-item active" style="color:#FFFFFF">
 					                          Result
 				                        </li>
-				<?php }
-				elseif($title=="Author Page"){ ?>
+				                    <?php }	elseif($title=="Author Page") { ?>
 				                            <li class="breadcrumb-item">
 					                              <a href="###" id="result-link">Result</a>
 				                            </li>
 				                            <li class="breadcrumb-item active" style="color:#FFFFFF">
 					                              Author
 				                            </li>
-				<?php }
-				elseif($title=="Paper Page"){ ?>
+				                     <?php } elseif($title=="Paper Page") { ?>
 				                                <li class="breadcrumb-item">
 					                                  <a href="###" id="result-link">Result</a>
 				                                </li>
 				                                <li class="breadcrumb-item active" style="color:#FFFFFF">
 					                                  Paper
 				                                </li>
-				<?php }
-				elseif($title=="Affiliation Page"){	?>
+                        		 <?php } elseif($title=="Affiliation Page") {	?>
 				                                    <li class="breadcrumb-item">
 					                                      <a href="###" id="result-link">Result</a>
 				                                    </li>
 				                                    <li class="breadcrumb-item active" style="color:#FFFFFF">
 					                                      Affiliation
 				                                    </li>
-				                    <?php } ?>
+		                         <?php } ?>
 			                  </ul>
 			              </div>
 		            </div>
