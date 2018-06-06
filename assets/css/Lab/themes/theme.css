@@ -126,17 +126,6 @@ body {
 	text-decoration:none
 }
 
-.pagination-dark .active a:visited{
-	background-color:#ffc107;
-	color:#BA8510;
-	text-decoration:none
-}
-.pagination-dark .active a:link{
-	background-color:#ffc107;
-	color:#BA8510;
-	text-decoration:none
-}
-
 .stats-info{
 	color:#fff;
 }
