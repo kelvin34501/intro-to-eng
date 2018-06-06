@@ -8,7 +8,7 @@ h2 {
 	text-align:center;
 	font-weight:bold }
 body {
-	background:80% url("../../../img/dark/6.jpg");
+	background:80% url("../../imgs/dark/6.jpg");
 	background-size: 95% 95%;
 	font-family:arial;
 	font-size:20px;
@@ -19,10 +19,11 @@ body {
 .centering {
 	text-align:center
 }
-.vertical-centering {
-    float: none;
-    vertical-align: middle;
-}
+.center-vertical{
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+} 
 
 .navbar-setting-0 {
 	background-color:#000000
@@ -125,7 +126,45 @@ body {
 	text-decoration:none
 }
 
-	
+.pagination-dark .active a:visited{
+	background-color:#ffc107;
+	color:#BA8510;
+	text-decoration:none
+}
+.pagination-dark .active a:link{
+	background-color:#ffc107;
+	color:#BA8510;
+	text-decoration:none
+}
+
+.stats-info{
+	color:#fff;
+}
+.stats-info h1{
+	font-size:70;
+	text-align:left;
+}
+.stats-info h2{
+	font-size:50;
+	text-align:left;
+}
+.stats-section-0{
+	background-color:#000000;
+	color:#cfcfcf;
+}
+.stats-panel-0{
+	background-color:#000000;
+	color:#000000;
+}
+.stats-section-1{
+	background-color:#A0A0A0;
+	color:#fcfcfc;
+}
+.stats-panel-1{
+	background-color:#ffc107;
+	color:#fcfcfc;
+}
+
 /* pure color control*/
 .dark{
 	background-color:#3F3F3F;
@@ -136,9 +175,10 @@ body {
 	color:#5F5F5F;
 }
 .silver{
-	background-color:#7F7F7F;
+	background-color:#8F8F8F;
 	color:#7F7F7F;
 }
+
 
 .text-gray {
 	color:#aaaaaa
@@ -164,6 +204,49 @@ body {
 	border-radius: 0px
 }
 
+/* plots support */
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+.axis path {
+	stroke: black;
+	stroke-width: 1
+}
+.axis .tick line{
+	stroke: black;
+	stroke-width: 3
+}
+#grid .tick:nth-child(2) {
+	display: none
+}
+#grid path {
+	display: none
+}
+.box {
+  font: 10px sans-serif;
+}
+.box line,
+.box rect,
+.box circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.box .center {
+  stroke-dasharray: 3,3;
+}
+
+.box .outlier {
+  fill: none;
+  stroke: #ccc;
+}
 
 /* from Pingendo */
 article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
