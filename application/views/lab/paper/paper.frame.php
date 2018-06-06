@@ -11,18 +11,20 @@
 					</div>
 					<div id="panel-element-150618" class="panel-collapse collapse in">
 						<div class="panel-body panel-dark-body" id="lab-paper-reference-panel">
-							<!-- Paper's references should be pu here -->
-							<!--
-								recommanded format for each item
-									if not first item in this list:
-										<hr>
-									<div class="panel-item-title-0">[index].[&nbsp][<a>paper title</a>]</div>
-									<div class="panel-item-content-0">
-											[&nbsp*5]Paper ID:[&nbsp][paper id][&nbsp*2]-[&nbsp*2]Venue: [conference]<br>
-											[&nbsp*5]Published Year: [published year][&nbsp*2]-[&nbsp*2]Times Cited: [referenced times]<br>
-											[&nbsp*5]Coauthors: [<a>author_name</a>, ]
-									</div>
-							-->
+							<div id="lab-paper-reference-items" >
+								<!-- Paper's references should be pu here -->
+								<!--
+									recommanded format for each item
+										if not first item in this list:
+											<hr>
+										<div class="panel-item-title-0">[index].[&nbsp][<a>paper title</a>]</div>
+										<div class="panel-item-content-0">
+												[&nbsp*5]Paper ID:[&nbsp][paper id][&nbsp*2]-[&nbsp*2]Venue: [conference]<br>
+												[&nbsp*5]Published Year: [published year][&nbsp*2]-[&nbsp*2]Times Cited: [referenced times]<br>
+												[&nbsp*5]Coauthors: [<a>author_name</a>, ]
+										</div>
+								-->
+							</div>
 							<div class="text-center">
 							<hr>
 							<ul class="pagination pagination-dark" id="lab-paper-reference-pagination">
@@ -40,18 +42,20 @@
 					</div>
 					<div id="panel-element-211967" class="panel-collapse collapse">
 						<div class="panel-body panel-dark-body" id="lab-paper-citedby-panel">
-							<!-- Paper's cited-by should be pu here -->
-							<!--
-								recommanded format for each item
-									if not first item in this list:
-										<hr>
-									<div class="panel-item-title-0">[index].[&nbsp][<a>paper title</a>]</div>
-									<div class="panel-item-content-0">
-											[&nbsp*5]Paper ID:[&nbsp][paper id][&nbsp*2]-[&nbsp*2]Venue: [conference]<br>
-											[&nbsp*5]Published Year: [published year][&nbsp*2]-[&nbsp*2]Times Cited: [referenced times]<br>
-											[&nbsp*5]Coauthors: [<a>author_name</a>, ]
-									</div>
-							-->
+							<div id="lab-paper-citedby-items" >
+								<!-- Paper's cited-by should be pu here -->
+								<!--
+									recommanded format for each item
+										if not first item in this list:
+											<hr>
+										<div class="panel-item-title-0">[index].[&nbsp][<a>paper title</a>]</div>
+										<div class="panel-item-content-0">
+												[&nbsp*5]Paper ID:[&nbsp][paper id][&nbsp*2]-[&nbsp*2]Venue: [conference]<br>
+												[&nbsp*5]Published Year: [published year][&nbsp*2]-[&nbsp*2]Times Cited: [referenced times]<br>
+												[&nbsp*5]Coauthors: [<a>author_name</a>, ]
+										</div>
+								-->
+							</div>
 							<div class="text-center">
 							<hr>
 							<ul class="pagination pagination-dark" id="lab-paper-citedby-pagination">
@@ -70,7 +74,11 @@
 					Paper ID: <?php echo $paper_id; ?><br>
 					Publish Year: <?php echo $published_year; ?>
 					&nbsp&nbsp-&nbsp&nbsp
-					Venue: <?php echo $venue; ?><br>
+					Venue: 
+						<a href="<?php echo base_url().'lab/view_conf?conf_id='.$venue_id; ?>" 
+							style="color:#FFFFFF" >
+						<?php echo $venue; ?></a>
+					<br>
 					Times Cited: <?php echo $times_cited; ?>
 					&nbsp&nbsp-&nbsp&nbsp
 					Total References: <?php echo $total_references; ?><br>
@@ -78,14 +86,16 @@
 			</div>
 			<div class="list-group">
 				<a href="###" class="list-group-item text-center active" id="lab-paper-sidebar-ca-control">Coauthors</a>
-					<div id="lab-paper-sidebar-ca-items">
-						<!-- most cooperative coauthors should be listed here -->
-						<!--
-							recommanded format for each item:
-								<div class="list-group-item">
-									<a>[coauthor name]</a>
-								</div>
-						-->
+					<div id="lab-paper-sidebar-ca-box">
+						<div id="lab-paper-sidebar-ca-items">
+							<!-- most cooperative coauthors should be listed here -->
+							<!--
+								recommanded format for each item:
+									<div class="list-group-item">
+										<a>[coauthor name]</a>
+									</div>
+							-->
+						</div>
 						<div class="list-group-item-text text-center">
 							<ul class="pagination pagination-sm" id="lab-paper-sidebar-ca-pagination">
 								<!-- pagination should be put here -->

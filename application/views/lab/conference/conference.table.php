@@ -14,7 +14,7 @@
     <?php } ?>
     <div class="panel-item-title-0 panel-dark-body" >
         <?php echo $offset + $index + 1; ?>.&nbsp&nbsp
-        <a href="#" >
+        <a href="<?php echo base_url().'lab/view_conf?conf_id='.$conference_item['ConferenceID']; ?>" >
             <?php echo $conference_item['ConferenceName']; ?>
         </a>
     </div>

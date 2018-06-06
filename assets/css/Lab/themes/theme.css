@@ -114,12 +114,12 @@ body {
 	text-decoration:none
 }
 
-.pagination-dark-disabled a:visited{
+.pagination-dark .active a:visited{
 	background-color:#ffc107;
 	color:#BA8510;
 	text-decoration:none
 }
-.pagination-dark-disabled a:link{
+.pagination-dark .active a:link{
 	background-color:#ffc107;
 	color:#BA8510;
 	text-decoration:none

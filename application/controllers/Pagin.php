@@ -5,7 +5,7 @@ class Pagin extends CI_controller {
         $this->load->helper('url');
     }
 
-    static private function _gen_page_ind($p, $a, $b, $page_per_bar=10) {
+    static private function _gen_page_ind($p, $a, $b, $page_per_bar=10, $css="active") {
         //return an array with page number and status
         $res = array();
         $m = $p - floor($page_per_bar/2);
@@ -25,7 +25,7 @@ class Pagin extends CI_controller {
             if($i != $p)
                 $res[] = array('number'=>$i, 'status'=>'', 'active'=>'');
             else
-                $res[] = array('number'=>$i, 'status'=>'', 'active'=>'pagination-dark-disabled');
+                $res[] = array('number'=>$i, 'status'=>'', 'active'=>$css);
         }
         return $res;
     }
@@ -68,9 +68,16 @@ class Pagin extends CI_controller {
         $page = $this->input->get('page');
         $startpage = $this->input->get('startpage');
         $endpage = $this->input->get('endpage');
-        $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage);
-        $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage);
-        $pageindex = $this->_gen_page_ind($page, $startpage, $endpage);
+        $bar_width = $this->input->get('width');
+        if ($bar_width == null) {
+            $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage);
+            $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage);
+            $pageindex = $this->_gen_page_ind($page, $startpage, $endpage);
+        } else {
+            $pageforward = $this->_gen_page_forward($page,  $startpage, $endpage, $bar_width);
+            $pagebackward = $this->_gen_page_backward($page, $startpage, $endpage, $bar_width);
+            $pageindex = $this->_gen_page_ind($page, $startpage, $endpage, $bar_width);
+        }
 
         $data['pagin_handle'] = $pagin_handle;
 

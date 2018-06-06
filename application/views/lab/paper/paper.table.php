@@ -16,7 +16,7 @@
     <?php } ?>
     <div class="panel-item-title-0 panel-dark-body" >
         <?php echo $offset + $index + 1; ?>.&nbsp&nbsp
-        <a href="#" >
+        <a href="<?php echo base_url().'lab/view_paper?paper_id='.$paper_item['PaperID']; ?>" >
             <?php echo ucwords($paper_item['Title']); ?>
         </a>
     </div>
@@ -24,15 +24,28 @@
         &nbsp&nbsp&nbsp&nbsp&nbsp
         Paper ID:&nbsp<?php echo $paper_item['PaperID']; ?>
         &nbsp&nbsp-&nbsp&nbsp
-        Venue:&nbsp<?php echo $paper_item['ConferenceName']; ?><br>
+        <?php if ($NeedConference) { ?>
+            Venue:&nbsp<?php echo $paper_item['ConferenceName']; ?>
+            <br>&nbsp&nbsp&nbsp&nbsp&nbsp
+        <?php } ?>
 
-        &nbsp&nbsp&nbsp&nbsp&nbsp
         Published Year:&nbsp<?php echo $paper_item['PaperPublishYear']; ?>
         &nbsp&nbsp-&nbsp&nbsp
         Times Cited:&nbsp<?php echo $paper_item['ReferenceCount']; ?><br>
 
         &nbsp&nbsp&nbsp&nbsp&nbsp
-        Coauthors:&nbsp<?php echo $paper_item['AuthorList']; ?>
+        <?php if ($AuthorListType == "text") { ?>
+            Coauthors:&nbsp<?php echo $paper_item['AuthorList']; ?>
+        <?php } else if ($AuthorListType == "link") { ?>
+            Coauthors:&nbsp
+            <?php foreach($paper_item['AuthorList'] as $index => $author_item) { ?>
+                <?php if ($index != 0) echo ", "; ?>
+                <!-- <?php echo $index + 1; ?>. -->
+                <a href="<?php echo base_url().'lab/view_author?author_id='.$author_item['AuthorID']; ?>" >
+                    <?php echo ucwords($author_item['AuthorName']); ?>
+                </a>
+            <?php } ?>
+        <?php } ?>
     </div>
 
 <?php endforeach; ?>

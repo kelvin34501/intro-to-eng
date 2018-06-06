@@ -48,30 +48,34 @@
 		</div>
 		<div class="list-group">
 			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-af-control">Affiliations</a>
-			<div id="lab-author-sidebar-af-items">
-				<!-- top affiliations should be listed here -->
-				<!--
-					recommanded format for each item:
-						<div class="list-group-item">
-							<a>[affiliation name]</a>
-						</div>
-				-->
+			<div id="lab-author-sidebar-af-box">
+				<div id="lab-author-sidebar-af-items" >
+					<!-- top affiliations should be listed here -->
+					<!--
+						recommanded format for each item:
+							<div class="list-group-item">
+								<a>[affiliation name]</a>
+							</div>
+					-->
+				</div>
 				<div class="list-group-item-text text-center">
-						<ul class="pagination pagination-sm" id="lab-author-sidebar-af-pagination">
-							<!-- pagination should be put here -->
-						</ul>
+					<ul class="pagination pagination-sm" id="lab-author-sidebar-af-pagination">
+						<!-- pagination should be put here -->
+					</ul>
 				</div>
 			</div>
 			
 			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-cf-control">Conferences</a>
-			<div id="lab-author-sidebar-cf-items">
-				<!-- top conferences should be listed here -->
-				<!--
-					recommanded format for each item:
-						<div class="list-group-item">
-							<a>[conference name]</a>
-						</div>
-				-->
+			<div id="lab-author-sidebar-cf-box">
+				<div id="lab-author-sidebar-cf-items" >
+					<!-- top conferences should be listed here -->
+					<!--
+						recommanded format for each item:
+							<div class="list-group-item">
+								<a>[conference name]</a>
+							</div>
+					-->
+				</div>
 				<div class="list-group-item-text text-center">
 						<ul class="pagination pagination-sm" id="lab-author-sidebar-cf-pagination">
 							<!-- pagination should be put here -->
@@ -80,14 +84,16 @@
 			</div>
 			
 			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-ca-control">Coauthors</a>
-			<div id="lab-author-sidebar-ca-items">
-				<!-- most cooperative coauthors should be listed here -->
-				<!--
-					recommanded format for each item:
-						<div class="list-group-item">
-							<a>[coauthor name]</a>
-						</div>
-				-->
+			<div id="lab-author-sidebar-ca-box">
+				<div id="lab-author-sidebar-ca-items" >
+					<!-- most cooperative coauthors should be listed here -->
+					<!--
+						recommanded format for each item:
+							<div class="list-group-item">
+								<a>[coauthor name]</a>
+							</div>
+					-->
+				</div>
 				<div class="list-group-item-text text-center">
 						<ul class="pagination pagination-sm" id="lab-author-sidebar-ca-pagination">
 							<!-- pagination should be put here -->
@@ -97,7 +103,7 @@
 		
 			<!-- Whether this part will be implemented remains to be seen -->
 			<a href="###" class="list-group-item text-center active" id="lab-author-sidebar-lb-control">Labels</a>
-			<div id="lab-author-sidebar-lb-items">
+			<div id="lab-author-sidebar-lb-box">
 					<div class="list-group-item">
 						<a href="#">lb1</a>
 					</div>
@@ -137,21 +143,6 @@
 		
 		</div>
 		
-	</div>
-	<div class="row clearfix">
-		<div class="col-md-12 column centering">
-			<!-- This should be deleted when the pressed event is added to breadcrumb -->
-			<!-- Or the URLs should be changed -->
-			<h3>
-			<?php
-				echo "<a href='".site_url("search/view_home?")."'>Home</a>";
-				if($rpage > 0)
-					echo "&nbsp&nbsp<a href='".site_url("search/view_result/$rpage?name=$name&vague=$vague")."'>Result</a>";
-				echo "<br>";
-				?>
-				<br>
-			</h3>
-		</div>
 	</div>
 </div>
 
