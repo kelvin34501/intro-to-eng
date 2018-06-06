@@ -17,6 +17,9 @@
 				
 				<!-- import sidebar utils -->
 				<script src="<?php echo base_url().'assets/js/Lab/shared/sidebar.js' ?>" ></script>
+				
+				<!-- import myplots -->
+				<script src=<?php echo base_url().'assets/js/Lab/shared/myplots.js'; ?>></script>
 	  </head>
 
 
