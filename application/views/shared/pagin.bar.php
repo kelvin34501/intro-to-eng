@@ -1,4 +1,4 @@
-<?php if ($page!=$startpage) { ?>
+<?php if ($page>$startpage) { ?>
     <li>
         <a href="###" id="<?php echo $pagin_handle; ?>-begin" >&laquo;</a>
     </li>
@@ -32,7 +32,7 @@
     </li>
 <?php endforeach; ?>
 
-<?php if ($page!=$endpage) { ?>
+<?php if ($page<$endpage) { ?>
     <li class="<?php echo $pageforward['status']; ?>
             <?php echo $pageforward['active']; ?>"
     >

@@ -40,7 +40,8 @@
 			</div>
 			<div class="list-group">
 				<a href="###" class="list-group-item text-center active" id="lab-conference-sidebar-au-control">Author</a>
-				<div id="lab-conference-sidebar-au-items">
+				<div id="lab-conference-sidebar-au-box">
+					<div id="lab-conference-sidebar-au-items">
 					<!-- authors who have published in this conference -->
 					<!--
 						recommanded format for each item
@@ -48,6 +49,7 @@
 								<a>au1</a>
 							</div>
 					-->
+					</div>
 					<div class="list-group-item-text text-center">
 						<ul class="pagination pagination-sm" id="lab-conference-sidebar-au-pagination">
 							<!-- pagination should be put here -->

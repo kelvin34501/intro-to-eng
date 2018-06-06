@@ -39,14 +39,16 @@
 			</div>
 			<div class="list-group">
 				<a href="###" class="list-group-item text-center active" id="lab-affiliation-sidebar-pp-control">Paper</a>
-				<div id="lab-affiliation-sidebar-pp-items">
-					<!-- papers whose first author is from this affiliation -->
-					<!--
-						recommanded format for each item
-							<div class="list-group-item">
-								<a>[paper name]</a>
-							</div>
-					-->
+				<div id="lab-affiliation-sidebar-pp-box">
+					<div id="lab-affiliation-sidebar-pp-items">
+						<!-- papers whose first author is from this affiliation -->
+						<!--
+							recommanded format for each item
+								<div class="list-group-item">
+									<a>[paper name]</a>
+								</div>
+						-->
+					</div>
 					<div class="list-group-item-text text-center">
 							<ul class="pagination pagination-sm" id="lab-affiliation-sidebar-pp-pagination">
 								<!-- pagination should be put here -->
@@ -56,7 +58,7 @@
 			
 				<!-- whether this will be implemented remains to be seen -->
 				<a href="###" class="list-group-item text-center active" id="lab-affiliation-sidebar-lb-control">Labels</a>
-				<div id="lab-affiliation-sidebar-lb-items">
+				<div id="lab-affiliation-sidebar-lb-box">
 					<div class="list-group-item">
 						<a href="#">lb1</a>
 					</div>

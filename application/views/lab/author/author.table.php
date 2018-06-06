@@ -17,7 +17,7 @@
     <?php } ?>
     <div class="panel-item-title-0 panel-dark-body" >
         <?php echo $offset + $index + 1; ?>.&nbsp&nbsp
-        <a href="#" >
+        <a href="<?php echo base_url().'lab/view_author?author_id='.$author_item['AuthorID']; ?>" >
             <?php echo ucwords($author_item['AuthorName']); ?>
         </a>
     </div>
@@ -29,7 +29,7 @@
         &nbsp&nbsp&nbsp&nbsp&nbsp
         <?php if ($author_item['AffiliationName'] != null) { ?>
             Major Affiliation:&nbsp
-            <a href="#" >
+            <a href="<?php echo base_url().'lab/view_affi?affi_id='.$author_item['AffiliationID']; ?>" >
                 <?php echo ucwords($author_item['AffiliationName']); ?>
             </a>
         <?php } ?>
