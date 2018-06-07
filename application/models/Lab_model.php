@@ -144,14 +144,36 @@ class Lab_model extends CI_Model {
     }
 
     public function get_most_freq_affi($author_id) {
-        $target = "\"".$author_id."\"";
-        $command = "SELECT a.AffiliationID AS AffiliationID, AffiliationTimes, AffiliationName FROM 
-        (SELECT AffiliationID,AffiliationTimes FROM 
-        (SELECT AffiliationID, COUNT(AffiliationID) AS AffiliationTimes FROM PaperAuthorAffiliation WHERE AuthorID=$target GROUP BY AffiliationID) a 
-        ORDER BY AffiliationTimes DESC LIMIT 1) a 
-        INNER JOIN Affiliations b On a.AffiliationID=b.AffiliationID;";
-        $query = $this->db->query($command);
+        $query = $this->db->query(
+            "SELECT a.AffiliationID AS AffiliationID, AffiliationTimes, AffiliationName FROM 
+            (SELECT AffiliationID,AffiliationTimes FROM 
+            (SELECT AffiliationID, COUNT(AffiliationID) AS AffiliationTimes FROM PaperAuthorAffiliation WHERE AuthorID=? GROUP BY AffiliationID) a 
+            ORDER BY AffiliationTimes DESC LIMIT 1) a 
+            INNER JOIN Affiliations b On a.AffiliationID=b.AffiliationID;",
+            array($author_id)
+        );
         return $query->row_array();
+    }
+
+    public function get_most_freq_conf($author_id) {
+        $query = $this->db->query(
+            "SELECT COUNT(a.PaperID) AS Count, b.ConferenceID, ConferenceName FROM
+            (SELECT DISTINCT(PaperID) FROM PaperAuthorAffiliation WHERE AuthorID=?) a
+            INNER JOIN Papers b ON a.PaperID=b.PaperID
+            INNER JOIN Conferences c ON b.ConferenceID=c.ConferenceID
+            GROUP BY ConferenceID ORDER BY Count DESC;",
+            array($author_id)
+        );
+        return $query->row_array();
+    }
+
+    public function get_most_freq_coau($author_id) {
+        $query = $this->db->query(
+            "SELECT SecondID, Numbers FROM Cooperations WHERE FirstID=? 
+            AND Numbers=(SELECT MAX(Numbers) FROM Cooperations WHERE FirstID=?);",
+            array($author_id, $author_id)
+        );
+        return $query->result_array();
     }
 
     public function get_author_pub_total_number($author_id) {

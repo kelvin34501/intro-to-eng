@@ -6,30 +6,32 @@
 		<div class="stats-info">
 		<br><br>
 			<?php
-				echo "<h1>$author_info[author_name]</h1><br>";
+				echo "<h1>".ucwords($author_info['AuthorName'])."</h1><br>";
 				
-				$id_sents = array("<h2>The author is using ID $author_info[author_id].</h2>",
-				"<h2>The author uses $author_info[author_id] as ID.</h2>",
-				"<h2>The author's ID is $author_info[author_id].</h2>");
+				$id_sents = array("<h2>The author is using ID {$author_info['AuthorID']}.</h2>",
+				"<h2>The author uses {$author_info['AuthorID']} as ID.</h2>",
+				"<h2>The author's ID is {$author_info['AuthorID']}.</h2>");
 				echo $id_sents[rand(0, 2)];
 				
-				if($author_info['affiliation']!="None"){
-					$aff_sents = array("<h2>The author usually publishes papers in $author_info[affiliation]</h2>",
-					"<h2>$author_info[affiliation] is where the author publishes most of its papers.</h2>",
-					"<h2>The author's major affiliation is $author_info[affiliation].</h2>");
+				if($author_info['Affiliation']!="None"){
+					$aff_sents = array("<h2>The author usually publishes papers in {$author_info['Affiliation']}</h2>",
+					"<h2>{$author_info['Affiliation']} is where the author publishes most of its papers.</h2>",
+					"<h2>The author's major affiliation is {$author_info['Affiliation']}.</h2>");
 					echo $aff_sents[rand(0, 2)];
 				}
 				else echo "<h2>The author belongs to no affiliation.</h2>";
 				
-				if($author_info['conference']!="None"){
-					$conf_sents = array("<h2>As a \"fan\" of $author_info[conference], the author published most of its paper on it.</h2>", "<h2>$author_info[conference] is the conference where most of the author's papers were published.</h2>", "<h2>The author's major conference is $author_info[conference].</h2>");
+				if($author_info['Conference']!="None"){
+					$conf_sents = array("<h2>As a \"fan\" of {$author_info['Conference']}, the author published most of its paper on it.</h2>", 
+					"<h2>{$author_info['Conference']} is the conference where most of the author's papers were published.</h2>", 
+					"<h2>The author's major conference is {$author_info['Conference']}.</h2>");
 					echo $conf_sents[rand(0, 2)];
 				}
 				else echo "<h2>The author does not publish in any conference.</h2>";
 				
-				$total_sents = array("<h2>According to Acemap, the author has published $author_info[total_paper] papers.</h2>",
-				"<h2>The productive author has published $author_info[total_paper] papers in total.</h2>",
-				"<h2>According to Acemap, $author_info[total_paper] papers have been penned by the author.</h2>");
+				$total_sents = array("<h2>According to Acemap, the author has published {$author_info['total_paper']} papers.</h2>",
+				"<h2>The productive author has published {$author_info['total_paper']} papers in total.</h2>",
+				"<h2>According to Acemap, {$author_info['total_paper']} papers have been penned by the author.</h2>");
 				echo $total_sents[rand(0, 2)];
 				
 				if(count($author_info['coauthors'])>0){

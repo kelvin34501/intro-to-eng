@@ -12,7 +12,7 @@
 				<ul class="nav navbar-nav">
 					<?php if(stristr($title, "page")){ ?>
 					<li><a href="<?php 
-						$url = "search/select_stats?title=$title&item_id=";
+						$url = "lab/view_stats?title=$title&item_id=";
 						if(stristr($title, "author")) $url = $url.$author_id;
 						echo site_url($url);
 					?>"><span class="glyphicon glyphicon-stats"></span> Stats</a></li>
