@@ -3,46 +3,74 @@ class Visual extends CI_controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Lab_model');
+        $this->load->model('Visual_model');
         $this->load->helper('url');
     }
 
-    public function author_visual_json() {
-        $author_id = $this->input->get('author_id');
-        $author_item = $this->Lab_model->get_author($author_id);
-        $author_cooperation = $this->Lab_model->get_cooperation($author_id);
-        $res = array();
-        $res["nodes"][] = array("id"=> $author_id, "group"=>0);
-        $res["links"][] = array("source"=> $author_id, "target"=>$author_id, "value"=>1);
+    public function get_cn_neighbor() {
+        if(isset($_GET['author_id'])) 
+            $this->Visual_model->get_cn_neighbor($_GET['author_id']);
+        else 
+            $this->Visual_model->get_cn_neighbor();
+    }
 
-        // process the cooperators of the author
-        foreach($author_cooperation as $next_author) {
-            $second_id = $next_author['SecondID'];
-            $res["links"][] = array("source"=>$author_id, "target"=>$second_id, "value"=>2);
-            $rela = $this->Lab_model->get_relationship($author_id, $second_id);
-            $rev_rela = $this->Lab_model->get_relationship($second_id, $author_id);
-            if ($rela == 0 && $rev_rela == 0) {
-                $res["nodes"][] = array("id"=> $second_id, "group"=>1);
-            } else if ($rela == 1 && $rev_rela == 0) {
-                $res["nodes"][] = array("id"=> $second_id, "group"=>2);
-            } else if ($rela == 0 && $rev_rela == 1) {
-                $res["nodes"][] = array("id"=> $second_id, "group"=>3);
-            } else {
-                $res["nodes"][] = array("id"=> $second_id, "group"=>4);
-            }
-        }
+	public function get_publication_increament()
+	{
+		$author_id = $this->input->get('author_id');
+		$paper = $this->Visual_model->publication_paper($author_id); 
+		$mode = $this->input->get('mode');
+		$result = array();
+		if($mode == 1){
+			$i = 1;
+			$year = $paper[0]["paper_publish_year"];
+			$result[0]["year"] = $paper[0]["paper_publish_year"] - 1;
+			$result[0]["publication"] = 0;
+			foreach ($paper as $row)
+			{
+				while ($year<$row["paper_publish_year"])
+				{
+					$result[$i]["year"] = $year;
+					$result[$i]["publication"] = 0;
+					$i++;
+					$year++;
+				}
+				$result[$i]["year"] = $row["paper_publish_year"];
+				$result[$i]["publication"] = $row["papers"];
+				$year++;
+				$i++;
+			}
+			
+			$result[$i]["year"] = $result[$i-1]["year"] + 1;
+			$result[$i]["publication"] = 0;
+		}
+		elseif($mode == 2){
+			$accum = 0;
+			$year = $paper[0]["paper_publish_year"];
+			$result[0]["year"] = $paper[0]["paper_publish_year"] - 1;
+			$result[0]["publication"] = $accum;
+			$i = 1;
+			foreach ($paper as $row)
+			{
+				while ($year<$row["paper_publish_year"])
+				{
+					$result[$i]["year"] = $year;
+					$result[$i]["publication"] = $accum;
+					$i++;
+					$year++;
+				}
+				$accum += $row["papers"];
+				$result[$i]["year"] = $row["paper_publish_year"];
+				$result[$i]["publication"] = $accum;
+				$year++;
+				$i++;
+			}
+			$result[$i]["year"] = $result[$i-1]["year"] + 1;
+			$result[$i]["publication"] = $accum;
+		}
+		echo json_encode($result);
+    }
+    
+    public function publication_reference_count() {
 
-        //process the interseections
-        $len = count($author_cooperation);
-        for ($i = 0; $i < $len - 1; $i++) {
-            for ($j = $i + 1; $j < $len; $j++) {
-                if ($this->Lab_model->is_cooperated($author_cooperation[$i]['SecondID'],
-                                                    $author_cooperation[$j]['SecondID'])) {
-                    $res["links"][] = array("source"=>$author_cooperation[$i]['SecondID'],
-                                            "target"=>$author_cooperation[$j]['SecondID'],
-                                            "value"=>1);
-                }
-            }
-        }
-        echo json_encode($res);
     }
 }

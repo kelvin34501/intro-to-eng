@@ -75,6 +75,8 @@ function plot_force_direct_graph(){
 }
 
 function plot_publication_increament(mode=1){
+    
+
 	var svg = d3.select("#pi" + mode),
 		margin = {
 			top: 20,
@@ -85,7 +87,7 @@ function plot_publication_increament(mode=1){
 		width = +svg.attr("width") - margin.left - margin.right,
 		height = +svg.attr("height") - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-		
+    
 	var x = d3.scaleLinear()
 		.rangeRound([0, width]);
 		

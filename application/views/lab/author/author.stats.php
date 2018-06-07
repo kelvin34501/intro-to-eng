@@ -115,10 +115,10 @@
 <script type='text/javascript'>
 var cur_pi = 0;
 
-var force_direct_graph_source = "<?php echo site_url("search/get_cn_neighbor?author_id=$author_id"); ?>";
-var publication_increament_source_1 = "<?php echo site_url("search/get_publication_increament?author_id=$author_id&mode=1"); ?>";
-var publication_increament_source_2 = "<?php echo site_url("search/get_publication_increament?author_id=$author_id&mode=2"); ?>";
-var box_chart_source = "<?php echo site_url("search/publication_reference_count?author_id=$author_id"); ?>";
+var force_direct_graph_source = "<?php echo site_url("visual/get_cn_neighbor?author_id=$author_id"); ?>";
+var publication_increament_source_1 = "<?php echo site_url("visual/get_publication_increament?author_id=$author_id&mode=1"); ?>";
+var publication_increament_source_2 = "<?php echo site_url("visual/get_publication_increament?author_id=$author_id&mode=2"); ?>";
+var box_chart_source = "<?php echo site_url("visual/publication_reference_count?author_id=$author_id"); ?>";
 
 plot_force_direct_graph();
 

@@ -554,30 +554,29 @@ class Lab extends CI_controller {
         }
     }
 
-    public function view_stats()
+    public function view_author_stats()
     {
-        $mode = $this->input->get('title');
-        if ($mode == "Author Page") {
-            $data['title'] = 'Author Stats';
+        $title = $this->input->get('title');
+        $data['title'] = 'Author Stats';
 
-            $author_id = $this->input->get('item_id');
-            $data['author_info'] = $this->Lab_model->get_author($author_id);
-            $data['author_info']['Affiliation'] = 
-                ucwords($this->Lab_model->get_most_freq_affi($author_id)['AffiliationName']);
-            $data['author_info']['Conference'] =
-                $this->Lab_model->get_most_freq_conf($author_id)['ConferenceName'];
-            $data['author_info']['total_paper'] =
-                $this->Lab_model->get_author_pub_total_number($author_id);
-            $coau_list = 
-                $this->Lab_model->get_most_freq_coau($author_id);
-            foreach($coau_list as $coau) {
-                $data['author_info']['coauthors'][] = 
-                    ucwords($this->Lab_model->get_author($coau['SecondID'])['AuthorName']);
-            }
-            $this->load->view('templates/header');
-            $this->load->view('shared/navibar.topfix.php', $data);
-            $this->load->view('lab/author/author.stats.php', $data);
-            $this->load->view('templates/footer');
+        $author_id = $this->input->get('item_id');
+        $data['author_id'] = $author_id;
+        $data['author_info'] = $this->Lab_model->get_author($author_id);
+        $data['author_info']['Affiliation'] = 
+            ucwords($this->Lab_model->get_most_freq_affi($author_id)['AffiliationName']);
+        $data['author_info']['Conference'] =
+            $this->Lab_model->get_most_freq_conf($author_id)['ConferenceName'];
+        $data['author_info']['total_paper'] =
+            $this->Lab_model->get_author_pub_total_number($author_id);
+        $coau_list = 
+            $this->Lab_model->get_most_freq_coau($author_id);
+        foreach($coau_list as $coau) {
+            $data['author_info']['coauthors'][] = 
+                ucwords($this->Lab_model->get_author($coau['SecondID'])['AuthorName']);
         }
+        $this->load->view('templates/header');
+        $this->load->view('shared/navibar.topfix.php', $data);
+        $this->load->view('lab/author/author.stats.php', $data);
+        $this->load->view('templates/footer');
     }
 }
