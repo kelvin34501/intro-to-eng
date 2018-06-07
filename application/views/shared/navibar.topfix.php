@@ -11,10 +11,10 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<?php if(stristr($title, "page")){ ?>
-					<li><a href="<?php 
-						$url = "lab/view_stats?title=$title&item_id=";
-						if(stristr($title, "author")) $url = $url.$author_id;
-						echo site_url($url);
+					<li><a href="<?php
+						if(stristr($title, "author")) echo site_url("search/view_author_stats?title=$title&item_id=".$author_id);
+						elseif(stristr($title, "paper")) echo site_url("search/view_paper_stats?title=$title&item_id=".$paper_id);
+						elseif(stristr($title, "affiliation")) echo site_url("search/view_affiliation_stats?title=$title&item_id=".$affiliation_id);
 					?>"><span class="glyphicon glyphicon-stats"></span> Stats</a></li>
 					<?php 
 					}
