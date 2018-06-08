@@ -147,6 +147,5 @@
 </div>
 
 <script>
-	var force_direct_graph_source = "<?php echo site_url("visual/get_cn_neighbor?author_id=$author_id"); ?>";
-	plot_force_direct_graph();
+	plot_force_direct_graph("<?php echo site_url("visual/get_cn_neighbor?author_id=$author_id"); ?>");
 </script>

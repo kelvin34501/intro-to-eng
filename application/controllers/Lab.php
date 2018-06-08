@@ -582,9 +582,15 @@ class Lab extends CI_controller {
 
     public function view_affiliation_stats()
     {
-        $data["affiliation_id"] = $this->input->get('item_id');
-            
+        $affi_id = $this->input->get('item_id');
+        
+        $data["affiliation_id"] = $affi_id;
         $data["title"] = "Affiliation Stats";
+        $data['affiliation_info'] = $this->Lab_model->get_affi($affi_id);
+        $data['affiliation_info']['AuthorNum'] = 
+            $this->Lab_model->get_affi_auth_total_number($affi_id);
+        $data['affiliation_info']['PaperNum'] = 
+            $this->Lab_model->get_affi_paper_total_number($affi_id);
             
         $this->load->view('templates/header', $data);
         $this->load->view('shared/navibar.topfix.php', $data);

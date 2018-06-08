@@ -106,20 +106,110 @@ class Visual_model extends CI_Model {
 		);
 		echo json_encode($result);
 	}
-	
-    public function publication_paper($q)
+
+	public function get_dyn_cn_neighbor($affiliation_id=null)
 	{
-		$query = $this->db->query(
-            "select count(Papers.PaperId)papers, 
-            Papers.PaperPublishYear as paper_publish_year from Papers 
-            inner join PaperAuthorAffiliation 
-            on Papers.PaperId = PaperAuthorAffiliation.PaperID
-            where PaperAuthorAffiliation.AuthorID=? 
-            group by paper_publish_year order by paper_publish_year",
-            array($q)
+		$nodes = array();
+		$links = array();
+		
+		if($affiliation_id != null)
+		{
+			$authors = $this->db->query(
+				"select distinct(AuthorID) as author_id from PaperAuthorAffiliation 
+				where AffiliationID = ?",
+				array($affiliation_id)
+			)->result_array();
+			$advisors = $this->db->query(
+				"select aid.author_id as author_id from 
+				(select distinct(AuthorID)author_id from PaperAuthorAffiliation 
+				where AffiliationID = ?) aid 
+				inner join 
+				(select distinct(FirstID)author_id from Cooperations
+				where IsAdvisor=1) adid 
+				on aid.author_id = adid.author_id",
+				array($affiliation_id)
+			)->result_array();
+			foreach($authors as $author){
+				if(in_array($author, $advisors)) $group = 2;
+				else $group = 1;
+				
+				$advisors = $this->db->query(
+					"select FirstID as author_id from Cooperations 
+					where SecondID = ? and IsAdvisor = 1",
+					array($author['author_id'])
+				)->result_array();
+				$advisees = $this->db->query(
+					"select SecondID as author_id from Cooperations 
+					where FirstID = ? and IsAdvisor = 1",
+					array($author['author_id'])
+				)->result_array();
+				array_push($nodes, array(
+					'id' => $author['author_id'],
+					'group' => $group,
+					'advisors' => array_column($advisors, 'author_id'),
+					'advisees' => array_column($advisees, 'author_id')
+				));
+				
+				$neighbors = $this->db->query(
+					"select af.author_id as author_id from 
+					(
+						(select FirstID as author_id from Cooperations 
+						where SecondID = ?) 
+						union 
+						(select SecondID as author_id from Cooperations 
+						where FirstID = ?)
+					)neighbor 
+					inner join (select distinct(AuthorID) as author_id from 
+					PaperAuthorAffiliation where AffiliationID = ?)af 
+					on neighbor.author_id = af.author_id",
+					array($author['author_id'],$author['author_id'],$affiliation_id)
+				)->result_array();
+				foreach($neighbors as $neighbor){
+					array_push($links, array(
+						'source' => $author['author_id'],
+						'target' => $neighbor['author_id'],
+						'value' => 2
+					));
+				}
+			}
+			
+		}
+		
+		$result = array(
+			'nodes' => $nodes,
+			'links' => $links
 		);
+		echo json_encode($result);
+	}
+	
+	public function publication_paper($q, $mode='author')
+	{
+		if($mode=='author') {
+			$query = $this->db->query(
+				"select count(Papers.PaperId)papers, 
+				Papers.PaperPublishYear as paper_publish_year from Papers 
+				inner join PaperAuthorAffiliation 
+				on Papers.PaperId = PaperAuthorAffiliation.PaperID
+				where PaperAuthorAffiliation.AuthorID=? 
+				group by paper_publish_year order by paper_publish_year",
+				array($q)
+			);
+		}
+		elseif($mode=='affiliation') {
+			$query = $this->db->query(
+				"select count(Papers.PaperID)papers, 
+					Papers.PaperPublishYear as paper_publish_year from Papers 
+				inner join PaperAuthorAffiliation 
+				on Papers.PaperID = PaperAuthorAffiliation.PaperID 
+				where PaperAuthorAffiliation.AffiliationID=? 
+				group by paper_publish_year order by paper_publish_year",
+				array($q)
+			);
+		}
+		elseif($mode=='conference')
+			$sql = "select count(paper_id)papers, paper_publish_year from paper where conference_id = '{$q}' group by paper_publish_year order by paper_publish_year";
 		return $query->result_array();
-    }
+	}
     
     public function publication_IDyear($q)
 	{
@@ -176,10 +266,15 @@ class Visual_model extends CI_Model {
 				array($q)
 			);
 		} else if( $key=='affiliation') {
-			$sql = "select paper.conference_id,count(paper.paper_id)number from paper inner join paper_author_affiliation 
-				on paper.paper_id=paper_author_affiliation.paper_id where paper_author_affiliation.affiliation_id='{$q}'
-				group by paper.conference_id";
-			$query = $this->db->query($sql);
+			$query = $this->db->query(
+				"select Papers.ConferenceID as conference_id,
+					count(Papers.PaperID)number from Papers 
+				inner join PaperAuthorAffiliation 
+				on Papers.PaperID=PaperAuthorAffiliation.PaperID
+				where PaperAuthorAffiliation.AffiliationID='{$q}'
+				group by conference_id",
+				array($q)
+			);
 		}
 		return $query->result_array();
 	}
