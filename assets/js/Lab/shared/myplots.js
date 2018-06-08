@@ -1,7 +1,7 @@
-function plot_force_direct_graph(){
+function plot_force_direct_graph(source, svg_id="#cn"){
 	var colors = new Array("#912CEE", "#66ccff", "#8B008B", "#CD853F");
 
-	var svg = d3.select("#cn"),
+	var svg = d3.select(svg_id),
 		width = +svg.attr("width"),
 		height = +svg.attr("height");
 		
@@ -11,7 +11,7 @@ function plot_force_direct_graph(){
 		.force("charge", d3.forceManyBody())
 		.force("center", d3.forceCenter(width / 2, height / 2));
 		
-	d3.json(force_direct_graph_source, function(error, graph) {
+	d3.json(source, function(error, graph) {
 	  if (error) throw error;
 
 	  var link = svg.append("g")
@@ -74,10 +74,8 @@ function plot_force_direct_graph(){
 	}
 }
 
-function plot_publication_increament(mode=1){
-    
-
-	var svg = d3.select("#pi" + mode),
+function plot_publication_increament(source, mode=1, svg_id="#pi"){
+	var svg = d3.select(svg_id + mode),
 		margin = {
 			top: 20,
 			right: 20,
@@ -87,7 +85,7 @@ function plot_publication_increament(mode=1){
 		width = +svg.attr("width") - margin.left - margin.right,
 		height = +svg.attr("height") - margin.top - margin.bottom,
 		g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
+		
 	var x = d3.scaleLinear()
 		.rangeRound([0, width]);
 		
@@ -118,7 +116,7 @@ function plot_publication_increament(mode=1){
 				.attr("class", "axis")
 			 .append("text")
 				.attr("fill", "#000")
-				.attr("x", 800)
+				.attr("x", 850)
 				.attr("dy", "-0.5em")
 				.attr("text-anchor", "start")
 				.text("Year")
@@ -136,14 +134,14 @@ function plot_publication_increament(mode=1){
 	}
 	
 	if(mode==1){
-		d3.json(publication_increament_source_1, function(error, data){
+		d3.json(source, function(error, data){
 			if(error) throw error;
 			
 			plot_area(data, "Annual Publication");
 		});
 	}
 	else if(mode==2){
-		d3.json(publication_increament_source_2, function(error, data){
+		d3.json(source, function(error, data){
 			if(error) throw error;
 			
 			plot_area(data, "Total Publication")
@@ -466,8 +464,8 @@ function boxQuartiles(d) {
 
 })();
 
-function plot_box_chart(){
-	var svg = d3.select("#rbp"),
+function plot_box_chart(source, svg_id="#rbp"){
+	var svg = d3.select(svg_id),
 		margin = {top: 10, right: 50, bottom: 20, left: 50},
 		width = +svg.attr("width") - margin.left - margin.right,
 		height = +svg.attr("height") - margin.top - margin.bottom;
@@ -480,7 +478,7 @@ function plot_box_chart(){
 		.width(width)
 		.height(height);
 
-	d3.json(box_chart_source, function(error, ori_data) {
+	d3.json(source, function(error, ori_data) {
 	if (error) throw error;
 
 	var data = [];
@@ -526,6 +524,211 @@ function plot_box_chart(){
 	
 };
 	
+function plot_vertical_bar(source, svg_id, mode){
+	var svg = d3.select(svg_id),
+    margin = {top: 20, right: 20, bottom: 50, left: 40},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
 
+	var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+		y = d3.scaleLinear().rangeRound([height, 0]);
+
+	var g = svg.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	d3.json(source, function(error, data) {
+	  if (error) throw error;
+
+	function xv(d){
+		if(mode=="ref") return d.year;
+		else if(mode=="top") return d.name;
+	}
+	function yv(d){
+		if(mode=="ref") return d.number;
+		else if(mode=="top") return d.papers;
+	}
+	  
+	  x.domain(data.map(function(d) { return xv(d); }));
+	  y.domain([0, d3.max(data, function(d) { return yv(d); })]);
+
+	  g.append("g")
+		  .attr("class", "axis axis--x")
+		  .attr("transform", "translate(0," + height + ")")
+		  .call(d3.axisBottom(x))
+		.selectAll("text")
+		  .attr("dx", "-3em")
+		  .attr("transform", "rotate(-30)");
+
+	  g.append("g")
+		  .attr("class", "axis axis--y")
+		  .call(d3.axisLeft(y))
+		.append("text")
+		  .attr("transform", "rotate(-90)")
+		  .attr("y", 6)
+		  .attr("dy", "0.71em")
+		  .attr("text-anchor", "end")
+		  .text("Numer of Papers");
+
+	  g.selectAll(".bar")
+		.data(data)
+		.enter().append("rect")
+		  .attr("class", "bar")
+		  .attr("x", function(d) { return x(xv(d)); })
+		  .attr("y", function(d) { return y(yv(d)); })
+		  .attr("width", x.bandwidth())
+		  .attr("height", function(d) { return height - y(yv(d)); });
+	});
+}
+
+function plot_dynamic_force_direct_graph(source, svg_id){
+	var colors = new Array("#66ccff", "#C15CFE");
+	var ar_color = "#8B008B",
+		ae_color = "#CD853F",
+		hl_color = "#912CEE";
+	
+	
+	var svg = d3.select(svg_id),
+		width = +svg.attr("width"),
+		height = +svg.attr("height");
+		
+	var simulation = d3.forceSimulation()
+		.force("link", d3.forceLink().id(function(d) { return d.id; }))
+		.force("charge", d3.forceManyBody())
+		.force("center", d3.forceCenter(width / 2, height / 2));
+		
+		
+	d3.json(source, function(error, graph) {
+	  if (error) throw error;
+	  
+	  var link = svg.append("g")
+		  .attr("class", "links")
+		.selectAll("line")
+		.data(graph.links)
+		.enter().append("line")
+		  .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+	  var node = svg.append("g")
+		  .attr("class", "nodes")
+		.selectAll("circle")
+		.data(graph.nodes)
+		.enter().append("circle")
+		  .attr("r", 5)
+		  .attr("class", function(d){ return "node-id-"+d.id; })
+		  .attr("fill", function(d) { return colors[d.group-1]; })
+		  .call(d3.drag()
+			  .on("start", node_dragstarted)
+			  .on("drag", node_dragged)
+			  .on("end", node_dragended));
+
+	  node.append("title")
+		  .text(function(d) { return d.id; });
+
+	  simulation
+		  .nodes(graph.nodes)
+		  .on("tick", ticked);
+
+	  simulation.force("link")
+		  .links(graph.links);
+
+	  function ticked() {
+		link
+			.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+
+		node
+			.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) { return d.y; });
+	  }
+	});
+
+	function node_dragstarted(d) {
+	  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+	  d.fx = d.x;
+	  d.fy = d.y;
+	  d3.select(".node-id-"+d.id)
+			.attr("fill", hl_color)
+	  d.advisors.forEach(function(item){
+		  d3.select(".node-id-"+item)
+			.attr("fill", ar_color);
+	  });
+	  d.advisees.forEach(function(item){
+		  d3.select(".node-id-"+item)
+			.attr("fill", ae_color);
+	  });
+	}
+
+	function node_dragged(d) {
+	  d.fx = d3.event.x;
+	  d.fy = d3.event.y;
+	}
+
+	function node_dragended(d) {
+	  if (!d3.event.active) simulation.alphaTarget(0);
+	  d.fx = null;
+	  d.fy = null;
+	  d3.select(".node-id-"+d.id)
+			.attr("fill", function(k){ return colors[k.group-1]; })
+	  d.advisors.forEach(function(item){
+		  d3.select(".node-id-"+item)
+			.attr("fill", function(k){ return colors[k.group-1]; });
+	  });
+	  d.advisees.forEach(function(item){
+		  d3.select(".node-id-"+item)
+			.attr("fill", function(k){ return colors[k.group-1]; });
+	  });
+	}
+}
+
+function plot_conference_dist_pi_chart(source, svg_id){
+	var svg = d3.select(svg_id),
+		margin = {top: 20, right: 20, bottom: 20, left: 20},
+		width = +svg.attr("width") - margin.left - margin.right,
+		height = +svg.attr("height") - margin.top - margin.bottom,
+		radius = Math.min(width, height) / 2;
+
+	var colors = new Array();
+	colors["43001016"] = "#0ff";
+	colors["43319DD4"] = "#f0f";
+	colors["436976F3"] = "#ff0";
+	colors["43ABF249"] = "#00f";
+	colors["43FD776C"] = "#00f";
+	colors["45083D2F"] = "#f00";
+	colors["45701BF3"] = "#0f0";
+	colors["45F914AD"] = "#fff";
+	colors["465F7C62"] = "#fff";
+	colors["46A05BB0"] = "#fff";
+	colors["46DAB993"] = "#fff";
+	colors["47167ADC"] = "#fff";
+	colors["47C39427"] = "#fff";
+	
+	var arc = d3.arc()
+		.outerRadius(radius - 10)
+		.innerRadius(radius - 90);
+
+	var pie = d3.pie()
+		.sort(null)
+		.value(function(d) { return d.number; });
+
+	d3.json(source, function(error, data) {
+	  if (error) throw error;
+
+	  var g = svg.selectAll(".arc")
+		  .data(pie(data))
+		.enter().append("g")
+		  .attr("class", "arc")
+		  .attr("transform", "translate(" + width/2 + "," + height/2 + ")");;
+
+	  g.append("path")
+		  .attr("d", arc)
+		  .style("fill", function(d) { return colors[d.data.conference_id]; });
+
+	  g.append("text")
+		  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+		  .attr("dy", ".35em")
+		  .text(function(d) { return d.data.conference_id; });
+	});
+}
 
 
