@@ -4,7 +4,27 @@
 		<div class="col-md-2"></div>
 		<div class="col-md-8 column py-5">
 		<div class="stats-info">
-		
+		<br><br>
+			<?php
+				echo "<h1>".ucwords($affiliation_info['AffiliationName'])."</h1><br>";
+				
+				$id_sents = array("<h2>The affiliation is using ID {$affiliation_info['AffiliationID']}.</h2>",
+				"<h2>The affiliation uses {$affiliation_info['AffiliationID']} as ID.</h2>",
+				"<h2>The ID of the affiliation is {$affiliation_info['AffiliationID']}.</h2>");
+				echo $id_sents[rand(0, 2)];
+				
+				$aut_sents = array("<h2>{$affiliation_info['AuthorNum']} authors worked in this affiliation.</h2>",
+					"<h2>There have been {$affiliation_info['AuthorNum']} authors published papers under the name of this affiliation.</h2>",
+					"<h2>This powerful affiliation has {$affiliation_info['AuthorNum']} authors in total.</h2>");
+					echo $aut_sents[rand(0, 2)];
+				
+				$pap_sents = array("<h2>This productive affiliation have {$affiliation_info['PaperNum']} papers published under its name.</h2>",
+					"<h2>The number of papers which published under the name of this affiliation add up to {$affiliation_info['PaperNum']}.</h2>",
+					"<h2>This affiliation published {$affiliation_info['PaperNum']} papers in total.</h2>");
+					echo $pap_sents[rand(0, 2)];
+				
+			?>
+		<br><br><br><br><br><br><br><br><br><br>
 		</div>
 	</div>
 </div>
@@ -22,7 +42,7 @@
 				</div>
 			</div>
 			<div class="col-md-6 column py-5">
-
+				<h1>Cooperation Network</h1>
 			</div>
 		</div>
 	</div>
