@@ -579,4 +579,16 @@ class Lab extends CI_controller {
         $this->load->view('lab/author/author.stats.php', $data);
         $this->load->view('templates/footer');
     }
+
+    public function view_affiliation_stats()
+    {
+        $data["affiliation_id"] = $this->input->get('item_id');
+            
+        $data["title"] = "Affiliation Stats";
+            
+        $this->load->view('templates/header', $data);
+        $this->load->view('shared/navibar.topfix.php', $data);
+        $this->load->view('lab/affi/affi.stats.php', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }
