@@ -4,7 +4,38 @@
 		<div class="col-md-2"></div>
 		<div class="col-md-8 column py-5">
 		<div class="stats-info">
-		
+		<br><br>
+			<?php
+				echo "<h1>".ucwords($paper_info['PaperName'])."</h1><br>";
+				
+				$id_sents = array("<h2>The paper is using ID {$paper_info['PaperID']}.</h2>",
+				"<h2>The paper uses {$paper_info['PaperID']} as ID.</h2>",
+				"<h2>The ID of this paper is {$paper_info['PaperID']}.</h2>");
+				echo $id_sents[rand(0, 2)];
+				
+				if($paper_info['Affiliation']!="None"){
+					$aff_sents = array("<h2>This paper was published under the name of {$paper_info['Affiliation']}</h2>",
+					"<h2>{$paper_info['Affiliation']} is where the paper was published.</h2>",
+					"<h2>The paper was born in {$paper_info['Affiliation']}.</h2>");
+					echo $aff_sents[rand(0, 2)];
+				}
+				else echo "<h2>The paper belongs to no affiliation.</h2>";
+				
+				if($paper_info['Conference']!="None"){
+					$conf_sents = array("<h2>You can find this paper in {$paper_info['Conference']}.</h2>", 
+					"<h2>{$paper_info['Conference']} is the conference where the paper was published.</h2>", 
+					"<h2>The paper was published in {$paper_info['Conference']}.</h2>");
+					echo $conf_sents[rand(0, 2)];
+				}
+				else echo "<h2>The paper does not publish in any conference.</h2>";
+				
+				$year_sents = array("<h2>According to Acemap, the paper was published at {$paper_info['PaperPublishYear']}.</h2>",
+				"<h2>The birth year of this paper is {$paper_info['PaperPublishYear']}.</h2>",
+				"<h2>In the year of {$paper_info['PaperPublishYear']}, this paper was published.</h2>");
+				echo $year_sents[rand(0, 2)];
+				
+			?>
+		<br><br><br><br><br><br><br><br>
 		</div>
 	</div>
 </div>

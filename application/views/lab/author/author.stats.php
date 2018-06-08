@@ -60,11 +60,11 @@
 			<div class="col-md-7 column py-5">
 				<div class="panel">
 					<div class="panel-body stats-panel-0">
-					<svg width="800" height="500" id="cn" class="center-block" />
+					<svg width="900" height="500" id="cn" class="center-block" />
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 column py-5">
+			<div class="col-md-5 column py-5">
 			<h1>Cooperation Network</h1>
 			<h2>This displays the cooperation network centering the author.</h2>
 			<div class="row clearfix">

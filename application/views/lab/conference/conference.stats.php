@@ -4,13 +4,33 @@
 		<div class="col-md-2"></div>
 		<div class="col-md-8 column py-5">
 		<div class="stats-info">
-		
+		<br><br>
+			<?php
+				echo "<h1>".ucwords($conference_info['ConferenceName'])."</h1><br>";
+				
+				$id_sents = array("<h2>The conference is using ID {$conference_info['ConferenceID']}.</h2>",
+				"<h2>The conference uses {$conference_info['ConferenceID']} as ID.</h2>",
+				"<h2>The ID of the conference is {$conference_info['ConferenceID']}.</h2>");
+				echo $id_sents[rand(0, 2)];
+				
+				$pap_sents = array("<h2>{$conference_info['PaperNum']} papers have been published in this conference.</h2>",
+					"<h2>In this conference, {$conference_info['PaperNum']} papers have been published.</h2>",
+					"<h2>This conference has produced {$conference_info['PaperNum']} papers.</h2>");
+					echo $pap_sents[rand(0, 2)];
+				
+				$aut_sents = array("<h2>{$conference_info['AuthorNum']} authors have made publication in this conference.</h2>",
+					"<h2>The number of authors who have made publication in the conference add up to {$conference_info['AuthorNum']}.</h2>",
+					"<h2>This conference attracted {$conference_info['AuthorNum']} authors to have made publication here.</h2>");
+					echo $aut_sents[rand(0, 2)];
+				
+			?>
+		<br><br><br><br><br><br><br><br><br><br>
 		</div>
 	</div>
 </div>
 </div>
 
-<!-- section 1 -->
+<!-- section 1 
 <div class="stats-section-0 text-center py-5">
 	<div class="container-fluid">
 		<div class="row clearfix">
@@ -26,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>-->
 
 <!-- section 2 -->
 <div class="stats-section-1 text-center py-5">
@@ -62,11 +82,11 @@
 				<div class="panel">
 					<div class="panel-body stats-panel-1">
 					<div id="tau-div">
-					<svg onclick="$('#tau-div').hide('slow');$('#taf-div').show('slow');" width="700" height="400" id="tau" class="center-block" />
+					<svg onclick="$('#tau-div').hide('slow');$('#taf-div').show('slow');" width="800" height="550" id="tau" class="center-block" />
 					<h2 style="color:black">Top Authors</h2>
 					</div>
 					<div id="taf-div">
-					<svg onclick="$('#taf-div').hide('slow');$('#tau-div').show('slow');" width="700" height="400" id="taf" class="center-block" />
+					<svg onclick="$('#taf-div').hide('slow');$('#tau-div').show('slow');" width="800" height="550" id="taf" class="center-block" />
 					<h2 style="color:black">Top Affiliation</h2>
 					</div>
 					</div>
@@ -74,9 +94,56 @@
 			</div>
 			<div class="col-md-5 column py-5">
 				<h1>Publication Leaderboard</h1>
-				<h2>This graph shows the leaderboard of the current conference.</h2>
-				<h2>It displays the top 10 authors (affiliations) that publishes the most papers and the number of their publications in this conference</h2>
+				<<h2>This graph shows the leaderboard of the current conference. It displays the top 10 authors (affiliations) with the most papers published in this conference.</h2>
 				<h2>You can click the graph to change view.</h2>
+				<div class="panel-group" id="panel-167619">
+					<div class="panel">
+						<div class="text-center">
+						<div class="panel-heading panel-dark-toggle-title">
+							 <a class="panel-title" data-toggle="collapse" data-parent="#panel-167619" href="#panel-element-150618">Author Leaderboard</a>
+						</div>
+						</div>
+						<div id="panel-element-150618" class="panel-collapse collapse in">
+							<div class="panel-body panel-dark-body pre-scrollable">
+							<!-- Displays top 10 authors in following format, no pagination required -->
+								1. author a
+								<hr>
+								2. author b
+								<hr>
+								3. author a
+								<hr>
+								4. author b
+								<hr>
+								5. author a
+								<hr>
+								6. author b
+							</div>
+						</div>
+					</div>
+					<div class="panel">
+						<div class="text-center">
+						<div class="panel-heading panel-dark-toggle-title">
+							 <a class="panel-title" data-toggle="collapse" data-parent="#panel-167619" href="#panel-element-211967">Affiliation Leaderboard</a>
+						</div>
+						</div>
+						<div id="panel-element-211967" class="panel-collapse collapse">
+							<div class="panel-body panel-dark-body pre-scrollable">
+							<!-- Displays top 10 affiliations in following format, no pagination required -->
+								1. affiliation a
+								<hr>
+								2. affiliation b
+								<hr>
+								3. affiliation a
+								<hr>
+								4. affiliation b
+								<hr>
+								5. affiliation a
+								<hr>
+								6. affiliation b
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
