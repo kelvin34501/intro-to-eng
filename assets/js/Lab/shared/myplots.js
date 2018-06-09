@@ -149,323 +149,26 @@ function plot_publication_increament(source, mode=1, svg_id="#pi"){
 	}
 }
 
-function iqr(k) {
-		return function(d, i) {
-			var q1 = d.quartiles[0],
-				q3 = d.quartiles[2],
-				iqr = (q3 - q1) * k,
-				i = -1,
-				j = d.length;
-			while (d[++i] < q1 - iqr);
-			while (d[--j] > q3 + iqr);
-			return [i, j];
-		};
-	}
-
-(function() {
-
-// Inspired by http://informationandvisualization.de/blog/box-plot
-d3.box = function() {
-  var width = 1,
-      height = 1,
-      duration = 0,
-      domain = null,
-      value = Number,
-      whiskers = boxWhiskers,
-      quartiles = boxQuartiles,
-      tickFormat = null;
-
-  // For each small multiple…
-  function box(g) {
-    g.each(function(d, i) {
-      d = d.map(value).sort(d3.ascending);
-      var g = d3.select(this),
-          n = d.length,
-          min = d[0],
-          max = d[n - 1];
-
-      // Compute quartiles. Must return exactly 3 elements.
-      var quartileData = d.quartiles = quartiles(d);
-
-      // Compute whiskers. Must return exactly 2 elements, or null.
-      var whiskerIndices = whiskers && whiskers.call(this, d, i),
-          whiskerData = whiskerIndices && whiskerIndices.map(function(i) { return d[i]; });
-
-      // Compute outliers. If no whiskers are specified, all data are "outliers".
-      // We compute the outliers as indices, so that we can join across transitions!
-      var outlierIndices = whiskerIndices
-          ? d3.range(0, whiskerIndices[0]).concat(d3.range(whiskerIndices[1] + 1, n))
-          : d3.range(n);
-
-      // Compute the new x-scale.
-      var x1 = d3.scale.linear()
-          .domain(domain && domain.call(this, d, i) || [min, max])
-          .range([height, 0]);
-
-      // Retrieve the old x-scale, if this is an update.
-      var x0 = this.__chart__ || d3.scale.linear()
-          .domain([0, Infinity])
-          .range(x1.range());
-
-      // Stash the new scale.
-      this.__chart__ = x1;
-
-      // Note: the box, median, and box tick elements are fixed in number,
-      // so we only have to handle enter and update. In contrast, the outliers
-      // and other elements are variable, so we need to exit them! Variable
-      // elements also fade in and out.
-
-      // Update center line: the vertical line spanning the whiskers.
-      var center = g.selectAll("line.center")
-          .data(whiskerData ? [whiskerData] : []);
-
-      center.enter().insert("line", "rect")
-          .attr("class", "center")
-          .attr("x1", width / 2)
-          .attr("y1", function(d) { return x0(d[0]); })
-          .attr("x2", width / 2)
-          .attr("y2", function(d) { return x0(d[1]); })
-          .style("opacity", 1e-6)
-        .transition()
-          .duration(duration)
-          .style("opacity", 1)
-          .attr("y1", function(d) { return x1(d[0]); })
-          .attr("y2", function(d) { return x1(d[1]); });
-
-      center.transition()
-          .duration(duration)
-          .style("opacity", 1)
-          .attr("y1", function(d) { return x1(d[0]); })
-          .attr("y2", function(d) { return x1(d[1]); });
-
-      center.exit().transition()
-          .duration(duration)
-          .style("opacity", 1e-6)
-          .attr("y1", function(d) { return x1(d[0]); })
-          .attr("y2", function(d) { return x1(d[1]); })
-          .remove();
-
-      // Update innerquartile box.
-      var box = g.selectAll("rect.box")
-          .data([quartileData]);
-
-      box.enter().append("rect")
-          .attr("class", "box")
-          .attr("x", 0)
-          .attr("y", function(d) { return x0(d[2]); })
-          .attr("width", width)
-          .attr("height", function(d) { return x0(d[0]) - x0(d[2]); })
-        .transition()
-          .duration(duration)
-          .attr("y", function(d) { return x1(d[2]); })
-          .attr("height", function(d) { return x1(d[0]) - x1(d[2]); });
-
-      box.transition()
-          .duration(duration)
-          .attr("y", function(d) { return x1(d[2]); })
-          .attr("height", function(d) { return x1(d[0]) - x1(d[2]); });
-
-      // Update median line.
-      var medianLine = g.selectAll("line.median")
-          .data([quartileData[1]]);
-
-      medianLine.enter().append("line")
-          .attr("class", "median")
-          .attr("x1", 0)
-          .attr("y1", x0)
-          .attr("x2", width)
-          .attr("y2", x0)
-        .transition()
-          .duration(duration)
-          .attr("y1", x1)
-          .attr("y2", x1);
-
-      medianLine.transition()
-          .duration(duration)
-          .attr("y1", x1)
-          .attr("y2", x1);
-
-      // Update whiskers.
-      var whisker = g.selectAll("line.whisker")
-          .data(whiskerData || []);
-
-      whisker.enter().insert("line", "circle, text")
-          .attr("class", "whisker")
-          .attr("x1", 0)
-          .attr("y1", x0)
-          .attr("x2", width)
-          .attr("y2", x0)
-          .style("opacity", 1e-6)
-        .transition()
-          .duration(duration)
-          .attr("y1", x1)
-          .attr("y2", x1)
-          .style("opacity", 1);
-
-      whisker.transition()
-          .duration(duration)
-          .attr("y1", x1)
-          .attr("y2", x1)
-          .style("opacity", 1);
-
-      whisker.exit().transition()
-          .duration(duration)
-          .attr("y1", x1)
-          .attr("y2", x1)
-          .style("opacity", 1e-6)
-          .remove();
-
-      // Update outliers.
-      var outlier = g.selectAll("circle.outlier")
-          .data(outlierIndices, Number);
-
-      outlier.enter().insert("circle", "text")
-          .attr("class", "outlier")
-          .attr("r", 5)
-          .attr("cx", width / 2)
-          .attr("cy", function(i) { return x0(d[i]); })
-          .style("opacity", 1e-6)
-        .transition()
-          .duration(duration)
-          .attr("cy", function(i) { return x1(d[i]); })
-          .style("opacity", 1);
-
-      outlier.transition()
-          .duration(duration)
-          .attr("cy", function(i) { return x1(d[i]); })
-          .style("opacity", 1);
-
-      outlier.exit().transition()
-          .duration(duration)
-          .attr("cy", function(i) { return x1(d[i]); })
-          .style("opacity", 1e-6)
-          .remove();
-
-      // Compute the tick format.
-      var format = tickFormat || x1.tickFormat(8);
-
-      // Update box ticks.
-      var boxTick = g.selectAll("text.box")
-          .data(quartileData);
-
-      boxTick.enter().append("text")
-          .attr("class", "box")
-          .attr("dy", ".3em")
-          .attr("dx", function(d, i) { return i & 1 ? 6 : -6 })
-          .attr("x", function(d, i) { return i & 1 ? width : 0 })
-          .attr("y", x0)
-          .attr("text-anchor", function(d, i) { return i & 1 ? "start" : "end"; })
-          .text(format)
-        .transition()
-          .duration(duration)
-          .attr("y", x1);
-
-      boxTick.transition()
-          .duration(duration)
-          .text(format)
-          .attr("y", x1);
-
-      // Update whisker ticks. These are handled separately from the box
-      // ticks because they may or may not exist, and we want don't want
-      // to join box ticks pre-transition with whisker ticks post-.
-      var whiskerTick = g.selectAll("text.whisker")
-          .data(whiskerData || []);
-
-      whiskerTick.enter().append("text")
-          .attr("class", "whisker")
-          .attr("dy", ".3em")
-          .attr("dx", 6)
-          .attr("x", width)
-          .attr("y", x0)
-          .text(format)
-          .style("opacity", 1e-6)
-        .transition()
-          .duration(duration)
-          .attr("y", x1)
-          .style("opacity", 1);
-
-      whiskerTick.transition()
-          .duration(duration)
-          .text(format)
-          .attr("y", x1)
-          .style("opacity", 1);
-
-      whiskerTick.exit().transition()
-          .duration(duration)
-          .attr("y", x1)
-          .style("opacity", 1e-6)
-          .remove();
-    });
-    d3.timer.flush();
-  }
-
-  box.width = function(x) {
-    if (!arguments.length) return width;
-    width = x;
-    return box;
-  };
-
-  box.height = function(x) {
-    if (!arguments.length) return height;
-    height = x;
-    return box;
-  };
-
-  box.tickFormat = function(x) {
-    if (!arguments.length) return tickFormat;
-    tickFormat = x;
-    return box;
-  };
-
-  box.duration = function(x) {
-    if (!arguments.length) return duration;
-    duration = x;
-    return box;
-  };
-
-  box.domain = function(x) {
-    if (!arguments.length) return domain;
-    domain = x == null ? x : function(x){return x;};
-    return box;
-  };
-
-  box.value = function(x) {
-    if (!arguments.length) return value;
-    value = x;
-    return box;
-  };
-
-  box.whiskers = function(x) {
-    if (!arguments.length) return whiskers;
-    whiskers = x;
-    return box;
-  };
-
-  box.quartiles = function(x) {
-    if (!arguments.length) return quartiles;
-    quartiles = x;
-    return box;
-  };
-
-  return box;
-};
-
-function boxWhiskers(d) {
-  return [0, d.length - 1];
-}
-
-function boxQuartiles(d) {
-  return [
-    d3.quantile(d, .25),
-    d3.quantile(d, .5),
-    d3.quantile(d, .75)
-  ];
-}
-
-})();
-
 function plot_box_chart(source, svg_id="#rbp"){
-	var svg = d3.select(svg_id),
+	var chart1;
+    d3.json(source, function(error, data) {
+        data.forEach(function (d) {d.reference = +d.reference;});
+
+        chart1 = makeDistroChart({
+            data:data,
+            xName:'year',
+            yName:'value',
+            axisLabels: {xAxis: 'Year', yAxis: 'Cited Times'},
+            selector:svg_id,
+            chartSize:{height:500, width:750},
+            constrainExtremes:true});
+        chart1.renderBoxPlot();
+        chart1.renderDataPlots();
+        chart1.renderNotchBoxes({showNotchBox:false});
+        chart1.renderViolinPlot({showViolinPlot:true});
+
+    });
+	/*var svg = d3.select(svg_id),
 		margin = {top: 10, right: 50, bottom: 20, left: 50},
 		width = +svg.attr("width") - margin.left - margin.right,
 		height = +svg.attr("height") - margin.top - margin.bottom;
@@ -520,7 +223,18 @@ function plot_box_chart(source, svg_id="#rbp"){
 	}
 
 	// Returns a function to compute the interquartile range.
-	
+	function iqr(k) {
+		return function(d, i) {
+			var q1 = d.quartiles[0],
+				q3 = d.quartiles[2],
+				iqr = (q3 - q1) * k,
+				i = -1,
+				j = d.length;
+			while (d[++i] < q1 - iqr);
+			while (d[--j] > q3 + iqr);
+			return [i, j];
+		};
+	}*/
 	
 };
 	
@@ -580,7 +294,7 @@ function plot_vertical_bar(source, svg_id, mode){
 	});
 }
 
-function plot_dynamic_force_direct_graph(source, svg_id){
+function plot_dynamic_force_direct_graph(source, svg_id, updateSourcePrefix=null){
 	var colors = new Array("#66ccff", "#C15CFE");
 	var ar_color = "#8B008B",
 		ae_color = "#CD853F",
@@ -595,54 +309,93 @@ function plot_dynamic_force_direct_graph(source, svg_id){
 		.force("link", d3.forceLink().id(function(d) { return d.id; }))
 		.force("charge", d3.forceManyBody())
 		.force("center", d3.forceCenter(width / 2, height / 2));
+	
+	var nodes_memo = new Array(),
+		links_memo = new Array();
+	
+	function updateChart(sourceFile){	
+		d3.json(sourceFile, function(error, data) {
+		  if (error) throw error;
+		  
+		  data.nodes.forEach(function(d){
+			  var i = nodes_memo.findIndex(function(x){
+				  return x.id == d.id;
+			  });
+			  if(i < 0){
+				  nodes_memo.push(d);
+			  }
+			  else{
+				  nodes_memo[i].group = max(nodes_memo[i].group, d.group);
+				  d.advisors.forEach(function(ad){
+					  if(nodes_memo[i].advisors.indexOf(ad) >= 0)
+						  nodes_memo[i].advisors.push(ad);
+			      });
+				  d.advisees.forEach(function(ad){
+					  if(nodes_memo[i].advisees.indexOf(ad) >= 0)
+						  nodes_memo[i].advisees.push(ad);
+			      });
+			  }
+		  });
+		  data.links.forEach(function(d){
+			  if(links_memo.findIndex(function(x){
+				  return (x.source == d.source && x.target == d.target)
+					|| (x.source == d.target && x.target == d.source);
+			  }) < 0)
+				  links_memo.push(d);
+		  });
+		  
+		  svg.selectAll("line").remove();
+		  var link = svg.append("g")
+			  .attr("class", "links")
+			.selectAll("line")
+			.data(links_memo)
+			.enter().append("line")
+			  .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+		  svg.selectAll("circle").remove();
+		  var node = svg.append("g")
+			  .attr("class", "nodes")
+			.selectAll("circle")
+			.data(nodes_memo)
+			.enter().append("circle")
+			  .attr("r", 5)
+			  .attr("class", function(d){ return "node-id-"+d.id; })
+			  .attr("fill", function(d) { return colors[d.group-1]; })
+			  .call(d3.drag()
+				  .on("start", node_dragstarted)
+				  .on("drag", node_dragged)
+				  .on("end", node_dragended));
+
+		  node.append("title")
+			  .text(function(d) { return d.id; });
+
+		  simulation
+			  .nodes(nodes_memo)
+			  .on("tick", ticked);
 		
-		
-	d3.json(source, function(error, graph) {
-	  if (error) throw error;
-	  
-	  var link = svg.append("g")
-		  .attr("class", "links")
-		.selectAll("line")
-		.data(graph.links)
-		.enter().append("line")
-		  .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+		if(updateSourcePrefix!=null)
+			d3.selectAll("circle")
+				.on("click", node_on_click);
 
-	  var node = svg.append("g")
-		  .attr("class", "nodes")
-		.selectAll("circle")
-		.data(graph.nodes)
-		.enter().append("circle")
-		  .attr("r", 5)
-		  .attr("class", function(d){ return "node-id-"+d.id; })
-		  .attr("fill", function(d) { return colors[d.group-1]; })
-		  .call(d3.drag()
-			  .on("start", node_dragstarted)
-			  .on("drag", node_dragged)
-			  .on("end", node_dragended));
+		  simulation.force("link")
+			  .links(links_memo);
 
-	  node.append("title")
-		  .text(function(d) { return d.id; });
+		  function ticked() {
+			link
+				.attr("x1", function(d) { return d.source.x; })
+				.attr("y1", function(d) { return d.source.y; })
+				.attr("x2", function(d) { return d.target.x; })
+				.attr("y2", function(d) { return d.target.y; });
 
-	  simulation
-		  .nodes(graph.nodes)
-		  .on("tick", ticked);
-
-	  simulation.force("link")
-		  .links(graph.links);
-
-	  function ticked() {
-		link
-			.attr("x1", function(d) { return d.source.x; })
-			.attr("y1", function(d) { return d.source.y; })
-			.attr("x2", function(d) { return d.target.x; })
-			.attr("y2", function(d) { return d.target.y; });
-
-		node
-			.attr("cx", function(d) { return d.x; })
-			.attr("cy", function(d) { return d.y; });
-	  }
-	});
-
+			node
+				.attr("cx", function(d) { return d.x; })
+				.attr("cy", function(d) { return d.y; });
+		  }
+		});
+	}
+	
+	updateChart(source);
+	
 	function node_dragstarted(d) {
 	  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 	  d.fx = d.x;
@@ -679,6 +432,15 @@ function plot_dynamic_force_direct_graph(source, svg_id){
 			.attr("fill", function(k){ return colors[k.group-1]; });
 	  });
 	}
+	
+	function node_on_click(d){
+		updateChart(updateSourcePrefix + d.id);
+	}
+	
+	function max(a, b){
+		if(a > b) return a;
+		else return b;
+	}
 }
 
 function plot_conference_dist_pi_chart(source, svg_id){
@@ -688,20 +450,9 @@ function plot_conference_dist_pi_chart(source, svg_id){
 		height = +svg.attr("height") - margin.top - margin.bottom,
 		radius = Math.min(width, height) / 2;
 
-	var colors = new Array();
-	colors["43001016"] = "#0ff";
-	colors["43319DD4"] = "#f0f";
-	colors["436976F3"] = "#ff0";
-	colors["43ABF249"] = "#00f";
-	colors["43FD776C"] = "#00f";
-	colors["45083D2F"] = "#f00";
-	colors["45701BF3"] = "#0f0";
-	colors["45F914AD"] = "#fff";
-	colors["465F7C62"] = "#fff";
-	colors["46A05BB0"] = "#fff";
-	colors["46DAB993"] = "#fff";
-	colors["47167ADC"] = "#fff";
-	colors["47C39427"] = "#fff";
+	var colors = d3.scaleOrdinal()  
+            .domain(d3.range(13))  
+            .range(d3.schemeCategory20);
 	
 	var arc = d3.arc()
 		.outerRadius(radius - 10)
@@ -722,7 +473,7 @@ function plot_conference_dist_pi_chart(source, svg_id){
 
 	  g.append("path")
 		  .attr("d", arc)
-		  .style("fill", function(d) { return colors[d.data.conference_id]; });
+		  .style("fill", function(d) { return colors(d.data.conference_id); });
 
 	  g.append("text")
 		  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
