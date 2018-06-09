@@ -20,6 +20,28 @@ class Lab_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function get_paper_affi($paper_id) {
+        $query = $this->db->query(
+            "SELECT AffiliationName FROM
+            (SELECT DISTINCT(AffiliationID) FROM PaperAuthorAffiliation WHERE PaperID=?) a
+            INNER JOIN Affiliations b
+            ON a.AffiliationID = b.AffiliationID",
+            array($paper_id)
+        );
+        return $query->result_array();
+    }
+
+    public function get_paper_conf($paper_id) {
+        $query = $this->db->query(
+            "SELECT ConferenceName FROM
+            (SELECT ConferenceID FROM Papers WHERE PaperID=?) a
+            INNER JOIN Conferences b
+            ON a.ConferenceID = b.ConferenceID;",
+            array($paper_id)
+        );
+        return $query->result_array();
+    }
+
     public function get_conference($conference_id) {
         $query = $this->db->get_where('Conferences', array('ConferenceID' => $conference_id));
         return $query->row_array();
@@ -508,45 +530,5 @@ class Lab_model extends CI_Model {
             array($paper_id)
         );
         return $query->result_array();
-    }
-
-    public function get_paper_basic($paper_id) {
-        $target = "\"".$paper_id."\"";
-        $command = "SELECT Title, ConferenceID, PaperPublishYear FROM Papers WHERE PaperID=$target;";
-        $query = $this->db->query($command);
-        return $query->row_array();
-    }
-
-    public function get_paper_links($paper_id) {
-        $target = "\"".$paper_id."\"";
-        $command = "SELECT a.AuthorID, AuthorName, AuthorSequence FROM 
-            (SELECT AuthorID,AuthorSequence FROM PaperAuthorAffiliation WHERE PaperID=$target) a 
-            INNER JOIN Authors b ON a.AuthorID=b.AuthorID ORDER BY AuthorSequence;";
-        $query = $this->db->query($command);
-        return $query->result_array();
-    }
-
-    public function get_cooperation($author_id) {
-        $this->db->select('SecondID');
-        $this->db->distinct();
-        $query = $this->db->get_where('Cooperations', array('FirstID' => $author_id));
-        return $query->result_array();
-    }
-
-    public function get_relationship($first_id, $second_id) {
-        $this->db->select('IsAdvisor');
-        $this->db->distinct();
-        $query = $this->db->get_where('Cooperations', array('FirstID' => $first_id,
-                                                            'SecondID' => $second_id));
-        $flag = $query->row_array()['IsAdvisor'];
-        return (int) $flag;
-    }
-
-    public function is_cooperated($first_id, $second_id) {
-        $this->db->distinct();
-        $query = $this->db->get_where('CooperationsDup', array('FirstID' => $first_id,
-                                                            'SecondID' => $second_id));
-        $r = $query->row_array();
-        return $r !== NULL;
     }
 }

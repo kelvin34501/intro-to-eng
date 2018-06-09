@@ -98,7 +98,7 @@
 <!-- plot operations -->
 <script type='text/javascript'>
 
-get_publication_increament should recieve one more parameter 'key', details please refer to my IE lab (updated)
+// get_publication_increament should recieve one more parameter 'key', details please refer to my IE lab (updated)
 
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$affiliation_id&mode=1&key=affiliation"); ?>", 1);
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$affiliation_id&mode=2&key=affiliation"); ?>", 2);

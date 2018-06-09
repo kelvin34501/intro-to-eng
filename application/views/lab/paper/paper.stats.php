@@ -6,7 +6,7 @@
 		<div class="stats-info">
 		<br><br>
 			<?php
-				echo "<h1>".ucwords($paper_info['PaperName'])."</h1><br>";
+				echo "<h1>".ucwords($paper_info['Title'])."</h1><br>";
 				
 				$id_sents = array("<h2>The paper is using ID {$paper_info['PaperID']}.</h2>",
 				"<h2>The paper uses {$paper_info['PaperID']} as ID.</h2>",
@@ -116,6 +116,6 @@
 <!-- plot operations -->
 <script type='text/javascript'>
 plot_vertical_bar("<?php echo site_url("visual/paper_referred?paper_id=$paper_id"); ?>", "#rtd1", "ref");
-plot_vertical_bar("<?php echo site_url("search/paper_referring?paper_id=$paper_id"); ?>", "#rtd2", "ref");
+plot_vertical_bar("<?php echo site_url("visual/paper_referring?paper_id=$paper_id"); ?>", "#rtd2", "ref");
 $("#rtd2-div").hide();
 </script>

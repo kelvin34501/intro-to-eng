@@ -172,7 +172,7 @@
 <!-- plot operations -->
 <script type='text/javascript'>
 
-get_publication_increament should recieve one more parameter 'key', details please refer to my IE lab (updated)
+// get_publication_increament should recieve one more parameter 'key', details please refer to my IE lab (updated)
 
 plot_force_direct_graph("<?php echo site_url("visual/get_cn_neighbor?author_id=$author_id"); ?>");
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$author_id&mode=1&key=author"); ?>", 1);
