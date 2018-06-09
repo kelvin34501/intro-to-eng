@@ -100,6 +100,30 @@
 				</div>
 				<br>
 			</div>
+			<div class="row clearfix">
+				<div class="col-md-12">
+					<br>
+					<button type="button" class="btn btn-success btn-lg" href="#modal-container-414420" data-toggle="modal">Upgraded View</button>
+					<div class="modal fade" id="modal-container-414420" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" style="width:1600px">
+							<div class="modal-content">
+								<div class="modal-header">
+									 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h4 class="modal-title" id="myModalLabel">
+										Explorable Cooperation Network
+									</h4>
+								</div>
+								<div class="modal-body">
+									<svg width="1500" height="1000" id="exn" class="center-block" />
+								</div>
+								<div class="modal-footer">
+									 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>
 	</div>
@@ -180,4 +204,6 @@ plot_publication_increament("<?php echo site_url("visual/get_publication_incream
 $("#pi2-div").hide();
 plot_box_chart("<?php echo site_url("visual/publication_reference_count?author_id=$author_id"); ?>");
 plot_conference_dist_pi_chart("<?php echo site_url("visual/author_con?id=$author_id&key=author"); ?>", "#cfpc");
+
+plot_dynamic_force_direct_graph("<?php echo site_url("search/get_advanced_dyn_cn_neighbor?author_id=$author_id"); ?>", "#exn", "<?php echo site_url("search/get_advanced_dyn_cn_neighbor?author_id="); ?>");
 </script>
