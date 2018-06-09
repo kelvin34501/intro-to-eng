@@ -137,7 +137,7 @@
 	<div class="row clearfix">
 			<div class="col-md-8 column py-5">
 				<div class="panel">
-					<div class="panel-body stats-panel-0">
+					<div class="panel-body stats-panel-0" >
 					<svg width="750" height="500" id="rbp" class="center-block" />
 					</div>
 				</div>
