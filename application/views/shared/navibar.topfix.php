@@ -23,7 +23,7 @@
 					?>
 					<li><a href="<?php echo $_SERVER['HTTP_REFERER']?>"><span class="glyphicon glyphicon-th-list"></span> Lists</a></li>
 					<?php } ?>
-					<li><a href="#help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+					<li><a href="#modal-container-414419" data-toggle="modal"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
 				</ul>
 				<form class="form-inline m-2" action="hyper_search">
 				  <input class="form-control mr-2" type="text" name="name" placeholder="Search">
@@ -82,5 +82,26 @@
 		</div>
 		<?php } ?>
 	</div>
+	</div>
+	<div class="modal fade" id="modal-container-414419" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title text-center" id="myModalLabel">
+						Help
+					</h4>
+				</div>
+				<div class="modal-body">
+					These instructions might help you with some of your question about the usage of our website.<br>
+					These instructions might help you with some of your question about the usage of our website.<br>
+					These instructions might help you with some of your question about the usage of our website.<br>
+					These instructions might help you with some of your question about the usage of our website.<br>
+				</div>
+				<div class="modal-footer">
+					 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	</nav><br><br><br><br>
