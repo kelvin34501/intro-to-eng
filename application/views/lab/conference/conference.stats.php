@@ -106,17 +106,10 @@
 						<div id="panel-element-150618" class="panel-collapse collapse in">
 							<div class="panel-body panel-dark-body pre-scrollable">
 							<!-- Displays top 10 authors in following format, no pagination required -->
-								1. author a
-								<hr>
-								2. author b
-								<hr>
-								3. author a
-								<hr>
-								4. author b
-								<hr>
-								5. author a
-								<hr>
-								6. author b
+								<?php foreach($author_list as $index => $item): ?>
+									<?php if ($index != 0) echo "<hr>"; ?>
+									<?php echo $index + 1; ?>.&nbsp&nbsp<?php echo ucwords($item['name']); ?>
+								<?php endforeach ?>
 							</div>
 						</div>
 					</div>
@@ -129,17 +122,10 @@
 						<div id="panel-element-211967" class="panel-collapse collapse">
 							<div class="panel-body panel-dark-body pre-scrollable">
 							<!-- Displays top 10 affiliations in following format, no pagination required -->
-								1. affiliation a
-								<hr>
-								2. affiliation b
-								<hr>
-								3. affiliation a
-								<hr>
-								4. affiliation b
-								<hr>
-								5. affiliation a
-								<hr>
-								6. affiliation b
+								<?php foreach($affi_list as $index => $item): ?>
+									<?php if ($index != 0) echo "<hr>"; ?>
+									<?php echo $index + 1; ?>.&nbsp&nbsp<?php echo ucwords($item['name']); ?>
+								<?php endforeach ?>
 							</div>
 						</div>
 					</div>
@@ -154,7 +140,7 @@
 <!-- plot operations -->
 <script type='text/javascript'>
 
-get_publication_increament should recieve one more parameter 'key', details please refer to my IE lab (updated)
+// get_publication_increament should recieve one more parameter 'key', details please refer to my IE lab (updated)
 
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$conference_id&mode=1&key=conference"); ?>", 1);
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$conference_id&mode=2&key=conference"); ?>", 2);

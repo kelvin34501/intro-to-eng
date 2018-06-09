@@ -111,7 +111,7 @@ class Visual extends CI_controller {
 		foreach ($temp as $row)
 		{
 			$result[$i]["year"]=$row["paper_publish_year"];
-			$result[$i]["number"]=$row["count(reference.paper_id)"];
+			$result[$i]["number"]=$row["count"];
 			$i++;
 		}
 		$result=json_encode($result);
@@ -126,7 +126,7 @@ class Visual extends CI_controller {
 		foreach ($temp as $row)
 		{
 			$result[$i]["year"]=$row["paper_publish_year"];
-			$result[$i]["number"]=$row["count(reference.reference_id)"];
+			$result[$i]["number"]=$row["count"];
 			$i++;
 		}
 		$result=json_encode($result);

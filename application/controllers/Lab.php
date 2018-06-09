@@ -597,4 +597,65 @@ class Lab extends CI_controller {
         $this->load->view('lab/affi/affi.stats.php', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function view_conference_stats()
+	{
+        $conf_id = $this->input->get('item_id');
+        $data['conference_id'] = $conf_id;
+        $data['title'] = "Conference Stats";
+        $data['conference_info'] = $this->Lab_model->get_conference($conf_id);
+        $data['conference_info']['PaperNum'] = 
+            $this->Lab_model->get_conf_paper_total_number($conf_id);
+        $data['conference_info']['AuthorNum'] = 
+            $this->Lab_model->get_conf_auth_total_number($conf_id);
+        
+        $this->load->model('Visual_model');
+        $data['author_list'] = $this->Visual_model->conference_top_pub($conf_id,'author');
+        $data['affi_list'] = $this->Visual_model->conference_top_pub($conf_id,'affiliation');
+		
+        $this->load->view('templates/header', $data);
+        $this->load->view('shared/navibar.topfix.php', $data);
+		$this->load->view('lab/conference/conference.stats.php', $data);
+		$this->load->view('templates/footer', $data);
+    }
+    
+    public function view_paper_stats()
+	{
+        $paper_id = $this->input->get('item_id');
+		$data["paper_id"] = $paper_id;
+        $data["title"] = "Paper Stats";
+        $data['paper_info'] = $this->Lab_model->get_paper($paper_id);
+
+        $tmp = $this->Lab_model->get_paper_affi($paper_id); $len = count($tmp);
+        $affi_list = "";
+        foreach($tmp as $index => $item) {
+            if ($index == 0) {
+                $affi_list .= ucwords($item['AffiliationName']);
+            } else if ($index = $len - 1) {
+                $affi_list .= ' and '.ucwords($item['AffiliationName']);
+            } else {
+                $affi_list .= ', '.ucwords($item['AffiliationName']);
+            }
+        }
+        $data['paper_info']['Affiliation'] = $affi_list;
+
+        $tmp = $this->Lab_model->get_paper_conf($paper_id); $len = count($tmp);
+        $conf_list = "";
+        foreach($tmp as $index => $item) {
+            if ($index == 0) {
+                $conf_list .= ucwords($item['ConferenceName']);
+            } else if ($index = $len - 1) {
+                $conf_list .= ' and '.ucwords($item['ConferenceName']);
+            } else {
+                $conf_list .= ', '.ucwords($item['ConferenceName']);
+            }
+        }
+        $data['paper_info']['Conference'] = $conf_list;
+        
+		
+        $this->load->view('templates/header', $data);
+        $this->load->view('shared/navibar.topfix.php', $data);
+		$this->load->view('lab/paper/paper.stats.php', $data);
+		$this->load->view('templates/footer', $data);
+	}
 }

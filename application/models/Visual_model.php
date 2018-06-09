@@ -206,8 +206,15 @@ class Visual_model extends CI_Model {
 				array($q)
 			);
 		}
-		elseif($mode=='conference')
-			$sql = "select count(paper_id)papers, paper_publish_year from paper where conference_id = '{$q}' group by paper_publish_year order by paper_publish_year";
+		elseif($mode=='conference') {
+			$query = $this->db->query(
+				"select count(PaperID)papers, 
+					PaperPublishYear as paper_publish_year from Papers 
+				where ConferenceID = ?
+				group by paper_publish_year order by paper_publish_year",
+				array($q)
+			);
+		}
 		return $query->result_array();
 	}
     
@@ -236,19 +243,27 @@ class Visual_model extends CI_Model {
 
 	public function referred($q)
 	{
-		$sql = "select count(reference.paper_id),paper.paper_publish_year from paper inner join reference
-				on paper.paper_id=reference.paper_id where reference.reference_id='{$q}'
-				group by paper.paper_publish_year order by paper.paper_publish_year asc ";
-		$query = $this->db->query($sql);
+		$query = $this->db->query(
+			"select count(PaperReference.PaperID) as count,
+				Papers.PaperPublishYear as paper_publish_year from Papers 
+			inner join PaperReference
+			on Papers.PaperID=PaperReference.PaperID where PaperReference.ReferenceID=?
+			group by paper_publish_year order by paper_publish_year asc ",
+			array($q)
+		);
 		return $query->result_array();
 	}
 	
 	public function referring($q)
 	{
-		$sql = "select count(reference.reference_id),paper.paper_publish_year from paper inner join reference
-				on paper.paper_id=reference.reference_id where reference.paper_id='{$q}'
-				group by paper.paper_publish_year order by paper.paper_publish_year asc ";
-		$query = $this->db->query($sql);
+		$query = $this->db->query(
+			"select count(PaperReference.ReferenceID) as count,
+				Papers.PaperPublishYear as paper_publish_year from Papers 
+			inner join PaperReference
+			on Papers.PaperID=PaperReference.ReferenceID where PaperReference.PaperID=?
+			group by paper_publish_year order by paper_publish_year asc ",
+			array($q)
+		);
 		return $query->result_array();
 	}
 	
@@ -281,11 +296,39 @@ class Visual_model extends CI_Model {
 	
 	public function conference_top_pub($q, $key)
 	{
-		if($key=="author")
-			$sql = "select author.author_name as name, res.papers as papers from author inner join (select paper_author_affiliation.author_id as author_id, count(pid.paper_id)papers from paper_author_affiliation inner join (select paper_id from paper where conference_id = '{$q}')pid on paper_author_affiliation.paper_id = pid.paper_id group by paper_author_affiliation.author_id order by papers desc limit 0,11)res on author.author_id = res.author_id";
-		elseif($key=="affiliation")
-			$sql = "select affiliation.affiliation_name as name, res.papers as papers from affiliation inner join (select paper_author_affiliation.affiliation_id as affiliation_id, count(pid.paper_id)papers from paper_author_affiliation inner join (select paper_id from paper where conference_id = '{$q}')pid on paper_author_affiliation.paper_id = pid.paper_id group by paper_author_affiliation.affiliation_id order by papers desc limit 0,11)res on affiliation.affiliation_id = res.affiliation_id";
-		$query = $this->db->query($sql);
+		if ($key=="author") {
+			$query = $this->db->query(
+				"select Authors.AuthorName as name, res.papers as papers from 
+				Authors 
+				inner join 
+				(select PaperAuthorAffiliation.AuthorID as author_id, 
+					count(pid.paper_id)papers from 
+					PaperAuthorAffiliation 
+					inner join 
+					(select PaperID as paper_id from Papers where ConferenceID = ?)pid 
+					on PaperAuthorAffiliation.PaperID = pid.paper_id 
+					group by author_id 
+					order by papers desc limit 0,11)res 
+				on Authors.AuthorID = res.author_id",
+				array($q)
+			);
+		} elseif ($key=="affiliation") {
+			$query = $this->db->query(
+				"select Affiliations.AffiliationName as name, res.papers as papers from 
+				Affiliations 
+				inner join 
+				(select PaperAuthorAffiliation.AffiliationID as affiliation_id, 
+					count(pid.paper_id)papers from 
+					PaperAuthorAffiliation 
+					inner join 
+					(select PaperID as paper_id from Papers where ConferenceID = ?)pid 
+					on PaperAuthorAffiliation.PaperID = pid.paper_id
+					group by affiliation_id 
+					order by papers desc limit 0,11)res
+				on Affiliations.AffiliationID = res.affiliation_id",
+				array($q)
+			);
+		}
 		return $query->result_array();
 	}
 }
