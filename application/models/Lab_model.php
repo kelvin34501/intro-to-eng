@@ -531,4 +531,190 @@ class Lab_model extends CI_Model {
         );
         return $query->result_array();
     }
+
+    public function label()
+	{
+        $this->load->model('Label_model');
+		$PaperID = $this->input->get('PaperID');
+		$Title = $this->Label_model->recommend_Title($PaperID);
+		$Title = $Title[0]['Title'];
+		
+		$result = $this->Label_model->recommend_label($PaperID);
+		foreach ($result as $row)
+			$set[$row['Label']] = 0;
+		$words = explode(" ",$Title);
+		
+		$i = 0;
+		$label = [];
+		while ($i<count($words)-1)
+		{
+			$st = join(" ",array($words[$i],$words[$i+1]));
+			if (isset($set[$st]))
+			{
+				$label[] = $st;
+				$i=$i+2;
+			}
+			else
+			{
+				if (isset($set[$words[$i]]))
+					$label[] = $words[$i];
+				$i=$i+1;
+			}				
+		}
+		if ($i==count($words)-1&&isset($set[$words[$i]]))
+			$label[] = $words[$i];
+		$data['Label'] = $label;
+		var_dump($label);
+		
+	}
+	
+	
+	public function paper_recommend()
+	{
+        $this->load->model('Label_model');
+		$PaperID = $this->input->get('PaperID');
+		$q = $PaperID;
+		$result = $this->Label_model->recommend_reference($q);
+		$i=0;
+		$ReferenceID=[];
+		foreach ($result as $row)
+		{
+			$ReferenceID[$i]=$row['ReferenceID'];//find all the references of this paper
+			$i++;
+		}
+		$result = $this->Label_model->recommend_author($q);
+		$i=0;
+		$AuthorID=[];
+		foreach ($result as $row)
+		{
+			$AuthorID[$i]=$row['AuthorID'];//find all the authors of this paper
+			$i++;
+		}
+		$paper = [];
+		$num=0; //num of potential recommendation
+		foreach ($ReferenceID as $row)
+		{
+			$q = $row;
+			$result = $this->Label_model->recommend_paper_r($q);
+			foreach ($result as $row0)
+			{
+				if ($row0['PaperID']==$PaperID)
+					continue;
+				if (in_array($row0['PaperID'],$paper))
+				{
+					$recommend[$row0['PaperID']]['Reference']++;//add one common reference of two papers
+
+				}
+				else
+				{
+					$paper[$num]=$row0['PaperID']; //add one potential paper
+					$recommend[$row0['PaperID']]['Reference'] = 1;
+					$recommend[$row0['PaperID']]['Label'] = 0;
+					$recommend[$row0['PaperID']]['Author'] = 0;
+					$num=$num+1;
+				}
+			}
+		}
+		
+		foreach ($AuthorID as $row)
+		{
+			$q = $row;
+			$result = $this->Label_model->recommend_paper_a($q);//select PaperID from paper_author_affiliation where AuthorID='{$q}'
+			foreach ($result as $row0)
+			{
+				if ($row0['PaperID']==$PaperID)
+					continue;
+				if (in_array($row0['PaperID'],$paper))
+				{
+					$recommend[$row0['PaperID']]['Author']++;//add one common author of two papers
+
+				}
+				else
+				{
+					$paper[$num]=$row0['PaperID']; //add one potential paper
+					$recommend[$row0['PaperID']]['Reference'] = 0;
+					$recommend[$row0['PaperID']]['Label'] = 0;
+					$recommend[$row0['PaperID']]['Author'] = 1;
+					$num=$num+1;
+				}
+			}
+		}
+		
+		$Title = $this->Label_model->recommend_Title($PaperID);
+		$Title = $Title[0]['Title'];
+		
+		$result = $this->Label_model->recommend_label();
+		foreach ($result as $row)
+			$set[$row['Label']] = 0;
+		$words = explode(" ",$Title);
+		
+		$i = 0;
+		$label = [];
+		while ($i<count($words)-1)
+		{
+			$st = join(" ",array($words[$i],$words[$i+1]));
+			if (isset($set[$st]))
+			{
+				$label[] = $st;
+				$i=$i+2;
+			}
+			else
+			{
+				if (isset($set[$words[$i]]))
+					$label[] = $words[$i];
+				$i=$i+1;
+			}				
+		}
+		if ($i==count($words)-1&&isset($set[$words[$i]]))
+			$label[] = $words[$i];
+		
+		$all_paper = $this->Label_model->recommend_allpaper();
+		
+		foreach ($all_paper as $row)
+		{
+			if ($row['PaperID']==$PaperID)
+				continue;
+			foreach ($label as $i)
+			{
+				if (strstr($row["Title"],$i)=="")
+					continue;
+				if (in_array($row['PaperID'],$paper))
+				{
+					$recommend[$row['PaperID']]['Label']++;//add one common label of two papers
+	
+				}
+				else
+				{
+					$paper[$num]=$row['PaperID']; //add one potential paper
+					$recommend[$row['PaperID']]['Reference'] = 0;
+					$recommend[$row['PaperID']]['Label'] = 1;
+					$recommend[$row['PaperID']]['Author'] = 0;
+					$num=$num+1;
+				}
+			}		
+		}
+		
+		foreach ($paper as $row)
+			$recommend[$row]['Score'] = $recommend[$row]['Reference'] + $recommend[$row]['Author'] + $recommend[$row]['Label']; //calculate the score of recommendation
+		
+		
+		$recommend_num=4; //num of recommendation
+		for ($i=0;$i<min($recommend_num,$num);$i++)
+			for ($j=$i+1;$j<$num;$j++)
+				if ($recommend[$paper[$i]]['Score']<$recommend[$paper[$j]]['Score'])
+				{
+					$temp=$paper[$i];
+					$paper[$i]=$paper[$j];
+					$paper[$j]=$temp;
+				}//partly sort
+
+		for ($i=0;$i<min($recommend_num,$num);$i++)
+		{
+			$data['Recommend'][$i]['PaperID']=$paper[$i];
+			$q = $paper[$i];
+			$result = $this->Label_model->recommend_Title($q);//select Title from papers where PaperID='{$q}'
+			$data['Recommend'][$i]['Title']=$result[0]['Title'];
+			//echo "{$data['Recommend'][$i]['PaperID']} {$data['Recommend'][$i]['Title']} {$recommend[$paper[$i]]['Score']}<br>";//
+		}
+	}
 }
