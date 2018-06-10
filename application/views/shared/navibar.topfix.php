@@ -38,7 +38,7 @@
 			<div class="col-md-12 column">
 			<ul class="breadcrumb breadcrumb-setting-0 h1">
 				<li class="breadcrumb-item">
-					 <a href="###" id="home-link">Home</a>
+					 <a href="<?php echo base_url(); ?>" id="home-link">Home</a>
 				</li>
 				<?php if($title=="Result Page"){ ?>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
@@ -47,7 +47,7 @@
 				<?php }
 				elseif($title=="Author Page"){ ?>
 				<li class="breadcrumb-item">
-					 <a href="###" id="result-link">Result</a>
+					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Author
@@ -55,7 +55,7 @@
 				<?php }
 				elseif($title=="Paper Page"){ ?>
 				<li class="breadcrumb-item">
-					 <a href="###" id="result-link">Result</a>
+					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Paper
@@ -63,7 +63,7 @@
 				<?php }
 				elseif($title=="Affiliation Page"){	?>
 				<li class="breadcrumb-item">
-					 <a href="###" id="result-link">Result</a>
+					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Affiliation
@@ -71,7 +71,7 @@
 				<?php }
 				elseif($title=="Conference Page"){	?>
 				<li class="breadcrumb-item">
-					 <a href="###" id="result-link">Result</a>
+					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Conference
