@@ -9,6 +9,7 @@ class Lab extends CI_controller {
         parent::__construct();
         $this->load->model('Lab_model');
         $this->load->helper('url');
+        $this->load->helper('cookie');
     }
 
     public function index() {
@@ -20,13 +21,26 @@ class Lab extends CI_controller {
         $conference = $this->input->get('conference');
         $paper = $this->input->get('paper');
         $id = $this->input->get('id');
+        delete_cookie('query_url');
         if ($author != "") {
+            set_cookie(
+                'query_url', base_url().'lab/search_author?author='.$author, 65536
+            );
             redirect(base_url().'lab/search_author?author='.$author);
         } else if ($affiliation != "") {
+            set_cookie(
+                'query_url', base_url().'lab/search_affi?affi='.$affiliation, 65536
+            );
             redirect(base_url().'lab/search_affi?affi='.$affiliation);
         } else if ($conference != "") {
+            set_cookie(
+                'query_url', base_url().'lab/search_conference?conference='.$conference, 65536
+            );
             redirect(base_url().'lab/search_conference?conference='.$conference);
         } else if ($paper != "") {
+            set_cookie(
+                'query_url', base_url().'lab/search_paper?paper='.$paper, 65536
+            );
             redirect(base_url().'lab/search_paper?paper='.$paper);
         } else {
             $this->load->view('templates/header', $data);
@@ -53,7 +67,7 @@ class Lab extends CI_controller {
         $data['content_fetch_url'] = base_url().'lab/search_author_table?';
         $data['pagin_fetch_url'] = base_url().'pagin/pagin_bar?';
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/pagin.savevar.php', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/result.frame.php', $data);
@@ -99,7 +113,7 @@ class Lab extends CI_controller {
         $data['content_fetch_url'] = base_url().'lab/search_affi_table?';
         $data['pagin_fetch_url'] = base_url().'pagin/pagin_bar?';
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/pagin.savevar.php', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/result.frame.php', $data);
@@ -139,7 +153,7 @@ class Lab extends CI_controller {
         $data['content_fetch_url'] = base_url().'lab/search_conference_table?';
         $data['pagin_fetch_url'] = base_url().'pagin/pagin_bar?';
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/pagin.savevar.php', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/result.frame.php', $data);
@@ -179,7 +193,7 @@ class Lab extends CI_controller {
         $data['content_fetch_url'] = base_url().'lab/search_paper_table?';
         $data['pagin_fetch_url'] = base_url().'pagin/pagin_bar?';
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/pagin.savevar.php', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/result.frame.php', $data);
@@ -251,8 +265,9 @@ class Lab extends CI_controller {
         $data['title'] = "Author Page";
         $data['author_id'] = $this->input->get('author_id');
         $data['author_name'] = $this->Lab_model->get_author($data['author_id'])['AuthorName'];
+        $data['item_url'] = get_cookie('query_url');
         
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/author/author.frame.php', $data);
 
@@ -350,8 +365,9 @@ class Lab extends CI_controller {
         $data['affiliation_id'] = $this->input->get('affi_id');
         $data['affiliation_name'] = 
             $this->Lab_model->get_affi($data['affiliation_id'])['AffiliationName'];
+        $data['item_url'] = get_cookie('query_url');
         
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/affi/affi.frame.php', $data);
 
@@ -411,8 +427,9 @@ class Lab extends CI_controller {
         $data['conference_id'] = $this->input->get('conf_id');
         $data['conference_name'] = 
             $this->Lab_model->get_conference($data['conference_id'])['ConferenceName'];
+        $data['item_url'] = get_cookie('query_url');
         
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/conference/conference.frame.php', $data);
 
@@ -478,7 +495,9 @@ class Lab extends CI_controller {
         $data['venue'] = 
             $this->Lab_model->get_conference($paper_item['ConferenceID'])['ConferenceName'];
         $data['venue_id'] = $paper_item['ConferenceID'];
-        $this->load->view('templates/header');
+
+        $data['item_url'] = get_cookie('query_url');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/paper/paper.frame.php', $data);
 
@@ -574,7 +593,7 @@ class Lab extends CI_controller {
             $data['author_info']['coauthors'][] = 
                 ucwords($this->Lab_model->get_author($coau['SecondID'])['AuthorName']);
         }
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
         $this->load->view('lab/author/author.stats.php', $data);
         $this->load->view('templates/footer');

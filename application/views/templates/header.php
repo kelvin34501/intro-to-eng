@@ -33,12 +33,13 @@
 	  </head>
 
 	<script type="text/javascript">
-		$(window).load(function(){
+		$(window).on('load', function() {
 			$('body').addClass('loaded');
-			setTimeout("$('.load_title #loader-wrapper').remove();", 2500);
+			setTimeout("$('.load_title #loader-wrapper').remove();", 2000);
+			// $('.load_title #loader-wrapper').remove();
 		});
 	</script>
-	<div id="loader-wrapper">
+	<div id="loader-wrapper" class="load_title" >
 		<div id="loader"></div>
 		<div class="loader-section section-left"></div>
 		<div class="loader-section section-right"></div>

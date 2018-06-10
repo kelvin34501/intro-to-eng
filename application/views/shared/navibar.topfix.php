@@ -79,7 +79,7 @@
 				<?php }
 				elseif($title=="Author Page"){ ?>
 				<li class="breadcrumb-item">
-					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
+					 <a href="<?php echo $item_url; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Author
@@ -87,7 +87,7 @@
 				<?php }
 				elseif($title=="Paper Page"){ ?>
 				<li class="breadcrumb-item">
-					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
+					 <a href="<?php echo $item_url; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Paper
@@ -95,7 +95,7 @@
 				<?php }
 				elseif($title=="Affiliation Page"){	?>
 				<li class="breadcrumb-item">
-					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
+					 <a href="<?php echo $item_url; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Affiliation
@@ -103,7 +103,7 @@
 				<?php }
 				elseif($title=="Conference Page"){	?>
 				<li class="breadcrumb-item">
-					 <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" id="result-link">Result</a>
+					 <a href="<?php echo $item_url; ?>" id="result-link">Result</a>
 				</li>
 				<li class="breadcrumb-item active" style="color:#FFFFFF">
 					Conference
