@@ -49,7 +49,7 @@
 </div>-->
 
 <!-- section 2 -->
-<div class="stats-section-1 text-center py-5">
+<div class="stats-section-1 text-center py-5" id="pi-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
 			<div class="col-md-4 column py-5">
@@ -75,7 +75,7 @@
 </div>
 
 <!-- section 3 -->
-<div class="stats-section-0 text-center py-5">
+<div class="stats-section-0 text-center py-5" id="lb-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
 			<div class="col-md-7 column py-5">
