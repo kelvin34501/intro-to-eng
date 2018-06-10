@@ -8,7 +8,7 @@ h2 {
 	text-align:center;
 	font-weight:bold }
 body {
-	background:80% url("../../../img/dark/6.jpg");
+	background:80% url("../../imgs/dark/6.jpg");
 	background-size: 95% 95%;
 	font-family:arial;
 	font-size:20px;
@@ -24,6 +24,11 @@ body {
 	top: 50%;
 	transform: translateY(-50%);
 } 
+
+.pre-scrollable {
+max-height: 290px;
+overflow-y: scroll;
+}
 
 .navbar-setting-0 {
 	background-color:#000000
@@ -146,7 +151,7 @@ body {
 	color:#000000;
 }
 .stats-section-1{
-	background-color:#A0A0A0;
+	background-color:#3F3F3F;
 	color:#fcfcfc;
 }
 .stats-panel-1{
@@ -167,7 +172,12 @@ body {
 	background-color:#8F8F8F;
 	color:#7F7F7F;
 }
-
+.white{
+	color:#fff;
+}
+.black{
+	color:#000;
+}
 
 .text-gray {
 	color:#aaaaaa
@@ -235,6 +245,27 @@ body {
 .box .outlier {
   fill: none;
   stroke: #ccc;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis--x path {
+  display: none;
+}
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
 }
 
 /* from Pingendo */

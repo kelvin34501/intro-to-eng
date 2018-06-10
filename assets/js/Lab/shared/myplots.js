@@ -324,7 +324,7 @@ function plot_dynamic_force_direct_graph(source, svg_id, updateSourcePrefix=null
 			  if(i < 0){
 				  nodes_memo.push(d);
 			  }
-			  else{
+			  /*else{
 				  nodes_memo[i].group = max(nodes_memo[i].group, d.group);
 				  d.advisors.forEach(function(ad){
 					  if(nodes_memo[i].advisors.indexOf(ad) >= 0)
@@ -334,7 +334,7 @@ function plot_dynamic_force_direct_graph(source, svg_id, updateSourcePrefix=null
 					  if(nodes_memo[i].advisees.indexOf(ad) >= 0)
 						  nodes_memo[i].advisees.push(ad);
 			      });
-			  }
+			  }*/
 		  });
 		  data.links.forEach(function(d){
 			  if(links_memo.findIndex(function(x){
@@ -451,7 +451,7 @@ function plot_conference_dist_pi_chart(source, svg_id){
 		radius = Math.min(width, height) / 2;
 
 	var colors = d3.scaleOrdinal()  
-            .domain(d3.range(13))  
+            .domain(["43001016", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4"])  
             .range(d3.schemeCategory20);
 	
 	var arc = d3.arc()
@@ -475,10 +475,27 @@ function plot_conference_dist_pi_chart(source, svg_id){
 		  .attr("d", arc)
 		  .style("fill", function(d) { return colors(d.data.conference_id); });
 
-	  g.append("text")
-		  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+	  g.append("rect")
+		.attr("transform", function(d){
+			i = colors.domain().indexOf(d.data.conference_id)
+			var legendX = width/2 - 50;   //set position for each legend element  
+			var legendY = -height/2 + margin.top + i * 20 - 5;
+			return "translate(" + legendX + ", " + legendY + ")";  
+		})
+		.attr("width", 16)
+		.attr("height", 8)
+		.attr("fill", function(d) { return colors(d.data.conference_id); });
+		g.append("text")
+		  .attr("transform", function(d) {
+				i = colors.domain().indexOf(d.data.conference_id)
+                var legendX = width/2;   //set position for each legend element  
+                var legendY = -height/2 + margin.top + i * 20;
+                return "translate(" + legendX + ", " + legendY + ")";  
+            })
 		  .attr("dy", ".35em")
+		  .attr("fill", "#fff")
 		  .text(function(d) { return d.data.conference_id; });
+		  
 	});
 }
 
