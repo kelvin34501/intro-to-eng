@@ -205,5 +205,5 @@ $("#pi2-div").hide();
 plot_box_chart("<?php echo site_url("visual/publication_reference_count?author_id=$author_id"); ?>");
 plot_conference_dist_pi_chart("<?php echo site_url("visual/author_con?id=$author_id&key=author"); ?>", "#cfpc");
 
-plot_dynamic_force_direct_graph("<?php echo site_url("search/get_advanced_dyn_cn_neighbor?author_id=$author_id"); ?>", "#exn", "<?php echo site_url("search/get_advanced_dyn_cn_neighbor?author_id="); ?>");
+plot_dynamic_force_direct_graph("<?php echo site_url("visual/get_advanced_dyn_cn_neighbor?author_id=$author_id"); ?>", "#exn", "<?php echo site_url("visual/get_advanced_dyn_cn_neighbor?author_id="); ?>");
 </script>

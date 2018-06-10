@@ -155,8 +155,14 @@ class Visual extends CI_controller {
 		echo json_encode($temp);
 	}
 
-	public function get_dyn_cn_neighbor()
+	public function get_af_cn_neighbor()
 	{
-		$this->Visual_model->get_dyn_cn_neighbor($_GET['affiliation_id']);
+		$this->Visual_model->get_af_cn_neighbor($_GET['affiliation_id']);
+	}
+	
+	public function get_advanced_dyn_cn_neighbor()
+	{
+		$this->Visual_model->get_dyn_cn_neighbor($_GET['author_id']);
+		//$this->search_model->dyn_test($_GET['author_id']);
 	}
 }
