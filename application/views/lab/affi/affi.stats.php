@@ -104,5 +104,5 @@ plot_publication_increament("<?php echo site_url("visual/get_publication_incream
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$affiliation_id&mode=2&key=affiliation"); ?>", 2);
 $("#pi2-div").hide();
 plot_conference_dist_pi_chart("<?php echo site_url("visual/author_con?id=$affiliation_id&key=affiliation"); ?>", "#cfpc");
-plot_dynamic_force_direct_graph("<?php echo site_url("visual/get_dyn_cn_neighbor?affiliation_id=$affiliation_id"); ?>", "#afan");
+plot_dynamic_force_direct_graph("<?php echo site_url("visual/get_af_cn_neighbor?affiliation_id=$affiliation_id"); ?>", "#afan");
 </script>

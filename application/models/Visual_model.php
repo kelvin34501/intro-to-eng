@@ -107,7 +107,7 @@ class Visual_model extends CI_Model {
 		echo json_encode($result);
 	}
 
-	public function get_dyn_cn_neighbor($affiliation_id=null)
+	public function get_af_cn_neighbor($affiliation_id=null)
 	{
 		$nodes = array();
 		$links = array();
@@ -330,5 +330,96 @@ class Visual_model extends CI_Model {
 			);
 		}
 		return $query->result_array();
+	}
+
+	public function dyn_test($author_id){
+		$nodes = array();
+		$links = array();
+		
+		for($i=0;$i<10;$i++)
+		{
+			array_push($nodes, array(
+				'id' => "$i",
+				'group' => 1,
+				'advisors' => array($author_id),
+				'advisees' => array()
+			));
+			array_push($links, array(
+				'source' => "$i",
+				'target' => $author_id,
+				'value' => 2
+			));
+		}
+		
+		$result = array(
+			'nodes' => $nodes,
+			'links' => $links
+		);
+		echo json_encode($result);
+	}
+	
+	public function get_dyn_cn_neighbor($author_id)
+	{
+		$nodes = array();
+		$links = array();
+		
+		$authors = $this->db->query(
+			"(select FirstID as author_id from Cooperations where SecondID = ?) union 
+			(select SecondID as author_id from Cooperations where FirstID = ?)",
+			array($author_id, $author_id)
+		)->result_array();
+		array_push($authors, array(
+			"author_id" => $author_id));
+		$advisors = $this->db->query(
+			"select FirstID as author_id from Cooperations where IsAdvisor=1"
+		)->result_array();
+		
+		foreach($authors as $author){
+			if(in_array($author, $advisors)) $group = 2;
+			else $group = 1;
+			$advisors = $this->db->query(
+				"select FirstID as author_id from Cooperations where SecondID = ? and IsAdvisor=1",
+				array($author['author_id'])
+			)->result_array();
+			$advisees = $this->db->query(
+				"select SecondID as author_id from Cooperations where FirstID = ? and IsAdvisor=1",
+				array($author['author_id'])
+			)->result_array();
+			array_push($nodes, array(
+				'id' => $author['author_id'],
+				'group' => $group,
+				'advisors' => array_column($advisors, 'author_id'),
+				'advisees' => array_column($advisees, 'author_id')
+			));
+			$neighbors = $this->db->query(
+				"select innerneighbor.author_id from 
+				(
+					(select FirstID as author_id from Cooperations where SecondID = ?) 
+					union 
+					(select SecondID as author_id from Cooperations where SecondID = ?)
+				)outerneighbor 
+				inner join 
+				(
+					(select FirstID as author_id from Cooperations where SecondID = ?) 
+					union 
+					(select SecondID as author_id from Cooperations where FirstID = ?)
+				)innerneighbor 
+				on outerneighbor.author_id = innerneighbor.author_id",
+				array($author['author_id'],$author['author_id'],$author_id,$author_id)
+			)->result_array();
+			foreach($neighbors as $neighbor){
+				array_push($links, array(
+					'source' => $author['author_id'],
+					'target' => $neighbor['author_id'],
+					'value' => 2
+				));
+			}
+		}
+		
+		$result = array(
+			'nodes' => $nodes,
+			'links' => $links
+		);
+		echo json_encode($result);
 	}
 }
