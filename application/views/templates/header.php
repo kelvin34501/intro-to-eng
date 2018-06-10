@@ -32,6 +32,18 @@
 		<script src=<?php echo base_url().'assets/js/Lab/shared/myplots.js'; ?>></script>
 	  </head>
 
-
+	<script type="text/javascript">
+		$(window).load(function(){
+			$('body').addClass('loaded');
+			setTimeout("$('.load_title #loader-wrapper').remove();", 2500);
+		});
+	</script>
+	<div id="loader-wrapper">
+		<div id="loader"></div>
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	</div>
+	  
+	  
     <body class='home-bg' <?php if(stristr($title, 'stats')){ ?>data-spy="scroll" data-target="#scroll-listener" <?php } ?>>
 
