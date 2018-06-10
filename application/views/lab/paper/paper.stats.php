@@ -42,7 +42,7 @@
 </div>
 
 <!-- section 1 -->
-<div class="stats-section-1 text-center py-5">
+<div class="stats-section-1 text-center py-5" id="rtd-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
 			<div class="col-md-6 column py-5">
@@ -69,7 +69,7 @@
 </div>
 
 <!-- section 2 -->
-<div class="stats-section-0 text-center py-5">
+<div class="stats-section-0 text-center py-5" id="rec-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
 		<div class="col-md-12 column">

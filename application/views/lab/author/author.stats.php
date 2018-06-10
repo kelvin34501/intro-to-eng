@@ -54,7 +54,7 @@
 </div>
 
 <!-- section 1 -->
-<div class="stats-section-0 text-center py-5">
+<div class="stats-section-0 text-center py-5" id="cn-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
 			<div class="col-md-7 column py-5">
@@ -130,7 +130,7 @@
 </div>
 
 <!-- section 2 -->
-<div class="stats-section-1 text-center py-5">
+<div class="stats-section-1 text-center py-5" id="pi-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
 			<div class="col-md-4 column py-5">
@@ -155,7 +155,7 @@
 	</div>
 </div>
 
-<!-- section 3 -->
+<!-- section 3 
 <div class="stats-section-0 text-center py-5">
 <div class="container-fluid">
 	<div class="row clearfix">
@@ -171,21 +171,21 @@
 			</div>
 		</div>
 </div>
-</div>
+</div>-->
 
-<div class="stats-section-0 text-center py-5">
+<div class="stats-section-0 text-center py-5" id="cfpc-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
-			<div class="col-md-5 column py-5">
-				<h1>Conference Distribution</h1>
-				<h2>This graph shows the distribution of the publication of current author in different conferences.</h2>
-			</div>
 			<div class="col-md-7 column py-5">
 				<div class="panel">
 					<div class="panel-body stats-panel-0">
 					<svg width="750" height="500" id="cfpc" class="center-block" />
 					</div>
 				</div>
+			</div>
+			<div class="col-md-5 column py-5">
+				<h1>Conference Distribution</h1>
+				<h2>This graph shows the distribution of the publication of current author in different conferences.</h2>
 			</div>
 		</div>
 	</div>
@@ -202,7 +202,7 @@ plot_force_direct_graph("<?php echo site_url("visual/get_cn_neighbor?author_id=$
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$author_id&mode=1&key=author"); ?>", 1);
 plot_publication_increament("<?php echo site_url("visual/get_publication_increament?id=$author_id&mode=2&key=author"); ?>", 2);
 $("#pi2-div").hide();
-plot_box_chart("<?php echo site_url("visual/publication_reference_count?author_id=$author_id"); ?>");
+//plot_box_chart("<?php echo site_url("visual/publication_reference_count?author_id=$author_id"); ?>");
 plot_conference_dist_pi_chart("<?php echo site_url("visual/author_con?id=$author_id&key=author"); ?>", "#cfpc");
 
 plot_dynamic_force_direct_graph("<?php echo site_url("visual/get_advanced_dyn_cn_neighbor?author_id=$author_id"); ?>", "#exn", "<?php echo site_url("visual/get_advanced_dyn_cn_neighbor?author_id="); ?>");
