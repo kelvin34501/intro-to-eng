@@ -1,0 +1,51 @@
+proj
+├── application
+│   ├── controllers
+│   │   ├── Autocomplete.php
+│   │   ├── Label.php
+│   │   ├── Lab.php
+│   │   ├── Pagin.php
+│   │   └── Visual.php
+│   ├── models
+│   │   ├── Label_model.php
+│   │   ├── Lab_model.php
+│   │   └── Visual_model.php
+│   └── views
+│       ├── lab
+│       │   ├── affi            (directory)
+│       │   ├── author          (directory)
+│       │   ├── conference      (directory)
+│       │   ├── home.php
+│       │   ├── paper           (directory)
+│       │   └── result.frame.php
+│       ├── multi_pagin
+│       │   ├── dyn_pagin.php
+│       │   └── dyn_pagin_savevar.php
+│       ├── shared
+│       │   ├── navibar.topfix.php
+│       │   ├── pagin.bar.php
+│       │   └── pagin.savevar.php
+│       └── templates
+│           ├── footer.php
+│           └── header.php
+└── assets
+    ├── css
+    │   └── Lab
+    │       ├── author
+    │       │   └── visual.css
+    │       ├── home
+    │       │   └── search_section_style.css
+    │       └── themes
+    │           └── theme.css
+    └── js
+        └── Lab
+            ├── home
+            │   ├── animation.js
+            │   └── autocompletes.js
+            └── shared
+                ├── box.js
+                ├── distrochart.js
+                ├── myplots.js
+                ├── pagin.js
+                └── sidebar.js
+

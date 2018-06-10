@@ -8,6 +8,7 @@ class Lab extends CI_controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Lab_model');
+        $this->load->model('Label_model');
         $this->load->helper('url');
         $this->load->helper('cookie');
     }
@@ -521,6 +522,13 @@ class Lab extends CI_controller {
             base_url()."lab/view_paper_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
+        $lbl_count = $this->Label_model->fetch_paper_label($data['paper_id'],0,0)['num'];
+        $this->_makeup_dyn_padin("labl", "paper_labl", $data['paper_id'],
+            $lbl_count, 10, 5,
+            "lab-paper-sidebar-lb-items", "lab-paper-sidebar-lb-pagination",
+            base_url()."label/view_paper_label?", 
+            base_url()."pagin/pagin_bar?", $data
+        );
 
         $this->load->view('templates/footer');
     }
@@ -680,5 +688,5 @@ class Lab extends CI_controller {
         $this->load->view('shared/navibar.topfix.php', $data);
 		$this->load->view('lab/paper/paper.stats.php', $data);
 		$this->load->view('templates/footer', $data);
-	}
+    }
 }

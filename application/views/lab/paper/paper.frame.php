@@ -114,39 +114,11 @@
 
 					<!-- Whether this part will be implemented remains to be seen -->
 					<a href="###" class="list-group-item text-center active" id="lab-paper-sidebar-lb-control">Labels</a>
-					<div id="lab-paper-sidebar-lb-items">
-						<div class="list-group-item">
-							<a href="#">lb1</a>
-						</div>
-						<div class="list-group-item">
-							<a href="#">lb2</a>
-						</div>
-						<div class="list-group-item">
-							<a href="#">lb3</a>
+					<div id="lab-paper-sidebar-lb-box">
+						<div id="lab-paper-sidebar-lb-items" >
 						</div>
 						<div class="list-group-item-text text-center">
 								<ul class="pagination pagination-sm" id="lab-paper-sidebar-lb-pagination">
-									<li>
-										 <a href="#">Prev</a>
-									</li>
-									<li>
-										 <a href="#">1</a>
-									</li>
-									<li>
-										 <a href="#">2</a>
-									</li>
-									<li>
-										 <a href="#">3</a>
-									</li>
-									<li>
-										 <a href="#">4</a>
-									</li>
-									<li>
-										 <a href="#">5</a>
-									</li>
-									<li>
-										 <a href="#">Next</a>
-									</li>
 								</ul>
 						</div>
 					</div>
