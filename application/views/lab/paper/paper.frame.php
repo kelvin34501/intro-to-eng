@@ -6,6 +6,66 @@
 				<div class="panel">
 					<div class="text-center">
 					<div class="panel-heading panel-dark-toggle-title">
+						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-150618" href="#panel-element-150600">Authors</a>
+					</div>
+					</div>
+					<div id="panel-element-150600" class="panel-collapse collapse in">
+						<div class="panel-body panel-dark-body text-center">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+								<th class="text-center">Number</th>
+								<th class="text-center">Author Name</th>
+								<th class="text-center">Affiliation</th>
+								</tr>
+							</thead>
+							<tbody id="lab-paper-sidebar-ca-items">
+								<tr>
+								<td>1</td>
+								<td><a href="#">Tanmay</a></td>
+								<td><a href="#">Bangalore</a></td>
+								</tr>
+								<tr>
+								<td>2</td>
+								<td><a href="#">Sachin</a></td>
+								<td><a href="#">Mumbai</a></td>
+								</tr>
+								<tr>
+								<td>3</td>
+								<td><a href="#">Uma</a></td>
+								<td><a href="#">Pune</a></td>
+								</tr>
+							</tbody>
+						</table>
+							<ul class="pagination pagination-dark" id="lab-paper-sidebar-ca-pagination">
+								<li>
+									 <a href="#">Prev</a>
+								</li>
+								<li>
+									 <a href="#">1</a>
+								</li>
+								<li>
+									 <a href="#">2</a>
+								</li>
+								<li>
+									 <a href="#">3</a>
+								</li>
+								<li>
+									 <a href="#">4</a>
+								</li>
+								<li>
+									 <a href="#">5</a>
+								</li>
+								<li>
+									 <a href="#">Next</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="text-center">
+					<div class="panel-heading panel-dark-toggle-title">
 						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-167619" href="#panel-element-150618">References</a>
 					</div>
 					</div>
@@ -85,24 +145,7 @@
 				</div>
 			</div>
 			<div class="list-group">
-				<a href="###" class="list-group-item text-center active" id="lab-paper-sidebar-ca-control">Coauthors</a>
-					<div id="lab-paper-sidebar-ca-box">
-						<div id="lab-paper-sidebar-ca-items">
-							<!-- most cooperative coauthors should be listed here -->
-							<!--
-								recommanded format for each item:
-									<div class="list-group-item">
-										<a>[coauthor name]</a>
-									</div>
-							-->
-						</div>
-						<div class="list-group-item-text text-center">
-							<ul class="pagination pagination-sm" id="lab-paper-sidebar-ca-pagination">
-								<!-- pagination should be put here -->
-							</ul>
-						</div>
-					</div>
-					
+
 					<!-- Whether this part will be implemented remains to be seen -->
 					<a href="###" class="list-group-item text-center active" id="lab-paper-sidebar-lb-control">Labels</a>
 					<div id="lab-paper-sidebar-lb-items">
