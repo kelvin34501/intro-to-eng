@@ -14,51 +14,17 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-								<th class="text-center">Number</th>
+								<th class="text-center">Sequence</th>
 								<th class="text-center">Author Name</th>
 								<th class="text-center">Affiliation</th>
 								</tr>
 							</thead>
-							<tbody id="lab-paper-sidebar-ca-items">
-								<tr>
-								<td>1</td>
-								<td><a href="#">Tanmay</a></td>
-								<td><a href="#">Bangalore</a></td>
-								</tr>
-								<tr>
-								<td>2</td>
-								<td><a href="#">Sachin</a></td>
-								<td><a href="#">Mumbai</a></td>
-								</tr>
-								<tr>
-								<td>3</td>
-								<td><a href="#">Uma</a></td>
-								<td><a href="#">Pune</a></td>
-								</tr>
+							<tbody id="lab-paper-panel-ca-items">
+								<!-- fill by js -->
 							</tbody>
 						</table>
-							<ul class="pagination pagination-dark" id="lab-paper-sidebar-ca-pagination">
-								<li>
-									 <a href="#">Prev</a>
-								</li>
-								<li>
-									 <a href="#">1</a>
-								</li>
-								<li>
-									 <a href="#">2</a>
-								</li>
-								<li>
-									 <a href="#">3</a>
-								</li>
-								<li>
-									 <a href="#">4</a>
-								</li>
-								<li>
-									 <a href="#">5</a>
-								</li>
-								<li>
-									 <a href="#">Next</a>
-								</li>
+							<ul class="pagination pagination-dark" id="lab-paper-panel-ca-pagination">
+								<!-- fill by js -->
 							</ul>
 						</div>
 					</div>

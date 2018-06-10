@@ -517,7 +517,7 @@ class Lab extends CI_controller {
         );
         $this->_makeup_dyn_padin("coau", "paper_coau", $data['paper_id'],
             $this->Lab_model->get_paper_author_total_number($data['paper_id']), 10, 5,
-            "lab-paper-sidebar-ca-items", "lab-paper-sidebar-ca-pagination",
+            "lab-paper-panel-ca-items", "lab-paper-panel-ca-pagination",
             base_url()."lab/view_paper_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
@@ -567,9 +567,13 @@ class Lab extends CI_controller {
     
             $retrieve = $this->Lab_model->search_author_of_paper(
                 $paper_id, $pagenum, 10);
+            foreach($retrieve as $index=>$item) {
+                $retrieve[$index]['Affiliation'] = 
+                    $this->Lab_model->get_paper_author_affi($paper_id, $item['AuthorID']);
+            }
             $data['query_result'] = $retrieve;
             $data['offset'] = $pagenum;
-            echo $this->load->view('lab/author/author.content.php', $data, true);
+            echo $this->load->view('lab/author/author.paper.table.php', $data, true);
         }
     }
 

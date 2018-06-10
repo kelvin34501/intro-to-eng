@@ -42,6 +42,17 @@ class Lab_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_paper_author_affi($paper_id, $author_id) {
+        $query = $this->db->query(
+            "SELECT a.AffiliationID, AffiliationName FROM
+            (SELECT AffiliationID FROM PaperAuthorAffiliation 
+            WHERE PaperID=? AND AuthorID=?) a 
+            INNER JOIN Affiliations b ON a.AffiliationID=b.AffiliationID",
+            array($paper_id, $author_id)
+        );
+        return $query->row_array();
+    }
+
     public function get_conference($conference_id) {
         $query = $this->db->get_where('Conferences', array('ConferenceID' => $conference_id));
         return $query->row_array();
