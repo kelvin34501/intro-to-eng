@@ -57,7 +57,7 @@
 					<?php } ?>
 					<li><a href="#modal-container-414419" data-toggle="modal"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
 				</ul>
-				<form class="form-inline m-2" action="hyper_search">
+				<form class="form-inline m-2" action="<?php echo base_url().'lab/hyper_search'; ?>" method="get">
 				  <input class="form-control mr-2" type="text" name="command" placeholder="Search">
 				  <button class="btn btn-primary" type="submit">Search</button>
 				</form>
@@ -115,6 +115,7 @@
 		<?php } ?>
 	</div>
 	</div>
+</nav>
 	<div class="modal fade" id="modal-container-414419" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -136,4 +137,4 @@
 			</div>
 		</div>
 	</div>
-	</nav><br><br><br><br>
+<br><br><br><br>

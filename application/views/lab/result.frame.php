@@ -144,4 +144,6 @@
 	</div>
 </div>
 
-<script src="<?php echo base_url().'assets/js/Lab/shared/pagin.js'; ?>" ></script>
+<?php if (!isset($dyn_pagin)) { ?>
+	<script src="<?php echo base_url().'assets/js/Lab/shared/pagin.js'; ?>" ></script>
+<?php } ?>
