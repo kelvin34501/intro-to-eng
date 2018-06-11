@@ -21,7 +21,7 @@
 		<script src="<?php echo base_url().'assets/js/Lab/shared/sidebar.js' ?>" ></script>
 		
 		<!-- import loader -->
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url().'vendor/components/loader/loader.css' ?>" />
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url().'assets/css/lib/loader/loader.css' ?>" />
 		
 		<!-- import velocity -->
 		<link rel="stylesheet" href="<?php echo base_url().'vendor/components/velocity/velocity-style.css' ?>" />
