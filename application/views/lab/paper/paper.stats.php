@@ -104,7 +104,8 @@
 										for($j=0;$j<count($recommends[$i]['coA']);$j++)
 										{
 											if($j > 0) echo ", ";
-											echo "<a href='".base_url()."lab/view_author?author_id={$recommends[$i]['coA'][$j]['AuthorID']}'>".ucwords($recommends[$i]['coA'][$j]['AuthorName'])."</a>";
+											
+											echo "<a href=\"".base_url()."lab/view_author?author_id=".$recommends[$i]['coA'][$j]['AuthorID']."\">".ucwords($recommends[$i]['coA'][$j]['AuthorName'])."</a>";
 										}
 										echo ".<br>";
 									}
