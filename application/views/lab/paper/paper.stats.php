@@ -104,7 +104,6 @@
 										for($j=0;$j<count($recommends[$i]['coA']);$j++)
 										{
 											if($j > 0) echo ", ";
-											
 											echo "<a href=\"".base_url()."lab/view_author?author_id=".$recommends[$i]['coA'][$j]['AuthorID']."\">".ucwords($recommends[$i]['coA'][$j]['AuthorName'])."</a>";
 										}
 										echo ".<br>";
@@ -115,7 +114,7 @@
 										for($j=0;$j<count($recommends[$i]['coR']);$j++)
 										{
 											if($j > 0) echo ", ";
-											echo "<a href='".base_url()."lab/view_paper?paper_id={$recommends[$i]['coR'][$j]['PaperID']}'>{ucwords($recommends[$i]['coR'][$j]['Title'])}</a>";
+											echo "<a href=\"".base_url()."lab/view_paper?paper_id=".$recommends[$i]['coR'][$j]['PaperID']."\">".ucwords($recommends[$i]['coR'][$j]['Title'])."</a>";
 										}
 										echo ".<br>";
 									}
@@ -125,12 +124,12 @@
 										for($j=0;$j<count($recommends[$i]['coL']);$j++)
 										{
 											if($j > 0) echo ", ";
-											echo "<a href='".base_url()."lab/search_paper?paper={$recommends[$i]['coL'][$j]}'>{ucwords($recommends[$i]['coL'][$j])}</a>";
+											echo "<a href=\"".base_url()."lab/search_paper?paper=".$recommends[$i]['coL'][$j]."\">".ucwords($recommends[$i]['coL'][$j])."</a>";
 										}
 										echo ".<br>";
 									}
 									else $offset += 1;
-									echo "&nbsp&nbspIt has a similarity score of {$recommends[$i]['Score']}.";
+									echo "&nbsp&nbspIt has a similarity score of ".$recommends[$i]['Score']}.".";
 									for($j=0;$j<$offset;$j++) echo "<br>";
 									?>
 									</div>
