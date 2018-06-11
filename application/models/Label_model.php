@@ -280,7 +280,7 @@ class Label_model extends CI_Model {
 		for ($i=0;$i<$num;$i++)
 			$recommend[$paper[$i]]['PaperID']=$paper[$i];
 		
-		$recommend_num=4; //num of recommendation
+		$recommend_num=8; //num of recommendation
 		for ($i=0;$i<min($recommend_num,$num);$i++)
 			for ($j=$i+1;$j<$num;$j++)
 				if ($recommend[$paper[$i]]['Score']<$recommend[$paper[$j]]['Score'])

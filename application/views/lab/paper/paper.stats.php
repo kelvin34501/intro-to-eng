@@ -93,9 +93,9 @@
 							<div class="col-md-6">
 								<div class="panel">
 								<div class="panel-body panel-dark-body">
-									<div class="panel-item-title-0"><a href="<?php echo base_url()."lab/view_paper?paper_id={$recommends[$i]['PaperID']}"; ?>"><?php echo ucwords($recommends[$i]['Title']); ?></a></div>
+									<div class="panel-item-title-0"><a href="<?php echo base_url()."lab/view_paper?paper_id={$recommends[$i]['PaperID']}"; ?>"><?php echo "&nbsp&nbsp".ucwords($recommends[$i]['Title']); ?></a></div>
 									<div class="panel-item-content-0">&nbsp Paper ID: <?php echo $recommends[$i]['PaperID']; ?> - Venue: <?php echo ucwords($recommends[$i]['ConferenceName']); ?> - Published Year: <?php echo $recommends[$i]['PaperPublishYear']; ?> - Times Cited: <?php echo $recommends[$i]['ReferenceNum']; ?></div><hr>
-									<div class="panel-item-title-0">We recommend this paper to you because:</div>
+									<div class="panel-item-title-0">&nbsp&nbspWe recommend this paper to you because:</div>
 									<div class="panel-item-content-0">
 									<?php
 									$offset = 0;

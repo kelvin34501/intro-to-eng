@@ -46,6 +46,7 @@
 			</div>
 			<div class="col-md-6 column py-5">
 				<h1>Cooperation Network</h1>
+				<h2>This displays the cooperation network of authors within this affiliation.</h2>
 			</div>
 		</div>
 	</div>
@@ -94,9 +95,9 @@
 			</div>
 		</div>
 	</div>
+	<br><br><br>
 </div>
 
-<br><br><br>
 
 <!-- plot operations -->
 <script type='text/javascript'>

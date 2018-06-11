@@ -271,22 +271,26 @@ class Visual_model extends CI_Model {
 	{
 		if ($key=='author') {
 			$query = $this->db->query(
-				"select Papers.ConferenceID as conference_id,
-					count(Papers.PaperID)number 
-				from Papers
+				"select Conferences.ConferenceName as conference_id,
+					count(Papers.PaperID)number from Papers
 				inner join PaperAuthorAffiliation 
 				on Papers.PaperID=PaperAuthorAffiliation.PaperID 
+				inner join Conferences
+				on Papers.ConferenceID=Conferences.ConferenceID
 				where PaperAuthorAffiliation.AuthorID=?
 				group by conference_id",
 				array($q)
 			);
 		} else if( $key=='affiliation') {
 			$query = $this->db->query(
-				"select Papers.ConferenceID as conference_id,
-					count(Papers.PaperID)number from Papers 
+				"select Conferences.ConferenceName as conference_id,
+					count(Papers.PaperID)number 
+				from Papers
 				inner join PaperAuthorAffiliation 
-				on Papers.PaperID=PaperAuthorAffiliation.PaperID
-				where PaperAuthorAffiliation.AffiliationID='{$q}'
+				on Papers.PaperID=PaperAuthorAffiliation.PaperID 
+				inner join Conferences
+				on Papers.ConferenceID=Conferences.ConferenceID
+				where PaperAuthorAffiliation.AffiliationID=?
 				group by conference_id",
 				array($q)
 			);
@@ -308,7 +312,7 @@ class Visual_model extends CI_Model {
 					(select PaperID as paper_id from Papers where ConferenceID = ?)pid 
 					on PaperAuthorAffiliation.PaperID = pid.paper_id 
 					group by author_id 
-					order by papers desc limit 0,11)res 
+					order by papers desc limit 0,10)res 
 				on Authors.AuthorID = res.author_id",
 				array($q)
 			);
@@ -324,7 +328,7 @@ class Visual_model extends CI_Model {
 					(select PaperID as paper_id from Papers where ConferenceID = ?)pid 
 					on PaperAuthorAffiliation.PaperID = pid.paper_id
 					group by affiliation_id 
-					order by papers desc limit 0,11)res
+					order by papers desc limit 0,10)res
 				on Affiliations.AffiliationID = res.affiliation_id",
 				array($q)
 			);

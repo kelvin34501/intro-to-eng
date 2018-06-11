@@ -35,7 +35,7 @@
 						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-167619" href="#panel-element-150618">References</a>
 					</div>
 					</div>
-					<div id="panel-element-150618" class="panel-collapse collapse in">
+					<div id="panel-element-150618" class="panel-collapse collapse">
 						<div class="panel-body panel-dark-body" id="lab-paper-reference-panel">
 							<div id="lab-paper-reference-items" >
 								<!-- Paper's references should be pu here -->

@@ -97,7 +97,7 @@
 			</div>
 			<div class="col-md-5 column py-5">
 				<h1>Publication Leaderboard</h1>
-				<<h2>This graph shows the leaderboard of the current conference. It displays the top 10 authors (affiliations) with the most papers published in this conference.</h2>
+				<h2>This graph shows the leaderboard of the current conference. It displays the top 10 authors (affiliations) with the most papers published in this conference.</h2>
 				<h2>You can click the graph to change view.</h2>
 				<div class="panel-group" id="panel-167619">
 					<div class="panel">

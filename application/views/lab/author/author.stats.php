@@ -47,7 +47,7 @@
 				}
 				else echo "<h2>The author seems to enjoy working alone, since it hasn's coauthored any paper with others.</h2>";
 			?>
-			<br><br><br>
+			<br><br><br><br>
 		</div>
 		</div>
 		<div class="col-md-5 column py-5">
@@ -192,9 +192,9 @@
 			</div>
 		</div>
 	</div>
+	<br><br><br>
 </div>
 
-<br><br><br>
 
 <!-- plot operations -->
 <script type='text/javascript'>
