@@ -819,7 +819,7 @@ class Lab extends CI_controller {
                     base_url()."pagin/pagin_bar?", $data
                 );
             }
-            if ($num_affi> 0) {
+            if ($num_paper> 0) {
                 $this->_makeup_dyn_padin("paper", "hyper_paper", 
                     $command, $num_paper,
                     $this->res_per_page, 10,

@@ -502,10 +502,19 @@ function plot_conference_dist_pi_chart(source, svg_id){
 function plot_label_cloud(source, svg_id){
 	var svg = d3.select(svg_id),
 		width = +svg.attr("width"),
-		height = +svg.attr("height");
+		height = +svg.attr("height"),
+		size = 40,
+		maxsize = 0;
 	
 	d3.json(source, function(error, data) {
 		if (error) throw error;
+
+		data.forEach(function(d){
+			if(maxsize < d.size)
+				maxsize = d.size;
+		});
+		for(var i=0;i<data.length;i++)
+			data[i].size = data[i].size * size / maxsize;
 
 		var fill = d3.scaleOrdinal()
 			.domain(data.map(function(d){
@@ -532,7 +541,7 @@ function plot_label_cloud(source, svg_id){
 		//transform:translate(x,y)  定义2d旋转，即平移，向右平移x,向下平移y
 		function draw(words) {
 			svg.append("g")
-				.attr("transform", "translate(" + width + "," + height + ")")
+				.attr("transform", "translate(" + width/2 + "," + height/2 + ")")
 				.selectAll("text")
 				.data(words)
 				.enter().append("text")

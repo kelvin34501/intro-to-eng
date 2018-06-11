@@ -130,18 +130,18 @@
 		<div class="col-md-2 column">
 		</div>
 	</div>
-	<div class="row clearfix">
-		<div class="col-md-12 centering">
+	<!-- <div class="row clearfix">
+		<div class="col-md-12 centering"> -->
 			<!-- This should be deleted when the pressed event is added to breadcrumb -->
 			<!-- Or the URLs should be changed -->
-			<h3>
+			<!-- <h3>
 			<?php
 				echo "<a href='".site_url("search/view_home?")."'>Home</a><br>";
 			?>
 			<br>
 			</h3>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <?php if (!isset($dyn_pagin)) { ?>

@@ -35,13 +35,14 @@
 			              </div>
 
 
-			              <h3 class="text-center" style="color:#ffffff" id='id-search-title'>ID Search</h3>
+			              <!-- <h3 class="text-center" style="color:#ffffff" id='id-search-title'>ID Search</h3>
 			              <div id='id-search'>
 			                  ID:
 							  <input type="text" id="id" name="id" value="">
 							  <br>
-			              </div><br>
-
+			              </div>-->
+						  <br> 
+						  
 			              <input type="submit" value="Launch" value="">
 			          </form>
 		        </h3>

@@ -35,7 +35,7 @@ class Label_model extends CI_Model {
 		$sql = "select PaperLabel.Label,count(PaperLabel.Label) from PaperLabel
 				inner join Papers on Papers.PaperID=PaperLabel.PaperID
 				where Papers.ConferenceID='{$q}'
-				group by PaperLabel.Label order by count(Label) desc";
+				group by PaperLabel.Label order by count(Label) desc limit 600";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}

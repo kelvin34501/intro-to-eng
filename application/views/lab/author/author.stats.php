@@ -1,7 +1,7 @@
 <!-- info display -->
 <div class="container-fluid">
 	<div class="row clearfix">
-		<div class="col-md-2"></div>
+		<div class="col-md-1"></div>
 		<div class="col-md-6 column py-5">
 		<div class="stats-info">
 		<br><br>
@@ -50,7 +50,7 @@
 			<br><br><br>
 		</div>
 		</div>
-		<div class="col-md-4 column py-5">
+		<div class="col-md-5 column py-5">
 			<svg width="600" height="400" id="label-cloud" class="center-block"/>
 		</div>
 	</div>
