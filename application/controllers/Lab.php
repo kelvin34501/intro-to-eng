@@ -768,7 +768,8 @@ class Lab extends CI_controller {
             );
             $data['title'] = 'Result Page';
 
-            $command = $this->input->get('command');
+            $command = trim($this->input->get('command'));
+
             $num_author = $this->Lab_model->get_author_total_number($command);
             $num_affi = $this->Lab_model->get_affi_total_number($command);
             $num_conf = $this->Lab_model->get_conference_total_number($command);
