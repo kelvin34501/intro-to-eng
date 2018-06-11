@@ -21,12 +21,12 @@
 		<script src="<?php echo base_url().'assets/js/Lab/shared/sidebar.js' ?>" ></script>
 		
 		<!-- import loader -->
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url().'vendor/components/loader/loader.css' ?>" />
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url().'third_party/loader/loader.css' ?>" />
 		
 		<!-- import velocity -->
-		<link rel="stylesheet" href="<?php echo base_url().'vendor/components/velocity/velocity-style.css' ?>" />
-		<script type="text/javascript" href="<?php echo base_url().'vendor/components/velocity/velocity.min.js' ?>"></script>
-		<script type="text/javascript" href="<?php echo base_url().'vendor/components/velocity/velocity.ui.min.js' ?>"></script>
+		<!-- <link rel="stylesheet" href="<?php echo base_url().'vendor/components/velocity/velocity-style.css' ?>" /> -->
+		<!-- <script type="text/javascript" href="<?php echo base_url().'vendor/components/velocity/velocity.min.js' ?>"></script> -->
+		<!-- <script type="text/javascript" href="<?php echo base_url().'vendor/components/velocity/velocity.ui.min.js' ?>"></script> -->
 		
 		<!-- import myplots -->
 		<script src=<?php echo base_url().'assets/js/Lab/shared/myplots.js'; ?>></script>
