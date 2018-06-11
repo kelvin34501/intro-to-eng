@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row clearfix">
 		<div class="col-md-2"></div>
-		<div class="col-md-8 column py-5">
+		<div class="col-md-6 column py-5">
 		<div class="stats-info">
 		<br><br>
 			<?php
@@ -49,8 +49,11 @@
 			?>
 			<br><br><br>
 		</div>
+		</div>
+		<div class="col-md-4 column py-5">
+			<svg width="600" height="400" id="label-cloud" class="center-block"/>
+		</div>
 	</div>
-</div>
 </div>
 
 <!-- section 1 -->
@@ -206,4 +209,6 @@ $("#pi2-div").hide();
 plot_conference_dist_pi_chart("<?php echo site_url("visual/author_con?id=$author_id&key=author"); ?>", "#cfpc");
 
 plot_dynamic_force_direct_graph("<?php echo site_url("visual/get_advanced_dyn_cn_neighbor?author_id=$author_id"); ?>", "#exn", "<?php echo site_url("visual/get_advanced_dyn_cn_neighbor?author_id="); ?>");
+
+plot_label_cloud("<?php echo site_url("visual/get_author_label?author_id=$author_id"); ?>", "#label-cloud");
 </script>

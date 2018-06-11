@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row clearfix">
 		<div class="col-md-2"></div>
-		<div class="col-md-8 column py-5">
+		<div class="col-md-6 column py-5">
 		<div class="stats-info">
 		<br><br>
 			<?php
@@ -26,8 +26,11 @@
 			?>
 		<br><br><br><br><br><br><br><br><br><br>
 		</div>
+		</div>
+		<div class="col-md-4 column py-5">
+			<svg width="600" height="400" id="label-cloud" class="center-block"/>
+		</div>
 	</div>
-</div>
 </div>
 
 <!-- section 1 -->
@@ -105,4 +108,6 @@ plot_publication_increament("<?php echo site_url("visual/get_publication_incream
 $("#pi2-div").hide();
 plot_conference_dist_pi_chart("<?php echo site_url("visual/author_con?id=$affiliation_id&key=affiliation"); ?>", "#cfpc");
 plot_dynamic_force_direct_graph("<?php echo site_url("visual/get_af_cn_neighbor?affiliation_id=$affiliation_id"); ?>", "#afan");
+
+plot_label_cloud("<?php echo site_url("visual/get_affi_label?affi_id=$affiliation_id"); ?>", "#label-cloud");
 </script>

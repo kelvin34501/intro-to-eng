@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row clearfix">
 		<div class="col-md-2"></div>
-		<div class="col-md-8 column py-5">
+		<div class="col-md-6 column py-5">
 		<div class="stats-info">
 		<br><br>
 			<?php
@@ -26,8 +26,11 @@
 			?>
 		<br><br><br><br><br><br><br><br><br><br>
 		</div>
+		</div>
+		<div class="col-md-4 column py-5">
+			<svg width="600" height="400" id="label-cloud" class="center-block"/>
+		</div>
 	</div>
-</div>
 </div>
 
 <!-- section 1 
@@ -149,4 +152,6 @@ $("#pi2-div").hide();
 plot_vertical_bar("<?php echo site_url("visual/conference_top_pub?id=$conference_id&key=author"); ?>", "#tau", "top");
 plot_vertical_bar("<?php echo site_url("visual/conference_top_pub?id=$conference_id&key=affiliation"); ?>", "#taf", "top");
 $("#taf-div").hide();
+
+plot_label_cloud("<?php echo site_url("visual/get_conf_label?affi_id=$conference_id"); ?>", "#label-cloud");
 </script>
