@@ -4,177 +4,88 @@ class Label_model extends CI_Model {
     public function __construct() {
         $this->load->database();
     }
-
+	public function paper_label($q)
+	{
+		$sql = "select Label,count(Label) from PaperLabel where PaperID='{$q}'
+				group by Label order by count(Label) desc";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	
+	public function author_label($q)
+	{
+		$sql = "select PaperLabel.Label,count(PaperLabel.Label) from PaperLabel
+				inner join PaperAuthorAffiliation on PaperLabel.PaperID=PaperAuthorAffiliation.PaperID
+				where PaperAuthorAffiliation.AuthorID='{$q}'
+				group by PaperLabel.Label order by count(Label) desc";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	public function affiliation_label($q)
+	{
+		$sql = "select PaperLabel.Label,count(PaperLabel.Label) from PaperLabel
+				inner join PaperAuthorAffiliation on PaperLabel.PaperID=PaperAuthorAffiliation.PaperID
+				where PaperAuthorAffiliation.AffiliationID='{$q}'
+				group by PaperLabel.Label order by count(Label) desc";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	public function conference_label($q)
+	{
+		$sql = "select PaperLabel.Label,count(PaperLabel.Label) from PaperLabel
+				inner join Papers on Papers.PaperID=PaperLabel.PaperID
+				where Papers.ConferenceID='{$q}'
+				group by PaperLabel.Label order by count(Label) desc";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	public function label_paper($q)
+	{
+		$sql = "select PaperID from PaperLabel where Label='{$q}'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	
     public function fetch_paper_label($PaperID, $begin, $num) {
-		$Title = $this->recommend_Title($PaperID);
-		$Title = $Title[0]['Title'];
+		$result = $this->paper_label($PaperID);
 		
-		$result = $this->recommend_label();
 		foreach ($result as $row)
-			$set[$row['Label']] = 0;
-		$words = explode(" ",$Title);
-		
-		$i=0;
-		$label = [];
-		while ($i<count($words)-1)
-		{
-			$st = join(" ",array($words[$i],$words[$i+1]));
-			if (isset($set[$st]))
-			{
-				if (!in_array($st,$label))
-					$label[] = $st;
-				$i=$i+2;
-			}
-			else
-			{
-				if (isset($set[$words[$i]]))
-					if (!in_array($st,$label))
-						$label[] = $words[$i];
-				$i=$i+1;
-			}				
-		}
-		if ($i==count($words)-1&&isset($set[$words[$i]]))
-            $label[] = $words[$i];
+			$label[]=$row['Label'];
         $slice = array_slice($label, $begin, $num);
         return array('num' => count($label), 'slice' => $slice);
     }
     public function fetch_author_label($AuthorID, $begin, $num) {
-		$Titles = $this->label_author($AuthorID);
+		$result = $this->author_label($AuthorID);
 		
-		$result = $this->recommend_label();
 		foreach ($result as $row)
-			$set[$row['Label']] = 0;
-			
-		foreach ($Titles as $title)
-		{
-			$words = explode(" ",$title["Title"]);
-			$i=0;
-			while ($i<count($words)-1)
-			{
-				$st = join(" ",array($words[$i],$words[$i+1]));
-				if (isset($set[$st]))
-				{
-					if (!isset($judger[$st]))
-					{
-						$judger[$st]=0;
-						$label[] = $st;
-					}
-					$i=$i+2;
-				}
-				else
-				{
-					if (isset($set[$words[$i]]))
-						if (!isset($judger[$words[$i]]))
-						{
-							$judger[$words[$i]]=0;
-							$label[] = $words[$i];
-						}
-					$i=$i+1;
-				}				
-			}
-			if ($i==count($words)-1&&isset($set[$words[$i]]))
-				if (!isset($judger[$words[$i]]))
-				{
-					$judger[$words[$i]]=0;
-					$label[] = $words[$i];
-				}
-        }
+		{	
+			$label[]=$row['Label'];
+			$cloud[]=['text'=>$row['Label'],'size'=>$row['count(PaperLabel.Label)']];
+		}	
         $slice = array_slice($label, $begin, $num);
-        return array('num' => count($label), 'slice' => $slice);
+        return array('num' => count($label), 'slice' => $slice, 'cloud' => $cloud);
     }
     public function fetch_affi_label($AffiliationID, $begin, $num) {
-		$Titles = $this->label_affiliation($AffiliationID);
+		$result = $this->affiliation_label($AffiliationID);
 		
-		$result = $this->recommend_label();
 		foreach ($result as $row)
-			$set[$row['Label']] = 0;
-			
-		$judger=[];
-		$label=[];
-		
-		foreach ($Titles as $title)
-		{
-			$words = explode(" ",$title["Title"]);
-			$i=0;
-			while ($i<count($words)-1)
-			{
-				$st = join(" ",array($words[$i],$words[$i+1]));
-				if (isset($set[$st]))
-				{
-					if (!isset($judger[$st]))
-					{
-						$judger[$st]=0;
-						$label[] = $st;
-					}
-					$i=$i+2;
-				}
-				else
-				{
-					if (isset($set[$words[$i]]))
-						if (!isset($judger[$words[$i]]))
-						{
-							$judger[$words[$i]]=0;
-							$label[] = $words[$i];
-						}
-					$i=$i+1;
-				}				
-			}
-			if ($i==count($words)-1&&isset($set[$words[$i]]))
-				if (!isset($judger[$words[$i]]))
-				{
-					$judger[$words[$i]]=0;
-					$label[] = $words[$i];
-				}
-		}
+		{	
+			$label[]=$row['Label'];
+			$cloud[]=['text'=>$row['Label'],'size'=>$row['count(PaperLabel.Label)']];
+		}		
         $slice = array_slice($label, $begin, $num);
-        return array('num' => count($label), 'slice' => $slice);
-    }
+        return array('num' => count($label), 'slice' => $slice, 'cloud' => $cloud);    
+	}
     public function fetch_conf_label($ConferenceID, $begin, $num) {
-		$Titles = $this->label_conference($ConferenceID);
+		$result = $this->conference_label($ConferenceID);
 		
-		$result = $this->recommend_label();
 		foreach ($result as $row)
-			$set[$row['Label']] = 0;
-			
-		$judger=[];
-		$label=[];
-		
-		foreach ($Titles as $title)
-		{
-			$words = explode(" ",$title["Title"]);
-			$i=0;
-			while ($i<count($words)-1)
-			{
-				$st = join(" ",array($words[$i],$words[$i+1]));
-				if (isset($set[$st]))
-				{
-					if (!isset($judger[$st]))
-					{
-						$judger[$st]=0;
-						$label[] = $st;
-					}
-					$i=$i+2;
-				}
-				else
-				{
-					if (isset($set[$words[$i]]))
-						if (!isset($judger[$words[$i]]))
-						{
-							$judger[$words[$i]]=0;
-							$label[] = $words[$i];
-						}
-					$i=$i+1;
-				}				
-			}
-			if ($i==count($words)-1&&isset($set[$words[$i]]))
-				if (!isset($judger[$words[$i]]))
-				{
-					$judger[$words[$i]]=0;
-					$label[] = $words[$i];
-				}
-		}
+		{	
+			$label[]=$row['Label'];
+			$cloud[]=['text'=>$row['Label'],'size'=>$row['count(PaperLabel.Label)']];
+		}		
         $slice = array_slice($label, $begin, $num);
-        return array('num' => count($label), 'slice' => $slice);
+        return array('num' => count($label), 'slice' => $slice, 'cloud' => $cloud);
     }
 
     public function label_author($q)
@@ -274,7 +185,7 @@ class Label_model extends CI_Model {
 		$AuthorID=[];
 		foreach ($result as $row)
 		{
-			$AuthorID[$i]=$row['AuthorID'];//find all the authors of this paper
+			$AuthorID[$i]=$row['AuthorID'];//find all the Authors of this paper
 			$i++;
 		}
 		$paper = [];
@@ -289,7 +200,7 @@ class Label_model extends CI_Model {
 					continue;
 				if (in_array($row0['PaperID'],$paper))
 				{
-					$recommend[$row0['PaperID']]['Reference']++;//add one common reference of two papers
+					$recommend[$row0['PaperID']]['Reference']++;//add one common reference of two Papers
 
 				}
 				else
@@ -309,14 +220,14 @@ class Label_model extends CI_Model {
 		foreach ($AuthorID as $row)
 		{
 			$q = $row;
-			$result = $this->recommend_paper_a($q);//select PaperID from paper_author_affiliation where AuthorID='{$q}'
+			$result = $this->recommend_paper_a($q);//select PaperID from PaperAuthorAffiliation where AuthorID='{$q}'
 			foreach ($result as $row0)
 			{
 				if ($row0['PaperID']==$PaperID)
 					continue;
 				if (in_array($row0['PaperID'],$paper))
 				{
-					$recommend[$row0['PaperID']]['Author']++;//add one common author of two papers
+					$recommend[$row0['PaperID']]['Author']++;//add one common author of two Papers
 
 				}
 				else
@@ -333,59 +244,32 @@ class Label_model extends CI_Model {
 			}
 		}
 		
-		$Title = $this->recommend_Title($PaperID);
-		$Title = $Title[0]['Title'];
-		
-		$result = $this->recommend_label();
+		$result = $this->paper_label($PaperID);
 		foreach ($result as $row)
-			$set[$row['Label']] = 0;
-		$words = explode(" ",$Title);
+			$label = $row['Label'];
 		
-		$i = 0;
-		$label = [];
-		while ($i<count($words)-1)
+		foreach ($label as $row)
 		{
-			$st = join(" ",array($words[$i],$words[$i+1]));
-			if (isset($set[$st]))
+			$target = $this->label_paper($row);
+			foreach ($target as $row0)
 			{
-				$label[] = $st;
-				$i=$i+2;
-			}
-			else
-			{
-				if (isset($set[$words[$i]]))
-					$label[] = $words[$i];
-				$i=$i+1;
-			}				
-		}
-		if ($i==count($words)-1&&isset($set[$words[$i]]))
-			$label[] = $words[$i];
-		
-		$all_paper = $this->recommend_allpaper();
-		
-		foreach ($all_paper as $row)
-		{
-			if ($row['PaperID']==$PaperID)
-				continue;
-			foreach ($label as $i)
-			{
-				if (strstr($row["Title"],$i)=="")
+				if ($row0['PaperID']==$PaperID)
 					continue;
-				if (in_array($row['PaperID'],$paper))
+				if (in_array($row0['PaperID'],$paper))
 				{
-					$recommend[$row['PaperID']]['Label']++;//add one common label of two papers
-	
+					$recommend[$row0['PaperID']]['Label']++;//add one common author of two Papers
+
 				}
 				else
 				{
-					$paper[$num]=$row['PaperID']; //add one potential paper
-					$recommend[$row['PaperID']]['Reference'] = 0;
-					$recommend[$row['PaperID']]['Label'] = 1;
-					$recommend[$row['PaperID']]['Author'] = 0;
+					$paper[$num]=$row0['PaperID']; //add one potential paper
+					$recommend[$row0['PaperID']]['Reference'] = 0;
+					$recommend[$row0['PaperID']]['Label'] = 1;
+					$recommend[$row0['PaperID']]['Author'] = 0;
 					$num=$num+1;
 				}
-				$recommend[$row['PaperID']]['coL'][]=$i;
-			}		
+				$recommend[$row0['PaperID']]['coL'][]=$row;
+			}
 		}
 		
 		
