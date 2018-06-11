@@ -147,10 +147,8 @@
 		</div>
 	</div>
 	</div>
-<br><br><br><br><br><br>
+<br><br><br><br><br>
 </div>
-
-<br><br><br>
 
 <!-- plot operations -->
 <script type='text/javascript'>
