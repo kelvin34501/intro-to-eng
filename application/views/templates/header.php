@@ -30,7 +30,10 @@
 		
 		<!-- import myplots -->
 		<script src=<?php echo base_url().'assets/js/Lab/shared/myplots.js'; ?>></script>
-		<script src=<?php echo base_url().'assets/js/Lab/shared/d3.layout.cloud.js' ?>></script>
+		<script src=<?php echo base_url().'assets/js/Lab/shared/d3.layout.cloud.js'; ?>></script>
+		
+		<!-- import result page animation -->
+		<script src=<?php echo base_url().'assets/js/Lab/shared/result_collapse.js'; ?></script>
 	  </head>
 
 	<script type="text/javascript">

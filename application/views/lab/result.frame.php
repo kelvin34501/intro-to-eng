@@ -12,7 +12,7 @@
 			<!-- author display -->
 			<?php if($display_author){ ?>
 				<div class="panel">
-					<div class="panel-heading panel-dark-title">
+					<div class="panel-heading panel-dark-title" id="lab-result-author-panel-title">
 						<h3 class="panel-title centering">
 							Author Results
 						</h3>
@@ -43,7 +43,7 @@
 			<!-- affiliation display -->
 			<?php if($display_affiliation){ ?>
 				<div class="panel">
-					<div class="panel-heading panel-dark-title">
+					<div class="panel-heading panel-dark-title" id="lab-result-affiliation-panel-title">
 						<h3 class="panel-title centering">
 							Affiliation Results
 						</h3>
@@ -71,7 +71,7 @@
 			<!-- conference display -->
 			<?php if($display_conference){ ?>
 				<div class="panel">
-					<div class="panel-heading panel-dark-title">
+					<div class="panel-heading panel-dark-title" id="lab-result-conference-panel-title">
 						<h3 class="panel-title centering">
 							Conference Results
 						</h3>
@@ -99,7 +99,7 @@
 			<!-- paper display -->
 			<?php if($display_paper){ ?>
 				<div class="panel">
-					<div class="panel-heading panel-dark-title">
+					<div class="panel-heading panel-dark-title" id="lab-result-paper-panel-title">
 						<h3 class="panel-title centering">
 							Paper Results
 						</h3>
