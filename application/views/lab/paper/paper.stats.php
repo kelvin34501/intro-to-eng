@@ -129,7 +129,7 @@
 										echo ".<br>";
 									}
 									else $offset += 1;
-									echo "&nbsp&nbspIt has a similarity score of ".$recommends[$i]['Score']}.".";
+									echo "&nbsp&nbspIt has a similarity score of ".$recommends[$i]['Score'].".";
 									for($j=0;$j<$offset;$j++) echo "<br>";
 									?>
 									</div>

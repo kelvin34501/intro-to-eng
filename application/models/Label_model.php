@@ -246,8 +246,9 @@ class Label_model extends CI_Model {
 		
 		$result = $this->paper_label($PaperID);
 		foreach ($result as $row)
-			$label = $row['Label'];
+			$label[] = $row['Label'];
 		
+
 		foreach ($label as $row)
 		{
 			$target = $this->label_paper($row);
