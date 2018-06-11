@@ -4,6 +4,7 @@ class Visual extends CI_controller {
         parent::__construct();
         $this->load->model('Lab_model');
         $this->load->model('Visual_model');
+		$this->load->model('Label_model');
         $this->load->helper('url');
     }
 
@@ -164,5 +165,23 @@ class Visual extends CI_controller {
 	{
 		$this->Visual_model->get_dyn_cn_neighbor($_GET['author_id']);
 		//$this->search_model->dyn_test($_GET['author_id']);
+	}
+	
+	public function get_affi_label()
+	{
+		$result = $this->Visual_model->fetch_affi_label($_GET['affi_id'], 0, 10);
+		echo json_encode($result['cloud']);
+	}
+	
+	public function get_author_label()
+	{
+		$result = $this->Visual_model->fetch_author_label($_GET['author_id'], 0, 10);
+		echo json_encode($result['cloud']);
+	}
+	
+	public function get_conf_label()
+	{
+		$result = $this->Visual_model->fetch_conf_label($_GET['conf_id'], 0, 10);
+		echo json_encode($result['cloud']);
 	}
 }
