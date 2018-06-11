@@ -51,13 +51,67 @@ class Lab extends CI_controller {
         }
     }
 
+	public function hyper_search()
+	{
+		$command = $this->input->get('command');
+		$begin = stripos($command, '$');
+		if($begin !== false){
+			$end = stripos($command, '$', $begin+1);
+			if($end !== false)
+				redirect($_SERVER['HTTP_REFERER']);
+			else{
+				$key = trim(substr($command, $begin+1, $end-$begin-1));
+				$value = trim(substr($command, $end+1));
+				if($key=="author"){
+					set_cookie(
+						'query_url', base_url().'lab/search_author?author='.$value, 65536
+					);
+					redirect(base_url().'lab/search_author?author='.$value);
+				}
+				elseif($key=="paper"){
+					set_cookie(
+						'query_url', base_url().'lab/search_paper?paper='.$value, 65536
+					);
+					redirect(base_url().'lab/search_paper?paper='.$value);
+				}
+				elseif($key=="affiliation" or $key=="affi"){
+					set_cookie(
+						'query_url', base_url().'lab/search_affi?affi='.$value, 65536
+					);
+					redirect(base_url().'lab/search_affi?affi='.$value);
+				}
+				elseif($key=="conference" or $key=="venue"){
+					set_cookie(
+						'query_url', base_url().'lab/search_conference?conference='.$value, 65536
+					);
+					redirect(base_url().'lab/search_conference?conference='.$value);
+				}
+				elseif($key=="author_id"){
+					redirect(base_url().'lab/view_author?author_id='.$value);
+				}
+				elseif($key=="paper_id"){
+					redirect(base_url().'lab/view_paper?paper_id='.$value);
+				}
+				elseif($key=="affiliation_id" or $key=="affi_id"){
+					redirect(base_url().'lab/view_affi?affi_id='.$value);
+				}
+				elseif($key=="conference_id" or $key=="venue_id"){
+					redirect(base_url().'lab/view_conf?conf_id='.$value);
+				}
+			}
+		}
+		else{
+			// global search
+		}
+	}
+	
     public function search_author()
     {
         $data['title'] = 'Result Page';
         $data['display_author'] = true;
         $data['display_affiliation'] = $data['display_conference'] = $data['display_paper'] = false;
 
-        $data['author_name'] = $this->input->get('author');
+		$data['author_name'] = $this->input->get('author');
         $data['total_result'] = $this->Lab_model->get_author_total_number($data['author_name']);
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
@@ -103,7 +157,7 @@ class Lab extends CI_controller {
         $data['display_affiliation'] = true;
         $data['display_author'] = $data['display_conference'] = $data['display_paper'] = false;
 
-        $data['affi_name'] = $this->input->get('affi');
+		$data['affi_name'] = $this->input->get('affi');
         $data['total_result'] = $this->Lab_model->get_affi_total_number($data['affi_name']);
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
@@ -143,7 +197,7 @@ class Lab extends CI_controller {
         $data['display_conference'] = true;
         $data['display_author'] = $data['display_affiliation'] = $data['display_paper'] = false;
 
-        $data['conference_name'] = $this->input->get('conference');
+		$data['conference_name'] = $this->input->get('conference');
         $data['total_result'] = $this->Lab_model->get_conference_total_number($data['conference_name']);
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
@@ -183,8 +237,8 @@ class Lab extends CI_controller {
         $data['display_paper'] = true;
         $data['display_author'] = $data['display_affiliation'] = $data['display_conference'] = false;
 
-        $data['paper_name'] = $this->input->get('paper');
-        $data['total_result'] = $this->Lab_model->get_paper_total_number($data['paper_name']);
+		$data['paper_name'] = $this->input->get('paper');
+		$data['total_result'] = $this->Lab_model->get_paper_total_number($data['paper_name']);
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
                              $data);

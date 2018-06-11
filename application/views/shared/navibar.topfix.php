@@ -58,7 +58,7 @@
 					<li><a href="#modal-container-414419" data-toggle="modal"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
 				</ul>
 				<form class="form-inline m-2" action="hyper_search">
-				  <input class="form-control mr-2" type="text" name="name" placeholder="Search">
+				  <input class="form-control mr-2" type="text" name="command" placeholder="Search">
 				  <button class="btn btn-primary" type="submit">Search</button>
 				</form>
 			</div>
