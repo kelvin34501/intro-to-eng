@@ -1,5 +1,5 @@
 <?php if(!stristr($title, "page")) echo "<br><br>" ?>
-<footer class="footer navbar-inverse <?php if(!stristr($title, "page")) echo "navbar-fixed-bottom" ?>">
+<footer class="footer navbar-inverse <?php if(!stristr($title, "page") or (stristr($title, "result") and $total_result <= 0)) echo "navbar-fixed-bottom" ?>">
     <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 centering text-gray">
