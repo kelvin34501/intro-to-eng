@@ -72,43 +72,83 @@
 <div class="stats-section-0 text-center py-5" id="rec-g">
 	<div class="container-fluid">
 		<div class="row clearfix">
+			<div class="col-md-12 column py-5">
+			<h1>Recommendation</h1>
+			</div>
+		</div>
+		<div class="row clearfix">
 		<div class="col-md-12 column">
 			<div class="carousel slide" id="carousel-767845">
 				<ol class="carousel-indicators">
-					<li data-slide-to="0" data-target="#carousel-767845">
-					</li>
-					<li data-slide-to="1" data-target="#carousel-767845" class="active">
-					</li>
-					<li data-slide-to="2" data-target="#carousel-767845">
-					</li>
+					<?php for($i=0;$i<count($recommends);$i++){ ?>
+						<li data-slide-to="<?php echo $i; ?>" data-target="#carousel-767845" <?php if($i==0) echo "class='active'"; ?>>
+						</li>
+					<?php } ?>
 				</ol>
 				<div class="carousel-inner">
-					<div class="item">
+					<?php for($i=0;$i<count($recommends);$i++){ ?>
+						<div class="item <?php if($i==0) echo "active"; ?>">
 						<div class="row clearfix">
-							<div class="col-md-12 column">
-							<br><br><br><br><br><br><br><br>
+							<div class="col-md-3"></div>
+							<div class="col-md-6">
+								<div class="panel">
+								<div class="panel-body panel-dark-body">
+									<div class="panel-item-title-0"><a href="<?php echo base_url()."lab/view_paper?paper_id={$recommends[$i]['PaperID']}"; ?>"><?php echo $recommends[$i]['Title']; ?></a></div>
+									<div class="panel-item-content-0">&nbsp Paper ID: <?php echo $recommends[$i]['PaperID']; ?> - Venue: <?php echo $recommends[$i]['ConferenceName']; ?> - Published Year: <?php echo $recommends[$i]['PaperPublishYear']; ?> - Times Cited: <?php echo $recommends[$i]['ReferenceNum']; ?></div>
+									<br><hr>
+									<div class="panel-item-title-0">We recommend this paper to you because:</div>
+									<div class="panel-item-content-0">
+									<?php
+									$offset = 0
+									if(count($recommends[$i]['coA']) > 0){
+										echo "&nbsp&nbspIt shares same coauthors: ";
+										for($j=0;$j<count($recommends[$i]['coA']);$j++)
+										{
+											if($j > 0) echo ", ";
+											echo "<a href='".base_url()."lab/view_author?author_id={$recommends[$i]['coA'][$j]['AuthorID']}'>{$recommends[$i]['coA'][$j]['AuthorName']}</a>";
+										}
+										echo ".<br>";
+									}
+									else $offset += 1;
+									if(count($recommends[$i]['coR']) > 0){
+										echo "&nbsp&nbspIt shares same references: ";
+										for($j=0;$j<count($recommends[$i]['coR']);$j++)
+										{
+											if($j > 0) echo ", ";
+											echo "<a href='".base_url()."lab/view_paper?paper_id={$recommends[$i]['coR'][$j]['PaperID']}'>{$recommends[$i]['coR'][$j]['Title']}</a>";
+										}
+										echo ".<br>";
+									}
+									else $offset += 1;
+									if(count($recommends[$i]['coL']) > 0){
+										echo "&nbsp&nbspIt shares same labels: ";
+										for($j=0;$j<count($recommends[$i]['coL']);$j++)
+										{
+											if($j > 0) echo ", ";
+											echo "<a href='".base_url()."lab/search_paper?paper={$recommends[$i]['coL'][$j]}'>{$recommends[$i]['coL'][$j]}</a>";
+										}
+										echo ".<br>";
+									}
+									else $offset += 1;
+									echo "&nbsp&nbspIt has a similarity score of {$recommends[$i]['Score']}.";
+									for($j=0;$j<$offset;$j++) echo "<br>";
+									?>
+									</div>
+								</div>
+								</div>
 							</div>
+							<div class="col-md-3"></div>
 						</div>
-					</div>
-					<div class="item active">
-						<div class="row clearfix">
-							<div class="col-md-12 column">
-							<br><br><br><br><br><br><br><br>
-							</div>
 						</div>
-					</div>
-					<div class="item">
-						<div class="row clearfix">
-							<div class="col-md-12 column">
-							<br><br><br><br><br><br><br><br>
-							</div>
-						</div>
-					</div>
-				</div> <a class="left carousel-control" href="#carousel-767845" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-767845" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+					<?php } ?>
+				</div> 
+				<br><br><br>
+				<a class="left carousel-control" href="#carousel-767845" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-767845" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			</div>
 		</div>
 	</div>
 	</div>
+<br><br><br><br><br><br>
 </div>
 
 <br><br><br>
