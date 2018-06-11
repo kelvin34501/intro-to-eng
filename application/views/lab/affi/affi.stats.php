@@ -47,6 +47,39 @@
 			<div class="col-md-6 column py-5">
 				<h1>Cooperation Network</h1>
 				<h2>This displays the cooperation network of authors within this affiliation.</h2>
+				<div class="row clearfix">
+					<br>
+					<div class="col-md-3"></div>
+					<div class="col-md-3">
+						<svg width="20" height="20" class="center-block">
+							<circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#912CEE" />
+						</svg>
+						<p>Current Author</p>
+					</div>
+					<div class="col-md-3">
+						<svg width="20" height="20" class="center-block">
+							<circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#66ccff" />
+						</svg>
+						<p>Coauthor</p>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<br>
+					<div class="col-md-3"></div>
+					<div class="col-md-3">
+						<svg width="20" height="20" class="center-block">
+							<circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#8B008B" />
+						</svg>
+						<p>Advisor Coauthor</p>
+					</div>
+					<div class="col-md-3">
+						<svg width="20" height="20" class="center-block">
+							<circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#CD853F" />
+						</svg>
+						<p>Advisee Coauthor</p>
+					</div>
+					<br>
+				</div>
 			</div>
 		</div>
 	</div>
