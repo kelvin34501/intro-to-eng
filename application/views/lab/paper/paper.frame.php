@@ -6,7 +6,7 @@
 				<div class="panel">
 					<div class="text-center">
 					<div class="panel-heading panel-dark-toggle-title">
-						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-150618" href="#panel-element-150600">Authors</a>
+						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-167619" href="#panel-element-150600">Authors</a>
 					</div>
 					</div>
 					<div id="panel-element-150600" class="panel-collapse collapse in">
