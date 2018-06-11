@@ -50,60 +50,6 @@ class Lab extends CI_controller {
             $this->load->view('templates/footer');
         }
     }
-
-	public function hyper_search()
-	{
-		$command = $this->input->get('command');
-		$begin = stripos($command, '$');
-		if($begin !== false){
-			$end = stripos($command, '$', $begin+1);
-			if($end !== false)
-				redirect($_SERVER['HTTP_REFERER']);
-			else{
-				$key = trim(substr($command, $begin+1, $end-$begin-1));
-				$value = trim(substr($command, $end+1));
-				if($key=="author"){
-					set_cookie(
-						'query_url', base_url().'lab/search_author?author='.$value, 65536
-					);
-					redirect(base_url().'lab/search_author?author='.$value);
-				}
-				elseif($key=="paper"){
-					set_cookie(
-						'query_url', base_url().'lab/search_paper?paper='.$value, 65536
-					);
-					redirect(base_url().'lab/search_paper?paper='.$value);
-				}
-				elseif($key=="affiliation" or $key=="affi"){
-					set_cookie(
-						'query_url', base_url().'lab/search_affi?affi='.$value, 65536
-					);
-					redirect(base_url().'lab/search_affi?affi='.$value);
-				}
-				elseif($key=="conference" or $key=="venue"){
-					set_cookie(
-						'query_url', base_url().'lab/search_conference?conference='.$value, 65536
-					);
-					redirect(base_url().'lab/search_conference?conference='.$value);
-				}
-				elseif($key=="author_id"){
-					redirect(base_url().'lab/view_author?author_id='.$value);
-				}
-				elseif($key=="paper_id"){
-					redirect(base_url().'lab/view_paper?paper_id='.$value);
-				}
-				elseif($key=="affiliation_id" or $key=="affi_id"){
-					redirect(base_url().'lab/view_affi?affi_id='.$value);
-				}
-				elseif($key=="conference_id" or $key=="venue_id"){
-					redirect(base_url().'lab/view_conf?conf_id='.$value);
-				}
-			}
-		}
-		else{
-			// global search
-		}
-	}
 	
     public function search_author()
     {
@@ -116,7 +62,7 @@ class Lab extends CI_controller {
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
                              $data);
-        $data['fieldname'] = 'author'; $data['field'] = $data['author_name'];
+        $data['fieldname'] = 'field'; $data['field'] = $data['author_name'];
         $data['content_handle'] = 'lab-result-author-panel';
         $data['pagin_handle'] = 'lab-result-author-pagination';
         $data['content_fetch_url'] = base_url().'lab/search_author_table?';
@@ -131,7 +77,7 @@ class Lab extends CI_controller {
 
     public function search_author_table()
     {
-        $field = $this->input->get('author');
+        $field = $this->input->get('field');
 
         $page = $this->input->get('page');
         if($page===null || $page <= 0)
@@ -162,7 +108,7 @@ class Lab extends CI_controller {
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
                              $data);
-        $data['fieldname'] = 'affi'; $data['field'] = $data['affi_name'];
+        $data['fieldname'] = 'field'; $data['field'] = $data['affi_name'];
         $data['content_handle'] = 'lab-result-affiliation-panel';
         $data['pagin_handle'] = 'lab-result-affiliation-pagination';
         $data['content_fetch_url'] = base_url().'lab/search_affi_table?';
@@ -177,7 +123,7 @@ class Lab extends CI_controller {
 
     public function search_affi_table()
     {
-        $field = $this->input->get('affi');
+        $field = $this->input->get('field');
 
         $page = $this->input->get('page');
         if($page===null || $page <= 0)
@@ -202,7 +148,7 @@ class Lab extends CI_controller {
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
                              $data);
-        $data['fieldname'] = 'conference'; $data['field'] = $data['conference_name'];
+        $data['fieldname'] = 'field'; $data['field'] = $data['conference_name'];
         $data['content_handle'] = 'lab-result-conference-panel';
         $data['pagin_handle'] = 'lab-result-conference-pagination';
         $data['content_fetch_url'] = base_url().'lab/search_conference_table?';
@@ -217,7 +163,7 @@ class Lab extends CI_controller {
 
     public function search_conference_table()
     {
-        $field = $this->input->get('conference');
+        $field = $this->input->get('field');
 
         $page = $this->input->get('page');
         if($page===null || $page <= 0)
@@ -242,7 +188,7 @@ class Lab extends CI_controller {
         Pagin::_fill_pagenum(1,
                              ceil($data['total_result'] / $this->res_per_page),
                              $data);
-        $data['fieldname'] = 'paper'; $data['field'] = $data['paper_name'];
+        $data['fieldname'] = 'field'; $data['field'] = $data['paper_name'];
         $data['content_handle'] = 'lab-result-paper-panel';
         $data['pagin_handle'] = 'lab-result-paper-pagination';
         $data['content_fetch_url'] = base_url().'lab/search_paper_table?';
@@ -257,7 +203,7 @@ class Lab extends CI_controller {
 
     public function search_paper_table()
     {
-        $field = $this->input->get('paper');
+        $field = $this->input->get('field');
 
         $page = $this->input->get('page');
         if($page===null || $page <= 0)
@@ -352,7 +298,13 @@ class Lab extends CI_controller {
             base_url()."lab/view_author_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-
+        $lbl_count = $this->Label_model->fetch_author_label($data['author_id'],0,0)['num'];
+        $this->_makeup_dyn_padin("labl", "auth_labl", $data['author_id'],
+            $lbl_count, 5, 5,
+            "lab-author-sidebar-lb-items", "lab-author-sidebar-lb-pagination",
+            base_url()."label/view_author_label?", 
+            base_url()."pagin/pagin_bar?", $data
+        );
         $this->load->view('templates/footer');
     }
 
@@ -440,6 +392,13 @@ class Lab extends CI_controller {
             base_url()."lab/view_affi_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
+        $lbl_count = $this->Label_model->fetch_affi_label($data['affiliation_id'],0,0)['num'];
+        $this->_makeup_dyn_padin("labl", "affi_labl", $data['affiliation_id'],
+            $lbl_count, 10, 5,
+            "lab-affiliation-sidebar-lb-items", "lab-affiliation-sidebar-lb-pagination",
+            base_url()."label/view_affi_label?", 
+            base_url()."pagin/pagin_bar?", $data
+        );
         $this->load->view('templates/footer');
     }
 
@@ -500,6 +459,13 @@ class Lab extends CI_controller {
             $this->Lab_model->get_conf_auth_total_number($data['conference_id']), 10, 5,
             "lab-conference-sidebar-au-items", "lab-conference-sidebar-au-pagination",
             base_url()."lab/view_conf_content?", 
+            base_url()."pagin/pagin_bar?", $data
+        );
+        $lbl_count = $this->Label_model->fetch_conf_label($data['conference_id'],0,0)['num'];
+        $this->_makeup_dyn_padin("labl", "conf_labl", $data['conference_id'],
+            $lbl_count, 10, 5,
+            "lab-conference-sidebar-lb-items", "lab-conference-sidebar-lb-pagination",
+            base_url()."label/view_conf_label?", 
             base_url()."pagin/pagin_bar?", $data
         );
         $this->load->view('templates/footer');
@@ -743,4 +709,126 @@ class Lab extends CI_controller {
 		$this->load->view('lab/paper/paper.stats.php', $data);
 		$this->load->view('templates/footer', $data);
     }
+
+    public function hyper_search()
+	{
+		$command = $this->input->get('command');
+        $begin = stripos($command, '$');
+		if($begin !== false){
+            $end = stripos($command, '$', $begin+1);
+			if($end === false) {
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+			else{
+                $key = trim(substr($command, $begin+1, $end-$begin-1));
+				$value = trim(substr($command, $end+1));
+				if($key=="author"){
+					set_cookie(
+						'query_url', base_url().'lab/search_author?author='.$value, 65536
+					);
+					redirect(base_url().'lab/search_author?author='.$value);
+				}
+				elseif($key=="paper"){
+					set_cookie(
+						'query_url', base_url().'lab/search_paper?paper='.$value, 65536
+					);
+					redirect(base_url().'lab/search_paper?paper='.$value);
+				}
+				elseif($key=="affiliation" or $key=="affi"){
+					set_cookie(
+						'query_url', base_url().'lab/search_affi?affi='.$value, 65536
+					);
+					redirect(base_url().'lab/search_affi?affi='.$value);
+				}
+				elseif($key=="conference" or $key=="venue"){
+					set_cookie(
+						'query_url', base_url().'lab/search_conference?conference='.$value, 65536
+					);
+					redirect(base_url().'lab/search_conference?conference='.$value);
+				}
+				elseif($key=="author_id"){
+					redirect(base_url().'lab/view_author?author_id='.$value);
+				}
+				elseif($key=="paper_id"){
+					redirect(base_url().'lab/view_paper?paper_id='.$value);
+				}
+				elseif($key=="affiliation_id" or $key=="affi_id"){
+					redirect(base_url().'lab/view_affi?affi_id='.$value);
+				}
+				elseif($key=="conference_id" or $key=="venue_id"){
+					redirect(base_url().'lab/view_conf?conf_id='.$value);
+				}
+			}
+		}
+		else{
+            // global search
+            set_cookie(
+                'query_url', base_url().'lab/hyper_search?command='.$command, 65536
+            );
+            $data['title'] = 'Result Page';
+
+            $command = $this->input->get('command');
+            $num_author = $this->Lab_model->get_author_total_number($command);
+            $num_affi = $this->Lab_model->get_affi_total_number($command);
+            $num_conf = $this->Lab_model->get_conference_total_number($command);
+            $num_paper = $this->Lab_model->get_paper_total_number($command);
+            
+            $data['display_author'] = $data['display_affiliation'] = 
+            $data['display_conference'] = $data['display_paper'] = false;
+            $data['dyn_pagin'] = true;
+            $data['total_result'] = $num_author + $num_affi +  $num_conf + $num_paper;
+            $this->load->view('templates/header', $data);
+            $this->load->view('shared/navibar.topfix.php', $data);
+
+            if ($num_author > 0)
+                $data['display_author'] = true;
+            if ($num_affi > 0) 
+                $data['display_affiliation'] = true;
+            if ($num_conf > 0)
+                $data['display_conference'] = true;
+            if ($num_paper > 0)
+                $data['display_paper'] = true;
+
+            $this->load->view('lab/result.frame.php', $data);
+
+            if ($num_author > 0) {
+                $this->_makeup_dyn_padin("auth", "hyper_auth", 
+                    $command, $num_author,
+                    $this->res_per_page, 10,
+                    "lab-result-author-panel" ,"lab-result-author-pagination",
+                    base_url()."lab/search_author_table?", 
+                    base_url()."pagin/pagin_bar?", $data
+                );
+            }
+            if ($num_affi> 0) {
+                $this->_makeup_dyn_padin("affi", "hyper_affi", 
+                    $command, $num_affi,
+                    $this->res_per_page, 10,
+                    "lab-result-affiliation-panel" ,"lab-result-affiliation-pagination",
+                    base_url()."lab/search_affi_table?", 
+                    base_url()."pagin/pagin_bar?", $data
+                );
+            }
+            if ($num_conf> 0) {
+                $this->_makeup_dyn_padin("conf", "hyper_conf", 
+                    $command, $num_conf,
+                    $this->res_per_page, 10,
+                    "lab-result-conference-panel" ,"lab-result-conference-pagination",
+                    base_url()."lab/search_conference_table?", 
+                    base_url()."pagin/pagin_bar?", $data
+                );
+            }
+            if ($num_affi> 0) {
+                $this->_makeup_dyn_padin("paper", "hyper_paper", 
+                    $command, $num_paper,
+                    $this->res_per_page, 10,
+                    "lab-result-paper-panel" ,"lab-result-paper-pagination",
+                    base_url()."lab/search_paper_table?", 
+                    base_url()."pagin/pagin_bar?", $data
+                );
+            }
+            
+            $this->load->view('templates/footer');
+        }
+	}
 }
