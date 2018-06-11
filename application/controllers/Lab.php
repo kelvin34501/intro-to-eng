@@ -298,6 +298,14 @@ class Lab extends CI_controller {
             base_url()."lab/view_author_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
+        $lbl_count = $this->Label_model->fetch_author_label($data['author_id'],0,0)['num'];
+        $this->_makeup_dyn_padin("labl", "auth_labl", $data['author_id'],
+            $lbl_count, 5, 5,
+            "lab-author-sidebar-lb-items", "lab-author-sidebar-lb-pagination",
+            base_url()."label/view_author_label?", 
+            base_url()."pagin/pagin_bar?", $data
+        );
+        $this->load->view('templates/footer');
 
         $this->load->view('templates/footer');
     }
@@ -386,6 +394,13 @@ class Lab extends CI_controller {
             base_url()."lab/view_affi_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
+        $lbl_count = $this->Label_model->fetch_affi_label($data['affiliation_id'],0,0)['num'];
+        $this->_makeup_dyn_padin("labl", "affi_labl", $data['affiliation_id'],
+            $lbl_count, 10, 5,
+            "lab-affiliation-sidebar-lb-items", "lab-affiliation-sidebar-lb-pagination",
+            base_url()."label/view_affi_label?", 
+            base_url()."pagin/pagin_bar?", $data
+        );
         $this->load->view('templates/footer');
     }
 
@@ -446,6 +461,13 @@ class Lab extends CI_controller {
             $this->Lab_model->get_conf_auth_total_number($data['conference_id']), 10, 5,
             "lab-conference-sidebar-au-items", "lab-conference-sidebar-au-pagination",
             base_url()."lab/view_conf_content?", 
+            base_url()."pagin/pagin_bar?", $data
+        );
+        $lbl_count = $this->Label_model->fetch_conf_label($data['conference_id'],0,0)['num'];
+        $this->_makeup_dyn_padin("labl", "conf_labl", $data['conference_id'],
+            $lbl_count, 10, 5,
+            "lab-conference-sidebar-lb-items", "lab-conference-sidebar-lb-pagination",
+            base_url()."label/view_conf_label?", 
             base_url()."pagin/pagin_bar?", $data
         );
         $this->load->view('templates/footer');
