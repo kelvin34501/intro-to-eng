@@ -8,7 +8,7 @@ h2 {
 	text-align:center;
 	font-weight:bold }
 body {
-	background:80% url("../../../img/dark/6.jpg");
+	background:80% url("../../imgs/dark/6.jpg");
 	background-size: 95% 95%;
 	font-family:arial;
 	font-size:20px;
@@ -61,7 +61,8 @@ overflow-y: scroll;
 }
 .panel-dark-body {
 	background-color:#3F3F3F;
-	color:#ffffff
+	color:#ffffff;
+	text-align:left;
 }
 .panel-dark-toggle-title {
 	background-color:#ffc107;
@@ -86,6 +87,9 @@ overflow-y: scroll;
 	font-family:arial;
 	font-size:20px;
 	color:#ffffff
+}
+.panel-dark-body h1{
+	font-size:25px
 }
 .panel-dark-body a:active {
 	color:#FFD700;

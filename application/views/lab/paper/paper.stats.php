@@ -93,39 +93,38 @@
 							<div class="col-md-6">
 								<div class="panel">
 								<div class="panel-body panel-dark-body">
-									<div class="panel-item-title-0"><a href="<?php echo base_url()."lab/view_paper?paper_id={$recommends[$i]['PaperID']}"; ?>"><?php echo $recommends[$i]['Title']; ?></a></div>
-									<div class="panel-item-content-0">&nbsp Paper ID: <?php echo $recommends[$i]['PaperID']; ?> - Venue: <?php echo $recommends[$i]['ConferenceName']; ?> - Published Year: <?php echo $recommends[$i]['PaperPublishYear']; ?> - Times Cited: <?php echo $recommends[$i]['ReferenceNum']; ?></div>
-									<br><hr>
+									<div class="panel-item-title-0"><a href="<?php echo base_url()."lab/view_paper?paper_id={$recommends[$i]['PaperID']}"; ?>"><?php echo ucwords($recommends[$i]['Title']); ?></a></div>
+									<div class="panel-item-content-0">&nbsp Paper ID: <?php echo $recommends[$i]['PaperID']; ?> - Venue: <?php echo ucwords($recommends[$i]['ConferenceName']); ?> - Published Year: <?php echo $recommends[$i]['PaperPublishYear']; ?> - Times Cited: <?php echo $recommends[$i]['ReferenceNum']; ?></div><hr>
 									<div class="panel-item-title-0">We recommend this paper to you because:</div>
 									<div class="panel-item-content-0">
 									<?php
 									$offset = 0;
-									if(count($recommends[$i]['coA']) > 0){
+									if(isset($recommends[$i]['coA'])){
 										echo "&nbsp&nbspIt shares same coauthors: ";
 										for($j=0;$j<count($recommends[$i]['coA']);$j++)
 										{
 											if($j > 0) echo ", ";
-											echo "<a href='".base_url()."lab/view_author?author_id={$recommends[$i]['coA'][$j]['AuthorID']}'>{$recommends[$i]['coA'][$j]['AuthorName']}</a>";
+											echo "<a href='".base_url()."lab/view_author?author_id={$recommends[$i]['coA'][$j]['AuthorID']}'>{ucwords($recommends[$i]['coA'][$j]['AuthorName'])}</a>";
 										}
 										echo ".<br>";
 									}
 									else $offset += 1;
-									if(count($recommends[$i]['coR']) > 0){
+									if(isset($recommends[$i]['coR'])){
 										echo "&nbsp&nbspIt shares same references: ";
 										for($j=0;$j<count($recommends[$i]['coR']);$j++)
 										{
 											if($j > 0) echo ", ";
-											echo "<a href='".base_url()."lab/view_paper?paper_id={$recommends[$i]['coR'][$j]['PaperID']}'>{$recommends[$i]['coR'][$j]['Title']}</a>";
+											echo "<a href='".base_url()."lab/view_paper?paper_id={$recommends[$i]['coR'][$j]['PaperID']}'>{ucwords($recommends[$i]['coR'][$j]['Title'])}</a>";
 										}
 										echo ".<br>";
 									}
 									else $offset += 1;
-									if(count($recommends[$i]['coL']) > 0){
+									if(isset($recommends[$i]['coL'])){
 										echo "&nbsp&nbspIt shares same labels: ";
 										for($j=0;$j<count($recommends[$i]['coL']);$j++)
 										{
 											if($j > 0) echo ", ";
-											echo "<a href='".base_url()."lab/search_paper?paper={$recommends[$i]['coL'][$j]}'>{$recommends[$i]['coL'][$j]}</a>";
+											echo "<a href='".base_url()."lab/search_paper?paper={$recommends[$i]['coL'][$j]}'>{ucwords($recommends[$i]['coL'][$j])}</a>";
 										}
 										echo ".<br>";
 									}
