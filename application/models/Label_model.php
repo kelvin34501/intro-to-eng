@@ -244,16 +244,16 @@ class Label_model extends CI_Model {
 	}
 	public function recommend_AuthorName($q)
 	{
-		$sql = "select AuthorName from authors where AuthorID='{$q}'";
+		$sql = "select AuthorName from Authors where AuthorID='{$q}'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 	public function recommend_PaperInfo($q)
 	{
-		$sql = "select count(paper_reference.ReferenceID) ReferenceNum,papers.PaperPublishYear,papers.Title,conferences.ConferenceName
-				from papers left join paper_reference on papers.PaperID=paper_reference.ReferenceID
-				inner join conferences on conferences.ConferenceID=papers.ConferenceID
-				where papers.PaperID='{$q}'";
+		$sql = "select count(PaperReference.ReferenceID) ReferenceNum,Papers.PaperPublishYear,Papers.Title,Conferences.ConferenceName
+				from Papers left join PaperReference on Papers.PaperID=PaperReference.ReferenceID
+				inner join Conferences on Conferences.ConferenceID=Papers.ConferenceID
+				where Papers.PaperID='{$q}'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -414,6 +414,6 @@ class Label_model extends CI_Model {
 		$recommends = array();
 		for ($i=0;$i<min($recommend_num,$num);$i++)
 			array_push($recommends, $recommend[$paper[$i]]);
-		return recommends;
+		return $recommends;
 	}
 }

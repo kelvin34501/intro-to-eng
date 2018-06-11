@@ -99,7 +99,7 @@
 									<div class="panel-item-title-0">We recommend this paper to you because:</div>
 									<div class="panel-item-content-0">
 									<?php
-									$offset = 0
+									$offset = 0;
 									if(count($recommends[$i]['coA']) > 0){
 										echo "&nbsp&nbspIt shares same coauthors: ";
 										for($j=0;$j<count($recommends[$i]['coA']);$j++)

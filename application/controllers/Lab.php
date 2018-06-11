@@ -703,8 +703,8 @@ class Lab extends CI_controller {
         }
         $data['paper_info']['Conference'] = $conf_list;
         
-		$data['recommends'] = $this->label_model->paper_recommend($paper_id);
-		
+		$data['recommends'] = $this->Label_model->paper_recommend($paper_id);
+        
         $this->load->view('templates/header', $data);
         $this->load->view('shared/navibar.topfix.php', $data);
 		$this->load->view('lab/paper/paper.stats.php', $data);
