@@ -153,5 +153,5 @@ plot_vertical_bar("<?php echo site_url("visual/conference_top_pub?id=$conference
 plot_vertical_bar("<?php echo site_url("visual/conference_top_pub?id=$conference_id&key=affiliation"); ?>", "#taf", "top");
 $("#taf-div").hide();
 
-plot_label_cloud("<?php echo site_url("visual/get_conf_label?affi_id=$conference_id"); ?>", "#label-cloud");
+plot_label_cloud("<?php echo site_url("visual/get_conf_label?conf_id=$conference_id"); ?>", "#label-cloud");
 </script>
