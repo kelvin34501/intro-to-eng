@@ -522,23 +522,14 @@ function plot_label_cloud(source, svg_id){
 			}))  
 			.range(d3.schemeCategory20);
 
-		d3.layout.cloud().size([width, height]) //size([x,y])  词云显示的大小
-			//map 返回新的object数组
+		d3.layout.cloud().size([width, height])
 			.words(data)
-			//.words([".NET", "Silverlight", "jQuery", "CSS3", "HTML5", "JavaScript", "SQL","C#"].map(function(d) {
-			//return {"text": d, "size": 10 + Math.random() * 50};
-			//}))
-			//~~的作用是单纯的去掉小数部分，不论正负都不会改变整数部分
-			//这里的作用是产生0 1
 			.rotate(function() { return ~~(Math.random() * 2) * 90; })
 			.font("Impact")
 			.fontSize(function(d) { return d.size; })
-			.on("end", draw)//结束时运行draw函数
+			.on("end", draw)
 			.start();
 
-
-		//append()使用函数在指定元素的结尾添加内容
-		//transform:translate(x,y)  定义2d旋转，即平移，向右平移x,向下平移y
 		function draw(words) {
 			svg.append("g")
 				.attr("transform", "translate(" + width/2 + "," + height/2 + ")")
@@ -548,7 +539,7 @@ function plot_label_cloud(source, svg_id){
 				.style("border","1px solid blue")
 				.style("font-size", function(d) { return d.size + "px"; })
 				.style("font-family", "Impact")
-				.style("fill", function(d, i) { return fill(i); })//fill 在前面15行定义为颜色集
+				.style("fill", function(d, i) { return fill(i); })
 				.attr("text-anchor", "middle")
 				.attr("transform", function(d) {
 					return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
