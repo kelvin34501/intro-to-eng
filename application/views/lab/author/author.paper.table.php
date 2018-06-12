@@ -22,7 +22,7 @@
         </td>
         <td>
             <a href="<?php echo base_url().'lab/view_affi?affi_id='.$author_item['Affiliation']['AffiliationID']; ?>"
-            ><?php if($author_item['Affiliation']['AffiliationName']!="") echo ucwords($author_item['Affiliation']['AffiliationName']); else echo "--"; ?></a>
+            ><?php echo ucwords($author_item['Affiliation']['AffiliationName']); ?></a>
         </td>
     </tr>
 <?php endforeach ?>
