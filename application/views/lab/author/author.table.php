@@ -27,12 +27,12 @@
         &nbsp&nbsp-&nbsp&nbsp
         Paper Published:&nbsp<?php echo $author_item['PaperNum']; ?><br>
         &nbsp&nbsp&nbsp&nbsp&nbsp
+        Major Affiliation:&nbsp
         <?php if ($author_item['AffiliationName'] != null) { ?>
-            Major Affiliation:&nbsp
             <a href="<?php echo base_url().'lab/view_affi?affi_id='.$author_item['AffiliationID']; ?>" >
                 <?php echo ucwords($author_item['AffiliationName']); ?>
             </a>
-        <?php } ?>
+        <?php }else{ echo "--"; }?>
     </div>
 
 <?php endforeach; ?>
