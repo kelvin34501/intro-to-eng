@@ -7,7 +7,8 @@
 -->
 <?php foreach($query_result as $index => $paper_item): ?>
     <div class="list-group-item" >
-        <a href="<?php echo base_url().'/lab/view_paper?paper_id='.$paper_item['PaperID']; ?>">
+        <a href="<?php echo base_url().'/lab/view_paper?paper_id='.$paper_item['PaperID']; ?>" 
+        title="<?php echo ucwords($paper_item['Title']); ?>" >
             <?php 
                 $tmp = ucwords($paper_item['Title']);
                 if (strlen($tmp) > 25) {
