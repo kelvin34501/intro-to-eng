@@ -238,7 +238,7 @@ class Lab extends CI_controller {
         echo $this->load->view('lab/paper/paper.table.php', $data, true);
     }
 
-    private function _makeup_dyn_padin(
+    private function _makeup_dyn_pagin(
         $prefix, $mode, $field, $total, $nitem, $width,
         $c_hdl, $p_hdl, $c_url, $p_url,
         &$data)
@@ -273,33 +273,33 @@ class Lab extends CI_controller {
         $this->load->view('lab/author/author.frame.php', $data);
 
         // dyn pagin loading
-        $this->_makeup_dyn_padin("main", "author_pub", $data['author_id'],
+        $this->_makeup_dyn_pagin("main", "author_pub", $data['author_id'],
             $this->Lab_model->get_author_pub_total_number($data['author_id']),
             $this->res_per_page, 10,
             "lab-author-main-panel" ,"lab-author-main-pagination",
             base_url()."lab/view_author_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-        $this->_makeup_dyn_padin("affi", "author_affi", $data['author_id'],
+        $this->_makeup_dyn_pagin("affi", "author_affi", $data['author_id'],
             $this->Lab_model->get_author_affi_total_number($data['author_id']), 5, 5,
             "lab-author-sidebar-af-items", "lab-author-sidebar-af-pagination",
             base_url()."lab/view_author_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-        $this->_makeup_dyn_padin("conf", "author_conf", $data['author_id'],
+        $this->_makeup_dyn_pagin("conf", "author_conf", $data['author_id'],
             $this->Lab_model->get_author_conf_total_number($data['author_id']), 5, 5,
             "lab-author-sidebar-cf-items", "lab-author-sidebar-cf-pagination",
             base_url()."lab/view_author_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-        $this->_makeup_dyn_padin("coau", "author_coau", $data['author_id'],
+        $this->_makeup_dyn_pagin("coau", "author_coau", $data['author_id'],
             $this->Lab_model->get_author_coau_total_number($data['author_id']), 5, 5,
             "lab-author-sidebar-ca-items", "lab-author-sidebar-ca-pagination",
             base_url()."lab/view_author_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
         $lbl_count = $this->Label_model->fetch_author_label($data['author_id'],0,0)['num'];
-        $this->_makeup_dyn_padin("labl", "auth_labl", $data['author_id'],
+        $this->_makeup_dyn_pagin("labl", "auth_labl", $data['author_id'],
             $lbl_count, 5, 5,
             "lab-author-sidebar-lb-items", "lab-author-sidebar-lb-pagination",
             base_url()."label/view_author_label?", 
@@ -379,21 +379,21 @@ class Lab extends CI_controller {
         $this->load->view('lab/affi/affi.frame.php', $data);
 
         // dyn pagin loading
-        $this->_makeup_dyn_padin("main", "affi_auth", $data['affiliation_id'],
+        $this->_makeup_dyn_pagin("main", "affi_auth", $data['affiliation_id'],
             $this->Lab_model->get_affi_auth_total_number($data['affiliation_id']),
             $this->res_per_page, 10,
             "lab-affiliation-main-panel" ,"lab-affiliation-main-pagination",
             base_url()."lab/view_affi_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-        $this->_makeup_dyn_padin("paper", "affi_paper", $data['affiliation_id'],
+        $this->_makeup_dyn_pagin("paper", "affi_paper", $data['affiliation_id'],
             $this->Lab_model->get_affi_paper_total_number($data['affiliation_id']), 10, 5,
             "lab-affiliation-sidebar-pp-items", "lab-affiliation-sidebar-pp-pagination",
             base_url()."lab/view_affi_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
         $lbl_count = $this->Label_model->fetch_affi_label($data['affiliation_id'],0,0)['num'];
-        $this->_makeup_dyn_padin("labl", "affi_labl", $data['affiliation_id'],
+        $this->_makeup_dyn_pagin("labl", "affi_labl", $data['affiliation_id'],
             $lbl_count, 10, 5,
             "lab-affiliation-sidebar-lb-items", "lab-affiliation-sidebar-lb-pagination",
             base_url()."label/view_affi_label?", 
@@ -448,21 +448,21 @@ class Lab extends CI_controller {
         $this->load->view('lab/conference/conference.frame.php', $data);
 
         // dyn pagin loading
-        $this->_makeup_dyn_padin("main", "conf_paper", $data['conference_id'],
+        $this->_makeup_dyn_pagin("main", "conf_paper", $data['conference_id'],
             $this->Lab_model->get_conf_paper_total_number($data['conference_id']),
             $this->res_per_page, 10,
             "lab-conference-main-panel" ,"lab-conference-main-pagination",
             base_url()."lab/view_conf_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-        $this->_makeup_dyn_padin("auth", "conf_auth", $data['conference_id'],
+        $this->_makeup_dyn_pagin("auth", "conf_auth", $data['conference_id'],
             $this->Lab_model->get_conf_auth_total_number($data['conference_id']), 10, 5,
             "lab-conference-sidebar-au-items", "lab-conference-sidebar-au-pagination",
             base_url()."lab/view_conf_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
         $lbl_count = $this->Label_model->fetch_conf_label($data['conference_id'],0,0)['num'];
-        $this->_makeup_dyn_padin("labl", "conf_labl", $data['conference_id'],
+        $this->_makeup_dyn_pagin("labl", "conf_labl", $data['conference_id'],
             $lbl_count, 10, 5,
             "lab-conference-sidebar-lb-items", "lab-conference-sidebar-lb-pagination",
             base_url()."label/view_conf_label?", 
@@ -523,27 +523,27 @@ class Lab extends CI_controller {
         $this->load->view('lab/paper/paper.frame.php', $data);
 
         // dyn pagin loading
-        $this->_makeup_dyn_padin("ref", "paper_ref", $data['paper_id'],
+        $this->_makeup_dyn_pagin("ref", "paper_ref", $data['paper_id'],
             $this->Lab_model->get_paper_ref_total_number($data['paper_id']),
             $this->res_per_page, 10,
             "lab-paper-reference-items" ,"lab-paper-reference-pagination",
             base_url()."lab/view_paper_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-        $this->_makeup_dyn_padin("cite", "paper_cite", $data['paper_id'],
+        $this->_makeup_dyn_pagin("cite", "paper_cite", $data['paper_id'],
             $this->Lab_model->get_paper_cite_total_number($data['paper_id']), 10, 5,
             "lab-paper-citedby-items", "lab-paper-citedby-pagination",
             base_url()."lab/view_paper_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
-        $this->_makeup_dyn_padin("coau", "paper_coau", $data['paper_id'],
+        $this->_makeup_dyn_pagin("coau", "paper_coau", $data['paper_id'],
             $this->Lab_model->get_paper_author_total_number($data['paper_id']), 10, 5,
             "lab-paper-panel-ca-items", "lab-paper-panel-ca-pagination",
             base_url()."lab/view_paper_content?", 
             base_url()."pagin/pagin_bar?", $data
         );
         $lbl_count = $this->Label_model->fetch_paper_label($data['paper_id'],0,0)['num'];
-        $this->_makeup_dyn_padin("labl", "paper_labl", $data['paper_id'],
+        $this->_makeup_dyn_pagin("labl", "paper_labl", $data['paper_id'],
             $lbl_count, 10, 5,
             "lab-paper-sidebar-lb-items", "lab-paper-sidebar-lb-pagination",
             base_url()."label/view_paper_label?", 
@@ -768,7 +768,8 @@ class Lab extends CI_controller {
             );
             $data['title'] = 'Result Page';
 
-            $command = $this->input->get('command');
+            $command = trim($this->input->get('command'));
+
             $num_author = $this->Lab_model->get_author_total_number($command);
             $num_affi = $this->Lab_model->get_affi_total_number($command);
             $num_conf = $this->Lab_model->get_conference_total_number($command);
@@ -793,7 +794,7 @@ class Lab extends CI_controller {
             $this->load->view('lab/result.frame.php', $data);
 
             if ($num_author > 0) {
-                $this->_makeup_dyn_padin("auth", "hyper_auth", 
+                $this->_makeup_dyn_pagin("auth", "hyper_auth", 
                     $command, $num_author,
                     $this->res_per_page, 10,
                     "lab-result-author-panel" ,"lab-result-author-pagination",
@@ -802,7 +803,7 @@ class Lab extends CI_controller {
                 );
             }
             if ($num_affi> 0) {
-                $this->_makeup_dyn_padin("affi", "hyper_affi", 
+                $this->_makeup_dyn_pagin("affi", "hyper_affi", 
                     $command, $num_affi,
                     $this->res_per_page, 10,
                     "lab-result-affiliation-panel" ,"lab-result-affiliation-pagination",
@@ -811,7 +812,7 @@ class Lab extends CI_controller {
                 );
             }
             if ($num_conf> 0) {
-                $this->_makeup_dyn_padin("conf", "hyper_conf", 
+                $this->_makeup_dyn_pagin("conf", "hyper_conf", 
                     $command, $num_conf,
                     $this->res_per_page, 10,
                     "lab-result-conference-panel" ,"lab-result-conference-pagination",
@@ -820,7 +821,7 @@ class Lab extends CI_controller {
                 );
             }
             if ($num_paper> 0) {
-                $this->_makeup_dyn_padin("paper", "hyper_paper", 
+                $this->_makeup_dyn_pagin("paper", "hyper_paper", 
                     $command, $num_paper,
                     $this->res_per_page, 10,
                     "lab-result-paper-panel" ,"lab-result-paper-pagination",

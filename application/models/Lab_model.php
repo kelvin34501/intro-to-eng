@@ -421,8 +421,8 @@ class Lab_model extends CI_Model {
             $limit = "";
         }
         $query = $this->db->query(
-            "SELECT a.PaperID AS PaperID, c.Title AS Title, COUNT(DISTINCT(b.ReferenceID)) AS ReferenceNum FROM
-            (SELECT PaperID From PaperAuthorAffiliation WHERE AffiliationID=?) a 
+            "SELECT a.PaperID AS PaperID, c.Title AS Title, COUNT(b.ReferenceID) AS ReferenceNum FROM
+            (SELECT DISTINCT(PaperID) From PaperAuthorAffiliation WHERE AffiliationID=?) a 
             LEFT JOIN PaperReference b ON a.PaperID=b.ReferenceID 
             INNER JOIN Papers c ON a.PaperID=c.PaperID
             GROUP BY PaperID ORDER BY ReferenceNum DESC, PaperID $limit;",
