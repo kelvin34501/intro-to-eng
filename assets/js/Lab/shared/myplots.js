@@ -449,10 +449,6 @@ function plot_conference_dist_pi_chart(source, svg_id){
 		width = +svg.attr("width") - margin.left - margin.right,
 		height = +svg.attr("height") - margin.top - margin.bottom,
 		radius = Math.min(width, height) / 2;
-
-	var colors = d3.scaleOrdinal()  
-            .domain(["43001016", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4", "43319DD4"])  
-            .range(d3.schemeCategory20);
 	
 	var arc = d3.arc()
 		.outerRadius(radius - 10)
@@ -465,11 +461,17 @@ function plot_conference_dist_pi_chart(source, svg_id){
 	d3.json(source, function(error, data) {
 	  if (error) throw error;
 
+	  var colors = d3.scaleOrdinal()  
+            .domain(data.map(function(d){
+				return d.data.conference_id;
+			}))  
+            .range(d3.schemeCategory20);
+	  
 	  var g = svg.selectAll(".arc")
 		  .data(pie(data))
 		.enter().append("g")
 		  .attr("class", "arc")
-		  .attr("transform", "translate(" + width/2 + "," + height/2 + ")");;
+		  .attr("transform", "translate(" + width/2 + "," + height/2 + ")");
 
 	  g.append("path")
 		  .attr("d", arc)
