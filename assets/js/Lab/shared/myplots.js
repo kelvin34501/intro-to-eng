@@ -149,6 +149,7 @@ function plot_publication_increament(source, mode=1, svg_id="#pi"){
 	}
 }
 
+// abandoned
 function plot_box_chart(source, svg_id="#rbp"){
 	var chart1;
     d3.json(source, function(error, data) {
@@ -480,7 +481,7 @@ function plot_conference_dist_pi_chart(source, svg_id){
 	  g.append("rect")
 		.attr("transform", function(d){
 			i = colors.domain().indexOf(d.data.conference_id)
-			var legendX = width/2 - 50;   //set position for each legend element  
+			var legendX = width/2 - 50;  
 			var legendY = -height/2 + margin.top + i * 20 - 5;
 			return "translate(" + legendX + ", " + legendY + ")";  
 		})
@@ -490,7 +491,7 @@ function plot_conference_dist_pi_chart(source, svg_id){
 		g.append("text")
 		  .attr("transform", function(d) {
 				i = colors.domain().indexOf(d.data.conference_id)
-                var legendX = width/2;   //set position for each legend element  
+                var legendX = width/2; 
                 var legendY = -height/2 + margin.top + i * 20;
                 return "translate(" + legendX + ", " + legendY + ")";  
             })
