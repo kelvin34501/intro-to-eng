@@ -23,10 +23,10 @@
 		<!-- import loader -->
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url().'assets/css/lib/loader/loader.css' ?>" />
 		
-		<!-- import velocity -->
+		<!-- import velocity 
 		<link rel="stylesheet" href="<?php echo base_url().'vendor/components/velocity/velocity-style.css' ?>" />
 		<script type="text/javascript" href="<?php echo base_url().'vendor/components/velocity/velocity.min.js' ?>"></script>
-		<script type="text/javascript" href="<?php echo base_url().'vendor/components/velocity/velocity.ui.min.js' ?>"></script>
+		<script type="text/javascript" href="<?php echo base_url().'vendor/components/velocity/velocity.ui.min.js' ?>"></script>-->
 		
 		<!-- import myplots -->
 		<script src=<?php echo base_url().'assets/js/Lab/shared/myplots.js'; ?>></script>

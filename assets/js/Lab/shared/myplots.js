@@ -464,7 +464,7 @@ function plot_conference_dist_pi_chart(source, svg_id){
 
 	  var colors = d3.scaleOrdinal()  
             .domain(data.map(function(d){
-				return d.data.conference_id;
+				return d.conference_id;
 			}))  
             .range(d3.schemeCategory20);
 	  
